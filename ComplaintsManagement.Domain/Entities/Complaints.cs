@@ -8,14 +8,17 @@ namespace ComplaintsManagement.Domain.Entities
     public class Complaints : BaseEntity
     {
         [ForeignKey(nameof(Users))]
-        public int CustomerId { get; set; }
-        public int CategoryId { get; set; }
+        public int CustomersId { get; set; }
+        public int UsersId { get; set; }
+        public int ClaimsOptionsId { get; set; }
+        public int ComplaintsOptionsId { get; set; }
         public int StatusId { get; set; }
         public DateTime CompletedAt { get; set; }
-        public string Description { get; set; }
+        public string Commment { get; set; }
 
-        public virtual Users Customer { get; set; }
-        public virtual Category Category { get; set; }
+        public virtual Customers Customer { get; set; }
+        public virtual ClaimsOptions ClaimsOptions { get; set; }
+        public virtual ComplaintsOptions ComplaintsOptions { get; set; }
         public virtual Status Status { get; set; }
 
 

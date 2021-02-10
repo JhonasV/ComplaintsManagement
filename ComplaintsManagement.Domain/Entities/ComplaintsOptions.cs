@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ComplaintsManagement.Domain.Entities
 {
-    public class Category : BaseEntity
+    public class ComplaintsOptions : BaseEntity
     {
         public string Name { get; set; }
         public bool Active { get; set; }
