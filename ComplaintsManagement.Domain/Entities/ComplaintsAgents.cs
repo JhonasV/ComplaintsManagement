@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ComplaintsManagement.Domain.Entities
 {
-    public class ComplaintsAgent : BaseEntity
+    public class ComplaintsAgents : BaseEntity
     {
         [ForeignKey(nameof(Users))]
         public int AgentId { get; set; }

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ComplaintsManagement.Domain.DTOs
 {
-    public class BinnacleDTO
+    public class BinnacleDto
     {
         public int CustomersId { get; set; }
         public int UsersId { get; set; }
