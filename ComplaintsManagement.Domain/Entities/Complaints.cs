@@ -7,7 +7,6 @@ namespace ComplaintsManagement.Domain.Entities
 {
     public class Complaints : BaseEntity
     {
-        [ForeignKey(nameof(Users))]
         public int CustomersId { get; set; }
         public int UsersId { get; set; }
         public int ClaimsOptionsId { get; set; }
