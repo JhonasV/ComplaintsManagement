@@ -1,5 +1,7 @@
-﻿using ComplaintsManagement.Domain.Repositories;
+﻿using ComplaintsManagement.Domain;
+using ComplaintsManagement.Domain.Repositories;
 using ComplaintsManagement.Infrastructure.Database;
+using ComplaintsManagement.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +28,16 @@ namespace ComplaintsManagement.Infrastructure.Configurations
             //public IUsersRepository UsersRepository { get; set; }
             //public IUsersRolesRepository UsersRolesRepository { get; set; }
 
-            container.RegisterType<ComplaintsManagementContext>();
-            //container.RegisterType<IClaimsOptionsRepository, ClaimsOptionsRepository>();
+            container.RegisterType<ComplaintsDbContext>();
+            container.RegisterType<IComplaintsRepository, ComplaintsRepository>();
+            container.RegisterType<IClaimsOptionsRepository, ClaimsOptionsRepository>();
+            container.RegisterType<ICustomersProductsRepository, CustomersProductsRepository>();
+            container.RegisterType<ICustomersRepository, CustomersRepository>();
+            container.RegisterType<IRolesRepository, RolesRepository>();
+            container.RegisterType<IUsersRepository, UsersRepository>();
+            container.RegisterType<IUsersRolesRepository,UsersRolesRepository>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+           
         }
     }
 }

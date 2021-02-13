@@ -11,7 +11,7 @@ namespace ComplaintsManagement.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ComplaintsManagementContext _context;
+        private readonly ComplaintsDbContext _context;
 
         public IBinnacleRepository BinnacleRepository { get; set; }
         public IClaimsOptionsRepository ClaimsOptionsRepository { get; set; }
@@ -25,7 +25,7 @@ namespace ComplaintsManagement.Infrastructure
         public IUsersRepository UsersRepository { get; set; }
         public IUsersRolesRepository UsersRolesRepository { get; set; }
 
-        public UnitOfWork(ComplaintsManagementContext context, IBinnacleRepository binnacleRepository,
+        public UnitOfWork(ComplaintsDbContext context, IBinnacleRepository binnacleRepository,
                            IClaimsOptionsRepository claimsOptionsRepository, IComplaintsAgentsRepository complaintsAgentsRepository,
                            IComplaintsOptionsRepository complaintsOptionsRepository, IComplaintsRepository complaintsRepository,
                            ICustomersRepository customersRepository, IProductsRepository productsRepository,

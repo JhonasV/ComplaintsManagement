@@ -50,6 +50,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation.ValidatorAttribute, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.ValidatorAttribute.8.6.0\lib\net45\FluentValidation.ValidatorAttribute.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -112,15 +115,24 @@
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Configurations\IoCConfiguration.cs" />
+    <Compile Include="Database\ClaimsOptionsEntityTypeConfiguration.cs" />
     <Compile Include="Database\ComplaintsEntityTypeConfiguration.cs" />
-    <Compile Include="Database\ComplaintsManagementContext.cs" />
+    <Compile Include="Database\ComplaintsDbContext.cs" />
     <Compile Include="Database\CustomersEntityTypeConfiguration.cs" />
     <Compile Include="Database\ProductsEntityTypeConfiguration.cs" />
     <Compile Include="Database\StatusEntityTypeConfiguration.cs" />
     <Compile Include="Database\UsersEntityTypeConfiguration.cs" />
-    <Compile Include="Extensions\UnitOfWorkExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ClaimsOptionsRepository.cs" />
+    <Compile Include="Repositories\ComplaintsRepository.cs" />
+    <Compile Include="Repositories\CustomersProductsRepository.cs" />
+    <Compile Include="Repositories\CustomersRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\RolesRepository.cs" />
+    <Compile Include="Repositories\UsersRepository.cs" />
+    <Compile Include="Repositories\UsersRolesRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
+    <Compile Include="Validators\ClaimsOptionsValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -138,7 +150,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

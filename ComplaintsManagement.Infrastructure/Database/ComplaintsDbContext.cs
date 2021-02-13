@@ -7,9 +7,9 @@ using System.Web;
 
 namespace ComplaintsManagement.Infrastructure.Database
 {
-    public class ComplaintsManagementContext : DbContext
+    public class ComplaintsDbContext : DbContext
     {
-        public ComplaintsManagementContext()
+        public ComplaintsDbContext()
             : base("DefaultConnection")
         {
 
@@ -25,6 +25,8 @@ namespace ComplaintsManagement.Infrastructure.Database
             modelBuilder.Configurations.Add(new UsersEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new UsersRolesEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new RolesEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new CustomersProductsEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new ClaimsOptionsEntityTypeConfiguration());
         }
 
         public virtual DbSet<Complaints> Complaints { get; set; }
@@ -34,5 +36,8 @@ namespace ComplaintsManagement.Infrastructure.Database
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<UsersRoles> UsersRoles { get; set; }
+        public virtual DbSet<CustomersProducts> CustomersProducts { get; set; }
+        public virtual DbSet<ClaimsOptions> ClaimsOptions { get; set; }
+
     }
 }

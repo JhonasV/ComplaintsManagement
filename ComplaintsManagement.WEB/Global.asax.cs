@@ -18,6 +18,7 @@ namespace ComplaintsManagement.WEB
             UnityConfig.RegisterComponents();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+ 
         }
     }
 }

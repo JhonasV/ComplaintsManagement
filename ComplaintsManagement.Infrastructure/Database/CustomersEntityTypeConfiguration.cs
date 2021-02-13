@@ -18,4 +18,14 @@ namespace ComplaintsManagement.Infrastructure.Database
             this.Property(p => p.Email).IsRequired().HasMaxLength(50);
         }
     }
+
+    public class CustomersProductsEntityTypeConfiguration : EntityTypeConfiguration<CustomersProducts>
+    {
+        public CustomersProductsEntityTypeConfiguration()
+        {
+            this.HasKey(p => p.Id);
+            this.Property(p => p.CustomersId).IsRequired();
+            this.Property(p => p.ProductsId).IsRequired();
+        }
+    }
 }

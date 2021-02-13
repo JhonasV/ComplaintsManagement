@@ -13,6 +13,7 @@ namespace ComplaintsManagement.Domain.DTOs
         public int ComplaintsOptionsId { get; set; }
         public int StatusId { get; set; }
         public int ProductsId { get; set; }
+        public bool Active { get; set; }
         public DateTime CompletedAt { get; set; }
         public string Commment { get; set; }
 

@@ -8,6 +8,5 @@ namespace ComplaintsManagement.Domain.Entities
     {
         public string Name { get; set; }
         public int ComplaintsOptionsId { get; set; }
-        public bool Active { get; set; }
     }
 }
