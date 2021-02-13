@@ -1,11 +1,12 @@
-﻿using ComplaintsManagement.Domain.Entities;
+﻿using ComplaintsManagement.Domain.DTOs;
+using ComplaintsManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ComplaintsManagement.Domain.Services
 {
-    public interface ICustomersProductsService : IService<CustomersProducts>
+    public interface ICustomersProductsService : IService<UsersProductsDto>
     {
     }
 }

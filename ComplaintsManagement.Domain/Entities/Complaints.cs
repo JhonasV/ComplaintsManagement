@@ -8,7 +8,7 @@ namespace ComplaintsManagement.Domain.Entities
     public class Complaints : BaseEntity
     {
         public int CustomersId { get; set; }
-        public int UsersId { get; set; }
+        public int AgentId { get; set; }
         public int ClaimsOptionsId { get; set; }
         public int ComplaintsOptionsId { get; set; }
         public int StatusId { get; set; }
@@ -16,7 +16,7 @@ namespace ComplaintsManagement.Domain.Entities
         public DateTime CompletedAt { get; set; }
         public string Commment { get; set; }
 
-        public virtual Customers Customer { get; set; }
+
         public virtual Products Product { get; set; }
         public virtual ClaimsOptions ClaimsOption { get; set; }
         public virtual ComplaintsOptions ComplaintsOption { get; set; }

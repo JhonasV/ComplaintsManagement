@@ -31,8 +31,8 @@ namespace ComplaintsManagement.Infrastructure.Configurations
             container.RegisterType<ComplaintsDbContext>();
             container.RegisterType<IComplaintsRepository, ComplaintsRepository>();
             container.RegisterType<IClaimsOptionsRepository, ClaimsOptionsRepository>();
-            container.RegisterType<ICustomersProductsRepository, CustomersProductsRepository>();
-            container.RegisterType<ICustomersRepository, CustomersRepository>();
+            container.RegisterType<IUsersProductsRepository, CustomersProductsRepository>();
+
             container.RegisterType<IRolesRepository, RolesRepository>();
             container.RegisterType<IUsersRepository, UsersRepository>();
             container.RegisterType<IUsersRolesRepository,UsersRolesRepository>();

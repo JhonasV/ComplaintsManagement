@@ -8,9 +8,9 @@ using System.Web;
 
 namespace ComplaintsManagement.Infrastructure.Repositories
 {
-    public class CustomersProductsRepository : Repository<CustomersProducts>, ICustomersProductsRepository
+    public class CustomersProductsRepository : Repository<UsersProducts>, IUsersProductsRepository
     {
-        public CustomersProductsRepository(DbSet<CustomersProducts> entities) : base(entities)
+        public CustomersProductsRepository(DbSet<UsersProducts> entities) : base(entities)
         {
         }
     }

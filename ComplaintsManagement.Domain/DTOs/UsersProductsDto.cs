@@ -4,10 +4,10 @@ using System.Text;
 
 namespace ComplaintsManagement.Domain.DTOs
 {
-    public class CustomersProductsDto
+    public class UsersProductsDto
     {
         public int Id { get; set; }
-        public int CustomersId { get; set; }
+        public int UsersId { get; set; }
         public int ProductsId { get; set; }
         public bool Active { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

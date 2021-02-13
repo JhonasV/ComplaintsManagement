@@ -1,6 +1,8 @@
 using ComplaintsManagement.Infrastructure.Configurations;
+using FluentValidation;
 using System.Web.Mvc;
 using Unity;
+using Unity.Lifetime;
 using Unity.Mvc5;
 
 namespace ComplaintsManagement.Infrastructure
@@ -16,6 +18,8 @@ namespace ComplaintsManagement.Infrastructure
 
             // e.g. container.RegisterType<ITestService, TestService>();
             IoCConfiguration.Init(container);
+            container.RegisterType<IValidatorFactory, FluentValidationConfiguration > (new ContainerControlledLifetimeManager());
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

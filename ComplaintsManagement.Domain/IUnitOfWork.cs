@@ -13,7 +13,7 @@ namespace ComplaintsManagement.Domain
         IComplaintsAgentsRepository ComplaintsAgentsRepository { get; set; }
         IComplaintsOptionsRepository ComplaintsOptionsRepository { get; set; }
         IComplaintsRepository ComplaintsRepository { get; set; }
-        ICustomersRepository CustomersRepository { get; set; }
+
         IProductsRepository ProductsRepository { get; set; }
         IRolesRepository RolesRepository { get; set; }
         IStatusRepository StatusRepository { get; set; }

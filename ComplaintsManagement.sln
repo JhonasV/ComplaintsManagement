@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplaintsManagement.Domain
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplaintsManagement.Infrastructure", "ComplaintsManagement.Infrastructure\ComplaintsManagement.Infrastructure.csproj", "{2E159784-99EE-4001-9B4E-B6954010C29C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplaintsManagement.UI", "ComplaintsManagement.UI\ComplaintsManagement.UI.csproj", "{0D0F4D67-7C25-4B50-9671-B342490E93BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2E159784-99EE-4001-9B4E-B6954010C29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E159784-99EE-4001-9B4E-B6954010C29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E159784-99EE-4001-9B4E-B6954010C29C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D0F4D67-7C25-4B50-9671-B342490E93BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D0F4D67-7C25-4B50-9671-B342490E93BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D0F4D67-7C25-4B50-9671-B342490E93BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D0F4D67-7C25-4B50-9671-B342490E93BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

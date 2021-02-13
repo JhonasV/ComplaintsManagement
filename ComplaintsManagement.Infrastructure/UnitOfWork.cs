@@ -18,7 +18,7 @@ namespace ComplaintsManagement.Infrastructure
         public IComplaintsAgentsRepository ComplaintsAgentsRepository { get; set; }
         public IComplaintsOptionsRepository ComplaintsOptionsRepository { get; set; }
         public IComplaintsRepository ComplaintsRepository { get; set; }
-        public ICustomersRepository CustomersRepository { get; set; }
+
         public IProductsRepository ProductsRepository { get; set; } 
         public IRolesRepository RolesRepository { get; set; }
         public IStatusRepository StatusRepository { get; set; }
@@ -28,7 +28,7 @@ namespace ComplaintsManagement.Infrastructure
         public UnitOfWork(ComplaintsDbContext context, IBinnacleRepository binnacleRepository,
                            IClaimsOptionsRepository claimsOptionsRepository, IComplaintsAgentsRepository complaintsAgentsRepository,
                            IComplaintsOptionsRepository complaintsOptionsRepository, IComplaintsRepository complaintsRepository,
-                           ICustomersRepository customersRepository, IProductsRepository productsRepository,
+
                            IRolesRepository rolesRepository, IStatusRepository statusRepository,
                            IUsersRepository usersRepository, IUsersRolesRepository usersRolesRepository)
         {
@@ -38,8 +38,8 @@ namespace ComplaintsManagement.Infrastructure
             ComplaintsAgentsRepository = complaintsAgentsRepository;
             ComplaintsOptionsRepository = complaintsOptionsRepository;
             ComplaintsRepository = complaintsRepository;
-            CustomersRepository = customersRepository;
-            ProductsRepository = productsRepository;
+
+
             RolesRepository = rolesRepository;
             StatusRepository = statusRepository;
             UsersRepository = usersRepository;

@@ -1,11 +1,12 @@
-﻿using ComplaintsManagement.Domain.Entities;
+﻿using ComplaintsManagement.Domain.DTOs;
+using ComplaintsManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ComplaintsManagement.Domain.Services
 {
-    public interface IClaimsOptionsService : IService<ClaimsOptions>
+    public interface IClaimsOptionsService : IService<ClaimsOptionsDto>
     {
     }
 }
