@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplaintsManagement.WEB", "ComplaintsManagement.WEB\ComplaintsManagement.WEB.csproj", "{5C79A54A-4C91-4260-88AA-D39E7139338E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplaintsManagement.Domain", "ComplaintsManagement.Domain\ComplaintsManagement.Domain.csproj", "{6FDF9EBC-DB4C-46EE-AA03-7DE9136B10D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplaintsManagement.Infrastructure", "ComplaintsManagement.Infrastructure\ComplaintsManagement.Infrastructure.csproj", "{2E159784-99EE-4001-9B4E-B6954010C29C}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5C79A54A-4C91-4260-88AA-D39E7139338E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C79A54A-4C91-4260-88AA-D39E7139338E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C79A54A-4C91-4260-88AA-D39E7139338E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C79A54A-4C91-4260-88AA-D39E7139338E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FDF9EBC-DB4C-46EE-AA03-7DE9136B10D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FDF9EBC-DB4C-46EE-AA03-7DE9136B10D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FDF9EBC-DB4C-46EE-AA03-7DE9136B10D0}.Release|Any CPU.ActiveCfg = Release|Any CPU

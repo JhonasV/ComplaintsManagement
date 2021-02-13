@@ -53,6 +53,9 @@
     <Reference Include="FluentValidation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.9.5.0\lib\net461\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation.ValidatorAttribute, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.ValidatorAttribute.8.6.0\lib\net45\FluentValidation.ValidatorAttribute.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -113,32 +116,28 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Configurations\FluentValidationConfiguration.cs" />
-    <Compile Include="Configurations\IoCConfiguration.cs" />
     <Compile Include="Database\ClaimsOptionsEntityTypeConfiguration.cs" />
     <Compile Include="Database\ComplaintsEntityTypeConfiguration.cs" />
     <Compile Include="Database\ComplaintsDbContext.cs" />
-    <Compile Include="Database\CustomersEntityTypeConfiguration.cs" />
+    <Compile Include="Database\CustomersProductsEntityTypeConfiguration.cs" />
     <Compile Include="Database\DbInitializer.cs" />
     <Compile Include="Database\ProductsEntityTypeConfiguration.cs" />
     <Compile Include="Database\StatusEntityTypeConfiguration.cs" />
-    <Compile Include="Database\UsersEntityTypeConfiguration.cs" />
-    <Compile Include="Migrations\202102130154031_initial migration.cs" />
-    <Compile Include="Migrations\202102130154031_initial migration.designer.cs">
-      <DependentUpon>202102130154031_initial migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Database\CostumersEntityTypeConfiguration.cs" />
+    <Compile Include="DTOs\BinnacleDto.cs" />
+    <Compile Include="DTOs\ClaimsOptionsDto.cs" />
+    <Compile Include="DTOs\ComplaintsDto.cs" />
+    <Compile Include="DTOs\ComplaintsOptionsDto.cs" />
+    <Compile Include="DTOs\CostumerProductsDto.cs" />
+    <Compile Include="DTOs\CostumersDto.cs" />
+    <Compile Include="DTOs\ProductsDto.cs" />
+    <Compile Include="DTOs\RolesDto.cs" />
+    <Compile Include="DTOs\StatusDto.cs" />
+    <Compile Include="DTOs\UsersRolesDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ClaimsOptionsRepository.cs" />
-    <Compile Include="Repositories\ComplaintsRepository.cs" />
-    <Compile Include="Repositories\CustomersProductsRepository.cs" />
-    <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\RolesRepository.cs" />
-    <Compile Include="Repositories\UsersRepository.cs" />
-    <Compile Include="Repositories\UsersRolesRepository.cs" />
-    <Compile Include="UnitOfWork.cs" />
     <Compile Include="Validators\ClaimsOptionsValidator.cs" />
+    <Compile Include="Validators\CustomersValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -156,12 +155,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Start\" />
     <Folder Include="Extensions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202102130154031_initial migration.resx">
-      <DependentUpon>202102130154031_initial migration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

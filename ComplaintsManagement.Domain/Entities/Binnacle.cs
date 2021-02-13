@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace ComplaintsManagement.Domain.Entities
+namespace ComplaintsManagement.Infrastructure.Entities
 {
     public class Binnacle : BaseEntity
     {
@@ -17,8 +17,8 @@ namespace ComplaintsManagement.Domain.Entities
         public string Comment { get; set; }
 
 
-        public virtual Users Customer { get; set; }
-        public virtual Users Agent { get; set; }
+        public virtual Costumers Customer { get; set; }
+        public virtual Costumers Agent { get; set; }
         public virtual Complaints Complaint { get; set; }
     }
 }

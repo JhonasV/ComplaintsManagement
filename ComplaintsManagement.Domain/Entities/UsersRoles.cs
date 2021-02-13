@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ComplaintsManagement.Domain.Entities
+namespace ComplaintsManagement.Infrastructure.Entities
 {
     public class UsersRoles : BaseEntity
     {
@@ -10,7 +10,7 @@ namespace ComplaintsManagement.Domain.Entities
         public int RolesId { get; set; }
 
 
-        public virtual Users User { get; set; }
+        public virtual Costumers User { get; set; }
         public virtual Roles Role { get; set; }
     }
 }

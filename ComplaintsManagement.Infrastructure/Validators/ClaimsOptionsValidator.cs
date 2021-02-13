@@ -1,4 +1,4 @@
-﻿using ComplaintsManagement.Domain.DTOs;
+﻿using ComplaintsManagement.Infrastructure.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;

@@ -1,0 +1,76 @@
+﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.ProductsDto>>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <h2>Mantenimiento de Productos</h2>
+    <h4>Listado de Productos</h4>
+    <div class="row">
+
+        <div class="col-lg-offset-10"></div>
+        <div class="col-lg-12">
+            <button class="btn btn-default">@Html.ActionLink("Agregar", "Create")</button>
+        </div>
+
+    </div>
+    <hr />
+    <div class="row" style="margin-top: 2rem;">
+        <div class="col-lg-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Descripcion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Data)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@product.Name</td>
+                            <td>@product.Price</td>
+                            <td>@product.Description</td>
+
+                            <td><button data-id="@product.Id" class="btn btn-danger products_delete_btn">Eliminar</button> <button class="btn btn-warning">Editar</button> </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+}
+<script>
+
+const products_delete_btn = document.querySelector(".products_delete_btn");
+
+if (products_delete_btn) {
+    products_delete_btn.addEventListener("click", () => {
+
+        let { id } = products_delete_btn.dataset;
+
+        if (confirm("¿Está seguro de eliminar el registro?")) {
+            console.log(id);
+            fetch(`@Url.Action("delete", "products", null, Request.Url.Scheme)?id=${id}`).then((data) => data.json())
+                .then(data => {
+                    console.log(data);
+                    window.location.reload();
+                })
+                .catch(err => alert(err));
+        }
+    });
+}
+
+
+
+
+</script>

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace ComplaintsManagement.Domain.Entities
+namespace ComplaintsManagement.Infrastructure.Entities
 {
     public class Complaints : BaseEntity
     {
         public int CustomersId { get; set; }
         public int AgentId { get; set; }
-        public int ClaimsOptionsId { get; set; }
         public int ComplaintsOptionsId { get; set; }
         public int StatusId { get; set; }
         public int ProductsId { get; set; }
