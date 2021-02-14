@@ -8,7 +8,7 @@ using System.Web;
 namespace ComplaintsManagement.Infrastructure.Database
 {
    
-    public class CostumersProductsEntityTypeConfiguration : EntityTypeConfiguration<CostumersProducts>
+    public class CostumersProductsEntityTypeConfiguration : EntityTypeConfiguration<CustomersProducts>
     {
         public CostumersProductsEntityTypeConfiguration()
         {

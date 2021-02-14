@@ -1,4 +1,4 @@
-﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.CostumersDto>>
+﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.CustomersDto>>
 @{
     ViewBag.Title = "Index";
 }
@@ -6,6 +6,16 @@
 <div class="container">
     <h2>Mantenimiento de Clientes</h2>
     <h4>Listado de Clientes</h4>
+    <hr />
+    @if (!Model.Success)
+    {
+        <span class="alert alert-danger">@Model.Message</span>
+    }
+
+    @if (Model.Success && Model.Message?.Length > 0)
+    {
+        <span class="alert alert-success">@Model.Message</span>
+    }
     <div class="row">
 
         <div class="col-lg-offset-10"></div>
@@ -39,7 +49,19 @@
                             <td>@customer.Email</td>
                             <td>@customer.DocumentNumber</td>
                             <td>@customer.PhoneNumber</td>
-                            <td><button data-id="@customer.Id" class="btn btn-danger customer_delete_btn">Eliminar</button> <button class="btn btn-warning">Editar</button> </td>
+                            <td>
+                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Customers", method: FormMethod.Post))
+                                {
+                                    int Id = customer.Id;
+
+                                    @Html.HiddenFor(model => Id)
+                                    <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
+                                    @Html.ActionLink("Editar", "Edit", new { Id = customer.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
+                                    @Html.ActionLink("Ver Productos", "CustomerProducts", new { Id = customer.Id }, htmlAttributes: new { @Class = "btn btn-secondary" })
+                                }
+
+
+                            </td>
                         </tr>
                     }
 
@@ -52,30 +74,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jquery")
 }
-<script>
-
-    const customer_delete_btn = document.querySelector(".customer_delete_btn");
-
-    if (customer_delete_btn) {
-        customer_delete_btn.addEventListener("click", () => {
-
-            let { id } = customer_delete_btn.dataset;
-
-
-            if (confirm("¿Está seguro de eliminar el registro?")) {
-                console.log(id);
-                fetch(`@Url.Action("delete", "customers", null, Request.Url.Scheme)?id=${id}`).then((data) => data.json())
-                    .then(data => {
-                        console.log(data);
-                        window.location.reload();
-                    })
-                    .catch(err => alert(err));
-            }
-        });
-
-    }   
-
-  
-
-
-</script>

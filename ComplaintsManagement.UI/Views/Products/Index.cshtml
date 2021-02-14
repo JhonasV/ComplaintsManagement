@@ -1,20 +1,46 @@
 ﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.ProductsDto>>
 @{
     ViewBag.Title = "Index";
+
+    var Message = "";
+    if (ViewData["Message"] != null)
+    {
+        Message = ViewData["Message"].ToString();
+    }
+
+    var Success = false;
+
+    if(ViewData["Success"] != null)
+    {
+        Success = (bool)ViewData["Success"];
+    }
+
+
 }
 
 <div class="container">
     <h2>Mantenimiento de Productos</h2>
     <h4>Listado de Productos</h4>
+    <hr />
+    @if (!Success && Message?.Length > 0)
+    {
+        <span class="alert alert-danger">@Message</span>
+        <hr />
+    }
+
+    @if (Success && Message?.Length > 0)
+    {
+        <span class="alert alert-success">@Message</span>
+        <hr />
+    }
     <div class="row">
 
         <div class="col-lg-offset-10"></div>
         <div class="col-lg-12">
-            <button class="btn btn-default">@Html.ActionLink("Agregar", "Create")</button>
+            @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
         </div>
 
     </div>
-    <hr />
     <div class="row" style="margin-top: 2rem;">
         <div class="col-lg-12">
             <table class="table table-bordered">
@@ -36,7 +62,15 @@
                             <td>@product.Price</td>
                             <td>@product.Description</td>
 
-                            <td><button data-id="@product.Id" class="btn btn-danger products_delete_btn">Eliminar</button> <button class="btn btn-warning">Editar</button> </td>
+                            <td>
+                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Products", method: FormMethod.Post))
+                                {
+                                    var Id = product.Id;
+                                    @Html.HiddenFor(model => Id);
+                                    <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
+                                    @Html.ActionLink("Editar", "Edit", new { Id = product.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
+                                }
+                            </td>
                         </tr>
                     }
 
@@ -49,28 +83,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jquery")
 }
-<script>
-
-const products_delete_btn = document.querySelector(".products_delete_btn");
-
-if (products_delete_btn) {
-    products_delete_btn.addEventListener("click", () => {
-
-        let { id } = products_delete_btn.dataset;
-
-        if (confirm("¿Está seguro de eliminar el registro?")) {
-            console.log(id);
-            fetch(`@Url.Action("delete", "products", null, Request.Url.Scheme)?id=${id}`).then((data) => data.json())
-                .then(data => {
-                    console.log(data);
-                    window.location.reload();
-                })
-                .catch(err => alert(err));
-        }
-    });
-}
-
-
-
-
-</script>

@@ -4,12 +4,12 @@ using System.Text;
 
 namespace ComplaintsManagement.Infrastructure.Entities
 {
-    public class CostumersProducts : BaseEntity
+    public class CustomersProducts : BaseEntity
     {
         public int CostumersId { get; set; }
         public int ProductsId { get; set; }
 
-        public virtual Costumers Costumers { get; set; }
+        public virtual Customers Customers { get; set; }
         public virtual Products Product { get; set; }
     }
 }

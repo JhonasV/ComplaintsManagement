@@ -31,7 +31,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     complaints.Active = false;
                     await _context.SaveChangesAsync();
                     result.Message = "Queja borrado exitosamente!";
-                    result.Data = new ComplaintsDto { Active = complaints.Active, CreatedAt = complaints.CreatedAt, CustomersId = complaints.CustomersId, Id = complaints.Id, UsersId = complaints.AgentId,  StatusId = complaints.StatusId, ProductsId = complaints.ProductsId };
+                    result.Data = new ComplaintsDto { Active = complaints.Active, CreatedAt = complaints.CreatedAt,  Id = complaints.Id,  StatusId = complaints.StatusId, ProductsId = complaints.ProductsId, ComplaintsOptionsId = complaints.ComplaintsOptionsId };
                 }
                 else
                 {
@@ -54,11 +54,60 @@ namespace ComplaintsManagement.UI.Services.Repositories
             var result = new TaskResult<List<ComplaintsDto>>();
             try
             {
-                var complaints = await _context.Complaints.Where(e => e.Active).ToListAsync();
+                var complaints = await _context
+                    .Complaints
+                    .Include(e => e.ComplaintsOption)
+                    .Include(e => e.Status)
+                    .Include(e => e.Product)
+                    .Where(e => e.Active)
+                    .ToListAsync();
+
                 complaints.ForEach((complaint) =>
                 {
-                    complaintsDtos.Add(new ComplaintsDto { Active = complaint.Active, CreatedAt = complaint.CreatedAt, CustomersId = complaint.CustomersId, Id = complaint.Id, UsersId = complaint.AgentId, StatusId = complaint.StatusId, ProductsId = complaint.ProductsId });
+                    var statusDto = new StatusDto
+                    {
+                        Active = complaint.Status.Active,
+                        CreatedAt = complaint.Status.CreatedAt,
+                        Id = complaint.Status.Id,
+                        Name = complaint.Status.Name,
+                        UpdatedAt = complaint.Status.UpdatedAt
+                    };
+
+                    var complaintsOptionsDto = new ComplaintsOptionsDto
+                    {
+                        Active = complaint.ComplaintsOption.Active,
+                        CreatedAt = complaint.ComplaintsOption.CreatedAt,
+                        Id = complaint.ComplaintsOption.Id,
+                        ProductsId = complaint.ComplaintsOption.ProductsId,
+                        Name = complaint.ComplaintsOption.Name,
+                        UpdatedAt = complaint.ComplaintsOption.UpdatedAt
+                    };
+
+                    var productsDto = new ProductsDto
+                    {
+                        Active = complaint.Product.Active,
+                        CreatedAt = complaint.Product.CreatedAt,
+                        Id = complaint.Product.Id,
+                        Name = complaint.Product.Name,
+                        UpdatedAt = complaint.Product.UpdatedAt,
+                        Description = complaint.Product.Description,
+                        Price = complaint.Product.Price
+                    };
+
+                    complaintsDtos.Add(new ComplaintsDto {
+                        Active = complaint.Active,
+                        CreatedAt = complaint.CreatedAt,
+
+                        Id = complaint.Id,
+                        ComplaintsOptionsId = complaint.ComplaintsOptionsId,
+                        StatusId = complaint.StatusId,
+                        ProductsId = complaint.ProductsId,
+                        Status = statusDto,
+                        ComplaintsOption = complaintsOptionsDto,
+                        Product = productsDto
+                    });
                 });
+
                 result.Data = complaintsDtos;
             }
             catch (Exception e)
@@ -77,7 +126,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
             try
             {
                 var complaints = await _context.Complaints.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
-                result.Data = new ComplaintsDto { Active = complaints.Active, CreatedAt = complaints.CreatedAt, CustomersId = complaints.CustomersId, Id = complaints.Id, UsersId = complaints.AgentId, StatusId = complaints.StatusId, ProductsId = complaints.ProductsId };
+                result.Data = new ComplaintsDto { Active = complaints.Active, CreatedAt = complaints.CreatedAt,  Id = complaints.Id, ComplaintsOptionsId = complaints.ComplaintsOptionsId, StatusId = complaints.StatusId, ProductsId = complaints.ProductsId };
             }
             catch (Exception e)
             {
@@ -91,7 +140,14 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         public async Task<TaskResult<ComplaintsDto>> SaveAsync(ComplaintsDto complaintsDto)
         {
-            var complaints = new Complaints { Active = complaintsDto.Active, CreatedAt = complaintsDto.CreatedAt, CustomersId = complaintsDto.CustomersId, Id = complaintsDto.Id, AgentId = complaintsDto.UsersId, StatusId = complaintsDto.StatusId, ProductsId = complaintsDto.ProductsId };
+            var complaints = new Complaints {
+                Active = complaintsDto.Active,
+                Comment = complaintsDto.Comment,
+                Id = complaintsDto.Id,           
+                ComplaintsOptionsId = complaintsDto.ComplaintsOptionsId,
+                StatusId = complaintsDto.StatusId,
+                ProductsId = complaintsDto.ProductsId
+            };
             var result = new TaskResult<ComplaintsDto>();
             try
             {
@@ -110,7 +166,16 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         public async Task<TaskResult<ComplaintsDto>> UpdateAsync(ComplaintsDto complaintsDto)
         {
-            var complaints = new Complaints { Active = complaintsDto.Active, CreatedAt = complaintsDto.CreatedAt, CustomersId = complaintsDto.CustomersId, Id = complaintsDto.Id, AgentId = complaintsDto.UsersId, StatusId = complaintsDto.StatusId, ProductsId = complaintsDto.ProductsId };
+            var complaints = new Complaints
+            {
+                Active = complaintsDto.Active,
+                CreatedAt = complaintsDto.CreatedAt,
+
+                Id = complaintsDto.Id,
+                ComplaintsOptionsId = complaintsDto.ComplaintsOptionsId,
+                StatusId = complaintsDto.StatusId,
+                ProductsId = complaintsDto.ProductsId
+            };
             var result = new TaskResult<ComplaintsDto>();
             try
             {

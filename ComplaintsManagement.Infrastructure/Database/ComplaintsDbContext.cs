@@ -22,7 +22,7 @@ namespace ComplaintsManagement.Infrastructure.Database
             modelBuilder.Configurations.Add(new ComplaintsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new StatusEntityTypeConfiguration());
-            modelBuilder.Configurations.Add(new CostumersEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new CustomersEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new CostumersProductsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ClaimsOptionsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ComplaintsOptionsEntityTypeConfiguration());
@@ -31,7 +31,7 @@ namespace ComplaintsManagement.Infrastructure.Database
         public virtual DbSet<Complaints> Complaints { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<CostumersProducts> UsersProducts { get; set; }
+        public virtual DbSet<CustomersProducts> UsersProducts { get; set; }
         public virtual DbSet<ClaimsOptions> ClaimsOptions { get; set; }
         public virtual DbSet<ComplaintsOptions> ComplaintsOptions { get; set; }
 

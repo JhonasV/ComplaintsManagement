@@ -185,10 +185,13 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ComplaintsController.cs" />
+    <Compile Include="Controllers\ComplaintsOptionsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,6 +203,34 @@
     <Compile Include="Migrations\202102130400441_Costumer entitie added.Designer.cs">
       <DependentUpon>202102130400441_Costumer entitie added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102140305074_ClaimsOptions foreign key dropped from Complaints entite.cs" />
+    <Compile Include="Migrations\202102140305074_ClaimsOptions foreign key dropped from Complaints entite.Designer.cs">
+      <DependentUpon>202102140305074_ClaimsOptions foreign key dropped from Complaints entite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102141408326_Roles and UsersRoles entities removed, new field added to ApplicationUser.cs" />
+    <Compile Include="Migrations\202102141408326_Roles and UsersRoles entities removed, new field added to ApplicationUser.Designer.cs">
+      <DependentUpon>202102141408326_Roles and UsersRoles entities removed, new field added to ApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102141518289_Costumers entity renamed to Customers.cs" />
+    <Compile Include="Migrations\202102141518289_Costumers entity renamed to Customers.Designer.cs">
+      <DependentUpon>202102141518289_Costumers entity renamed to Customers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102142049499_AgentId removed from Complaints entitie.cs" />
+    <Compile Include="Migrations\202102142049499_AgentId removed from Complaints entitie.Designer.cs">
+      <DependentUpon>202102142049499_AgentId removed from Complaints entitie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102142246090_CustomersId removed from Complaints entitie.cs" />
+    <Compile Include="Migrations\202102142246090_CustomersId removed from Complaints entitie.Designer.cs">
+      <DependentUpon>202102142246090_CustomersId removed from Complaints entitie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102142259562_Commment field renamed to Comment in Complaints entitie.cs" />
+    <Compile Include="Migrations\202102142259562_Commment field renamed to Comment in Complaints entitie.Designer.cs">
+      <DependentUpon>202102142259562_Commment field renamed to Comment in Complaints entitie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102142314277_CompletedAt field changed to nullable in Complaints entitie.cs" />
+    <Compile Include="Migrations\202102142314277_CompletedAt field changed to nullable in Complaints entitie.Designer.cs">
+      <DependentUpon>202102142314277_CompletedAt field changed to nullable in Complaints entitie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CustomersViewModel.cs" />
@@ -207,12 +238,18 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TaskResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IComplaintsOptionsRepository.cs" />
     <Compile Include="Services\Interfaces\IComplaintsRepository.cs" />
+    <Compile Include="Services\Interfaces\ICustomersProductsRepository.cs" />
     <Compile Include="Services\Interfaces\IProductsRepository.cs" />
     <Compile Include="Services\Interfaces\ICustomersRepository.cs" />
+    <Compile Include="Services\Interfaces\IStatusRepository.cs" />
+    <Compile Include="Services\Repositories\ComplaintsOptionsRepository.cs" />
     <Compile Include="Services\Repositories\ComplaintsRepository.cs" />
+    <Compile Include="Services\Repositories\CustomerProductsRepository.cs" />
     <Compile Include="Services\Repositories\ProductsRepository.cs" />
     <Compile Include="Services\Repositories\CustomersRepository.cs" />
+    <Compile Include="Services\Repositories\StatusRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -273,6 +310,18 @@
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Customers\Products.cshtml" />
+    <Content Include="Views\Customers\CustomerProductsCreate.cshtml" />
+    <Content Include="Views\ComplaintsOptions\Index.cshtml" />
+    <Content Include="Views\ComplaintsOptions\Create.cshtml" />
+    <Content Include="Views\ComplaintsOptions\Edit.cshtml" />
+    <Content Include="Views\Status\Index.cshtml" />
+    <Content Include="Views\Status\Create.cshtml" />
+    <Content Include="Views\Status\Edit.cshtml" />
+    <Content Include="Views\Complaints\Index.cshtml" />
+    <Content Include="Views\Complaints\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -306,6 +355,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102130400441_Costumer entitie added.resx">
       <DependentUpon>202102130400441_Costumer entitie added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102140305074_ClaimsOptions foreign key dropped from Complaints entite.resx">
+      <DependentUpon>202102140305074_ClaimsOptions foreign key dropped from Complaints entite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102141408326_Roles and UsersRoles entities removed, new field added to ApplicationUser.resx">
+      <DependentUpon>202102141408326_Roles and UsersRoles entities removed, new field added to ApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102141518289_Costumers entity renamed to Customers.resx">
+      <DependentUpon>202102141518289_Costumers entity renamed to Customers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102142049499_AgentId removed from Complaints entitie.resx">
+      <DependentUpon>202102142049499_AgentId removed from Complaints entitie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102142246090_CustomersId removed from Complaints entitie.resx">
+      <DependentUpon>202102142246090_CustomersId removed from Complaints entitie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102142259562_Commment field renamed to Comment in Complaints entitie.resx">
+      <DependentUpon>202102142259562_Commment field renamed to Comment in Complaints entitie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102142314277_CompletedAt field changed to nullable in Complaints entitie.resx">
+      <DependentUpon>202102142314277_CompletedAt field changed to nullable in Complaints entitie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

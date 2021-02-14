@@ -25,9 +25,14 @@ namespace ComplaintsManagement.UI.App_Start
 
             container.RegisterType<ApplicationDbContext>();
             container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<ICustomersRepository, CustomersRepository>();
             container.RegisterType<IProductsRepository, ProductsRepository>();
-            container.RegisterType<IValidatorFactory, FluentValidationConfiguration>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ICustomersProductsRepository, CustomerProductsRepository>();
+            container.RegisterType<IComplaintsOptionsRepository, ComplaintsOptionsRepository>();
+            container.RegisterType<IComplaintsRepository, ComplaintsRepository>();
+            container.RegisterType<IStatusRepository, StatusRepository>();
+            //container.RegisterType<IValidatorFactory, FluentValidationConfiguration>(new ContainerControlledLifetimeManager());
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

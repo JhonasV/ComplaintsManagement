@@ -9,7 +9,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
 {
     [Validator(typeof(CustomersValidator))]
 
-    public class CostumersDto
+    public class CustomersDto
     {
         public int Id { get; set; }
         [Required]

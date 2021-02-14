@@ -17,8 +17,8 @@ namespace ComplaintsManagement.Infrastructure.Entities
         public string Comment { get; set; }
 
 
-        public virtual Costumers Customer { get; set; }
-        public virtual Costumers Agent { get; set; }
+        public virtual Customers Customer { get; set; }
+        public virtual Customers Agent { get; set; }
         public virtual Complaints Complaint { get; set; }
     }
 }

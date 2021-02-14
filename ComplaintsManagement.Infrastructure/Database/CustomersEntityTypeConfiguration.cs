@@ -7,9 +7,9 @@ using System.Web;
 
 namespace ComplaintsManagement.Infrastructure.Database
 {
-    public class CostumersEntityTypeConfiguration : EntityTypeConfiguration<Costumers>
+    public class CustomersEntityTypeConfiguration : EntityTypeConfiguration<Customers>
     {
-        public CostumersEntityTypeConfiguration()
+        public CustomersEntityTypeConfiguration()
         {
             this.HasKey(p => p.Id);
             this.Property(p => p.Name).IsRequired().HasMaxLength(50);

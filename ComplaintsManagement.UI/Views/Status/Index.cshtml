@@ -1,0 +1,91 @@
+﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.StatusDto>>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Index";
+
+    var Message = "";
+    if (ViewData["Message"] != null)
+    {
+        Message = ViewData["Message"].ToString();
+    }
+
+    var Success = false;
+
+    if (ViewData["Success"] != null)
+    {
+        Success = (bool)ViewData["Success"];
+    }
+
+
+}
+
+<div class="container">
+    <h2>Mantenimiento de Status</h2>
+    <h4>Listado de Status</h4>
+    <hr />
+    @if (!Success && Message?.Length > 0)
+    {
+        <span class="alert alert-danger">@Message</span>
+        <hr />
+    }
+
+    @if (Success && Message?.Length > 0)
+    {
+        <span class="alert alert-success">@Message</span>
+        <hr />
+    }
+    <div class="row">
+
+        <div class="col-lg-offset-10"></div>
+        <div class="col-lg-12">
+            @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
+        </div>
+
+    </div>
+    <div class="row" style="margin-top: 2rem;">
+        <div class="col-lg-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var status in Model.Data)
+                    {
+                        <tr>
+                            <td>@status.Id</td>
+                            <td>@status.Name</td>
+
+
+
+                            <td>
+                                @using (Html.BeginForm(actionName: "Delete", controllerName: "ComplaintsOptions", method: FormMethod.Post))
+                                {
+                                    var Id = status.Id;
+                                    @Html.HiddenFor(model => Id);
+                                    <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
+                                    @Html.ActionLink("Editar", "Edit", new { Id = status.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+}
+
+

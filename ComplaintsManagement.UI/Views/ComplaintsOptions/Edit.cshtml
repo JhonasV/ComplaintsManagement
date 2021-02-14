@@ -1,0 +1,80 @@
+﻿@model  ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Infrastructure.DTOs.ComplaintsOptionsDto>
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var products = (System.Collections.Generic.List<ComplaintsManagement.Infrastructure.DTOs.ProductsDto>)TempData["products"];
+}
+
+<div class="container">
+    <h2>Mantenimiento de Opciones de Reclamo</h2>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            @using (Html.BeginForm(controllerName: "ComplaintsOptions", actionName: "Edit", method: FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(e => e.Data.Id)
+                <div class="form-horizontal">
+                    <h4>Creación de Opciones de Reclamo</h4>
+                    <hr />
+                    @if (!Model.Success)
+                    {
+                        <span class="alert alert-danger" style="margin-top: 2rem;">@Model.Message</span>
+                        <hr />
+                    }
+
+                    @if (Model.Success && Model.Message?.Length > 0)
+                    {
+                        <span class="alert alert-success" style="margin-top: 2rem;">@Model.Message</span>
+                        <hr />
+                    }
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Data.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Data.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Data.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Producto</label>
+                        <div class="col-md-10">
+                            <select name="Data.ProductsId" class="form-control">
+                                @foreach (var product in products)
+                                {
+                                    if (Model.Data.ProductsId == product.Id)
+                                    {
+                                        <option value="@product.Id" selected>@product.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@product.Id">@product.Name</option>
+                                    }
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Data.ProductsId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Actualizar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <div>
+        <button class="btn btn-default">@Html.ActionLink("Regresar al listado de Opciones de Reclamos", "Index")</button>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

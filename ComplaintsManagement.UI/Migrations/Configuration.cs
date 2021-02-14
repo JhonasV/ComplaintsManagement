@@ -21,32 +21,37 @@ namespace ComplaintsManagement.UI.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-
-            IList<Products> defaultProducts = new List<Products>
+            if (!context.Products.Any())
             {
-                new Products { Name = "Internet", Description = "Plan Hogar 20 MB/s", Price = 1000 },
-                new Products { Name = "Television por cable", Description = "Plan basico", Price = 800 },
-                new Products { Name = "Teléfono", Description = "Plan basico", Price = 500 }
-            };
+                IList<Products> defaultProducts = new List<Products>
+                {
+                    new Products { Name = "Internet", Description = "Plan Hogar 20 MB/s", Price = 1000 },
+                    new Products { Name = "Television por cable", Description = "Plan basico", Price = 800 },
+                    new Products { Name = "Teléfono", Description = "Plan basico", Price = 500 }
+                };
 
-            context.Products.AddRange(defaultProducts);
-            context.Products.AddOrUpdate();
-            context.SaveChanges();
+                context.Products.AddRange(defaultProducts);
+                context.Products.AddOrUpdate();
+                context.SaveChanges();
+            }
 
 
-            IList<ComplaintsOptions> defaultComplaintsOptions = new List<ComplaintsOptions>
+            if (!context.ComplaintsOptions.Any())
             {
-                new ComplaintsOptions { Name = "El internet es muy inestable", ProductsId = 1 },
-                new ComplaintsOptions { Name = "La velocidad de internet no es la contratada", ProductsId = 1 },
-                new ComplaintsOptions { Name = "Los canales de television se quedan frizados", ProductsId = 2 },
-                new ComplaintsOptions { Name = "No hay servicio de television cuando se muestran nubes en el cielo", ProductsId = 2 },
-                new ComplaintsOptions { Name = "No hay servicio de television cuando se muestran nubes en el cielo", ProductsId = 2 }
-            };
+                IList<ComplaintsOptions> defaultComplaintsOptions = new List<ComplaintsOptions>
+                {
+                    new ComplaintsOptions { Name = "El internet es muy inestable", ProductsId = 1 },
+                    new ComplaintsOptions { Name = "La velocidad de internet no es la contratada", ProductsId = 1 },
+                    new ComplaintsOptions { Name = "Los canales de television se quedan frizados", ProductsId = 2 },
+                    new ComplaintsOptions { Name = "No hay servicio de television cuando se muestran nubes en el cielo", ProductsId = 2 },
+                    new ComplaintsOptions { Name = "No hay servicio de television cuando se muestran nubes en el cielo", ProductsId = 2 }
+                };
 
-            context.ComplaintsOptions.AddRange(defaultComplaintsOptions);
-            context.ComplaintsOptions.AddOrUpdate();
+                context.ComplaintsOptions.AddRange(defaultComplaintsOptions);
+                context.ComplaintsOptions.AddOrUpdate();
 
-            context.SaveChanges();
+                context.SaveChanges();
+            } 
         }
     }
 }

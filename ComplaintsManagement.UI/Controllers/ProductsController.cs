@@ -56,9 +56,17 @@ namespace ComplaintsManagement.UI.Controllers
             return View(newModel);
         }
 
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(this.Index));
+            }
+
+            var model = await _productsRepository.GetAsync(id);
+            
+
+            return View(model);
         }
 
         [HttpPost]
@@ -74,11 +82,13 @@ namespace ComplaintsManagement.UI.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Delete(int id)
+        [HttpPost]
+        public async Task<ActionResult> Delete(int Id)
         {
-            var model = await _productsRepository.DeleteAsync(id);
-            return Json(model, JsonRequestBehavior.AllowGet);
+            var deleteResult = await _productsRepository.DeleteAsync(Id);
+            ViewData["Message"] = deleteResult.Message;
+            ViewData["Success"] = deleteResult.Success;
+            return RedirectToAction(nameof(this.Index));
         }
     }
 }

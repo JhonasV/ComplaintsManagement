@@ -1,0 +1,70 @@
+﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.CustomersProductsDto>>
+@{
+    ViewBag.Title = "CustomerProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="container">
+    <h2>Mantenimiento de Clientes</h2>
+    <h4>Listado de Productos de @TempData["CustomerName"]</h4>
+    <hr />
+    @if (!Model.Success)
+    {
+        <span class="alert alert-danger">@Model.Message</span>
+    }
+
+    @if (Model.Success && Model.Message?.Length > 0)
+    {
+        <span class="alert alert-success">@Model.Message</span>
+    }
+    <div class="row">
+
+        <div class="col-lg-offset-10"></div>
+        <div class="col-lg-12">
+            @Html.ActionLink("Agregar", "CustomerProductsCreate", new { Id = TempData["Id"] }, new { @Class = "btn btn-primary" })
+        </div>
+
+    </div>
+    <hr />
+    <div class="row" style="margin-top: 2rem;">
+        <div class="col-lg-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Descripcion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customersProducts in Model.Data)
+                    {
+                        <tr>
+                            <td>@customersProducts.Product.Id</td>
+                            <td>@customersProducts.Product.Name</td>
+                            <td>@customersProducts.Product.Price</td>
+                            <td>@customersProducts.Product.Description</td>
+
+                            <td>
+                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Products", method: FormMethod.Post))
+                                {
+                                    var Id = customersProducts.Product.Id;
+                                    @Html.HiddenFor(model => Id);
+                                    <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+}
