@@ -18,11 +18,9 @@
     }
     <div class="row">
 
-        <div class="col-lg-offset-10"></div>
         <div class="col-lg-12">
             <button class="btn btn-default">@Html.ActionLink("Agregar", "Create")</button>
         </div>
-
     </div>
     <hr />
     <div class="row" style="margin-top: 2rem;">
@@ -56,7 +54,7 @@
 
                                     @Html.HiddenFor(model => Id)
                                     <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
-                                    @Html.ActionLink("Editar", "Edit", new { Id = customer.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
+                                    @Html.ActionLink("Editar", "Edit", new { Id = customer.Id }, htmlAttributes: new { @Class = "btn btn-warning mr-2" })
                                     @Html.ActionLink("Ver Productos", "CustomerProducts", new { Id = customer.Id }, htmlAttributes: new { @Class = "btn btn-secondary" })
                                 }
 

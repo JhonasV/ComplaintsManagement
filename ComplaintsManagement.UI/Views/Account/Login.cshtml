@@ -6,53 +6,56 @@
 
 
 <div class="row mt-3">
+    <div class="col-md-offset-4"></div>
     <div class="col-md-8">
-        <h3>@ViewBag.Title.</h3>
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
+        <div class="card w-50 ml-auto mr-auto mt-5" >
+            <div class="card-header  bg-primary"><h3 class="text-white">@ViewBag.Title</h3></div>
+            <section id="loginForm" class="card-body">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
 
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "control-label" })
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                   
-                    <div class="col-md-10">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            <label>Recordarme?</label>
-                            @*@Html.LabelFor(m => m.RememberMe)*@
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                <label>Recordarme?</label>
+                                @*@Html.LabelFor(m => m.RememberMe)*@
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Acceder" class="btn btn-primary" />
+                    <div class="form-group">
+
+                        <input type="submit" value="Acceder" class="btn btn-primary btn-block" />
+
                     </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Crear una cuenta nueva", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <div class="text-center font-weight-bold">
+                        <span class="w-100">O</span>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        @Html.ActionLink("Crear una cuenta nueva", "Register", null, new { @Class = "btn btn-outline-secondary btn-block" })
+                    </div>
+                        @* Enable this once you have account confirmation enabled for password reset functionality
                 <p>
                     @Html.ActionLink("Forgot your password?", "ForgotPassword")
                 </p>*@
-            }
-        </section>
+                    }
+            </section>
+        </div>
+        
     </div>
     @*<div class="col-md-4">
         <section id="socialLoginForm">

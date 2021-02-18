@@ -1,0 +1,39 @@
+﻿
+@if (Request.IsAuthenticated)
+{
+    <div class="col-4" style="height: 90vh;">
+        <div class="wrapper">
+            <!-- Sidebar -->
+            <nav id="sidebar">
+                <ul class="list-unstyled components">
+                    <p>Dummy Heading</p>
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Mantenimiento</a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li>
+                                @Html.ActionLink("Clientes", "Index", "Customers", routeValues: null, htmlAttributes: new { title = "Clientes", @Class = "btn btn-primary" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Status", "Index", "Status", routeValues: null, htmlAttributes: new { title = "Status", @Class = "btn btn-primary" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Opciones de Reclamo", "Index", "ComplaintsOptions", routeValues: null, htmlAttributes: new { title = "Opciones de Reclamos", @Class = "btn btn-primary" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Productos", "Index", "Products", routeValues: null, htmlAttributes: new { title = "Productos", @Class = "btn btn-primary" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Reclamos y Quejas", "Index", "Complaints", routeValues: null, htmlAttributes: new { title = "Reclamos", @Class = "btn btn-primary" })
+
+                            </li>
+                            <li>
+                                @Html.ActionLink("Reclamos y Quejas", "Index", "Complaints", routeValues: null, htmlAttributes: new { title = "Quejas", @Class = "btn btn-primary" })
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+}
