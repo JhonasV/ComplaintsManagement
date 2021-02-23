@@ -116,12 +116,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\FluentValidationConfiguration.cs" />
     <Compile Include="Database\ClaimsOptionsEntityTypeConfiguration.cs" />
     <Compile Include="Database\ComplaintsEntityTypeConfiguration.cs" />
     <Compile Include="Database\ComplaintsDbContext.cs" />
     <Compile Include="Database\CustomersProductsEntityTypeConfiguration.cs" />
     <Compile Include="Database\DbInitializer.cs" />
+    <Compile Include="Database\DepartmentsEntityTypeConfiguration.cs" />
     <Compile Include="Database\ProductsEntityTypeConfiguration.cs" />
     <Compile Include="Database\StatusEntityTypeConfiguration.cs" />
     <Compile Include="Database\CustomersEntityTypeConfiguration.cs" />
@@ -141,6 +141,7 @@
     <Compile Include="Entities\ComplaintsOptions.cs" />
     <Compile Include="Entities\CustomersProducts.cs" />
     <Compile Include="Entities\Custumers.cs" />
+    <Compile Include="Entities\Deparments.cs" />
     <Compile Include="Entities\Products.cs" />
     <Compile Include="Entities\Status.cs" />
     <Compile Include="Helpers\Constants.cs" />

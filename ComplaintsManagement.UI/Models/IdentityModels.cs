@@ -24,7 +24,11 @@ namespace ComplaintsManagement.UI.Models
         public string Name { get; set; }
         public string LastName { get; set; }
         public string DocumentNumber { get; set; }
-    }
+        public int? DepartmentsId { get; set; }
+
+
+        public virtual Deparments Deparment { get; set; }
+}
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -55,6 +59,7 @@ namespace ComplaintsManagement.UI.Models
         public virtual DbSet<CustomersProducts> CustomersProducts { get; set; }
         public virtual DbSet<ClaimsOptions> ClaimsOptions { get; set; }
         public virtual DbSet<ComplaintsOptions> ComplaintsOptions { get; set; }
+        public virtual DbSet<Deparments> Deparments { get; set; }
 
 
         public static ApplicationDbContext Create()

@@ -1,13 +1,10 @@
-﻿using ComplaintsManagement.Infrastructure.Configurations;
-using ComplaintsManagement.UI.Controllers;
+﻿using ComplaintsManagement.UI.Controllers;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
 using ComplaintsManagement.UI.Services.Repositories;
-using FluentValidation;
 using System.Web.Mvc;
 using Unity;
 using Unity.Injection;
-using Unity.Lifetime;
 using Unity.Mvc5;
 
 namespace ComplaintsManagement.UI.App_Start
@@ -32,7 +29,6 @@ namespace ComplaintsManagement.UI.App_Start
             container.RegisterType<IComplaintsOptionsRepository, ComplaintsOptionsRepository>();
             container.RegisterType<IComplaintsRepository, ComplaintsRepository>();
             container.RegisterType<IStatusRepository, StatusRepository>();
-            //container.RegisterType<IValidatorFactory, FluentValidationConfiguration>(new ContainerControlledLifetimeManager());
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
