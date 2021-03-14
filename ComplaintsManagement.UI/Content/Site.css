@@ -83,3 +83,11 @@ span.alert{
     font-size: 15px;
     font-weight: bold;
 }
+
+.card {
+    height: 100%;
+}
+
+.vh-86 {
+    min-height: 86vh;
+}

@@ -11,7 +11,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid container">
+            <div class="container-fluid">
                 @Html.ActionLink("ComplaintsManagement", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,12 +27,12 @@
         <aside class="col-2 w-100 vh-100 bg-sidebar">
             @Html.Partial("_Sidebar")
         </aside>
-        <div class="col-9 ml-auto mr-auto mt-2 mb-5 pt-3 pb-4 elevation min-height border-radius-10" style="background-color: white;"> @RenderBody()</div>
-       
+        @*<div class="col-9 ml-auto mr-auto mt-2 mb-5 pt-3 pb-4 elevation min-height border-radius-10 bg-white"> </div>*@
+        <div class="col-9 ml-auto mr-auto mt-3 vh-86">@RenderBody()</div> 
         @*<hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>*@
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
