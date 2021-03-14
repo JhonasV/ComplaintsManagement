@@ -50,5 +50,5 @@ Load the project in Visual Studio
 
 <img
 width='80%'
-src='https://github.com/JhonasV/EchonyProject/blob/develop/captures/cap1.PNG'/>
+src='https://github.com/JhonasV/ComplaintsManagement/blob/develop/captures/cap1.PNG'/>
 <br/>
