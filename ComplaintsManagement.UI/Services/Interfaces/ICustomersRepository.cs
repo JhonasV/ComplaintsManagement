@@ -17,5 +17,6 @@ namespace ComplaintsManagement.UI.Services.Interfaces
         Task<TaskResult<List<CustomersDto>>> GetAllAsync();
         Task<TaskResult<CustomersDto>> DeleteAsync(int Id);
         Task<TaskResult<CustomersDto>> UpdateAsync(CustomersDto costumers);
+        Task<TaskResult<CustomersDto>> GetByDocumentNumberAsync(string documentNumber);
     }
 }

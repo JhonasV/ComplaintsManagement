@@ -1,4 +1,4 @@
-﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.StatusDto>>
+﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.DepartmentsDto>>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,8 +25,8 @@
 }
 
 <div class="container">
-    <h2>Mantenimiento de Status</h2>
-    <h4>Listado de Status</h4>
+    <h2>Mantenimiento de Departamentos</h2>
+    <h4>Listado de Departamentos</h4>
     <hr />
     @if (!Success && Message?.Length > 0)
     {
@@ -54,25 +54,27 @@
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
+                        <th>Descripcion</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var status in Model.Data)
+                    @foreach (var department in Model.Data)
                     {
                         <tr>
-                            <td>@status.Id</td>
-                            <td>@status.Name</td>
+                            <td>@department.Id</td>
+                            <td>@department.Name</td>
+                            <td>@department.Description</td>
 
 
 
                             <td>
-                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Status", method: FormMethod.Post))
+                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Departments", method: FormMethod.Post))
                                 {
-                                    var Id = status.Id;
+                                    var Id = department.Id;
                                     @Html.HiddenFor(model => Id);
                                     <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
-                                    @Html.ActionLink("Editar", "Edit", new { Id = status.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
+                                    @Html.ActionLink("Editar", "Edit", new { Id = department.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
                                 }
                             </td>
                         </tr>

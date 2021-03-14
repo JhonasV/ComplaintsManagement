@@ -146,5 +146,19 @@ namespace ComplaintsManagement.UI.Services.Repositories
             }
             return result;
         }
+
+        public async Task<TaskResult<CustomersDto>> GetByDocumentNumberAsync(string documentNumber)
+        {
+            var customers = await this.GetAllAsync();
+            var customer = customers.Data.Where(e => e.DocumentNumber.Equals(documentNumber)).FirstOrDefault();
+            var result = new TaskResult<CustomersDto>
+            {
+                Data = customer,
+                Message = customers.Message,
+                Success = customers.Success
+            };
+
+            return result;
+        }
     }
 }

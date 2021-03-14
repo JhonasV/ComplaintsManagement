@@ -23,3 +23,63 @@ span.alert{
     width: 100%;
     font-weight: bold;
 }
+
+.elevation {
+    -webkit-box-shadow: 1px -4px 15px -9px #000000, 1px 7px 19px -13px #000000;
+    box-shadow: 1px -4px 15px -9px #000000, 1px 7px 19px -13px #000000;
+}
+
+.min-height {
+    min-height: 80vh;
+}
+
+.border-radius-10 {
+    border-radius: 10px;
+}
+
+.bg-sidebar {
+    background-color: #1976d2;
+    padding-top: 15px;
+
+}
+
+.sidebar {
+    margin-top: 1rem;
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    list-style-type: none;
+}
+
+.sidebar li {
+   margin-bottom: 7px;
+   margin-left: 7px;
+   margin-right: 7px;
+   width: 100%;
+   padding: 3px;
+}
+
+.sidebar li a {
+    width: 100%;
+    color: white;
+    display: block;
+    text-decoration: none;
+    padding: 3px;
+    font-size: 18px;
+}
+
+.sidebar li:hover {
+    transition: .4s;
+    background-color: #546e7a;
+}
+
+.separator{
+    height: 3px;
+    background-color: white;
+    width: 100%;
+}
+
+.sidebar i {
+    font-size: 15px;
+    font-weight: bold;
+}

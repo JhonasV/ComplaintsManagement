@@ -191,6 +191,7 @@
     <Compile Include="Controllers\ComplaintsController.cs" />
     <Compile Include="Controllers\ComplaintsOptionsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -198,6 +199,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103131304207_departments entite added.cs" />
+    <Compile Include="Migrations\202103131304207_departments entite added.designer.cs">
+      <DependentUpon>202103131304207_departments entite added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103131610523_departmentsId field removed for Users entitie.cs" />
+    <Compile Include="Migrations\202103131610523_departmentsId field removed for Users entitie.designer.cs">
+      <DependentUpon>202103131610523_departmentsId field removed for Users entitie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CustomersViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -209,12 +219,14 @@
     <Compile Include="Services\Interfaces\IComplaintsOptionsRepository.cs" />
     <Compile Include="Services\Interfaces\IComplaintsRepository.cs" />
     <Compile Include="Services\Interfaces\ICustomersProductsRepository.cs" />
+    <Compile Include="Services\Interfaces\IDepartmentsRepository.cs" />
     <Compile Include="Services\Interfaces\IProductsRepository.cs" />
     <Compile Include="Services\Interfaces\ICustomersRepository.cs" />
     <Compile Include="Services\Interfaces\IStatusRepository.cs" />
     <Compile Include="Services\Repositories\ComplaintsOptionsRepository.cs" />
     <Compile Include="Services\Repositories\ComplaintsRepository.cs" />
     <Compile Include="Services\Repositories\CustomerProductsRepository.cs" />
+    <Compile Include="Services\Repositories\DepartmentsRepository.cs" />
     <Compile Include="Services\Repositories\ProductsRepository.cs" />
     <Compile Include="Services\Repositories\CustomersRepository.cs" />
     <Compile Include="Services\Repositories\StatusRepository.cs" />
@@ -637,6 +649,9 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -662,6 +677,14 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202103131304207_departments entite added.resx">
+      <DependentUpon>202103131304207_departments entite added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103131610523_departmentsId field removed for Users entitie.resx">
+      <DependentUpon>202103131610523_departmentsId field removed for Users entitie.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

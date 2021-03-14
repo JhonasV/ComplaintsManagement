@@ -6,9 +6,8 @@
 
 
 <div class="row mt-3">
-    <div class="col-md-offset-4"></div>
-    <div class="col-md-8">
-        <div class="card w-50 ml-auto mr-auto mt-5" >
+    <div class="col-md-12">
+        <div class="card w-75 ml-auto mr-auto mt-1" >
             <div class="card-header  bg-primary"><h3 class="text-white">@ViewBag.Title</h3></div>
             <section id="loginForm" class="card-body">
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))

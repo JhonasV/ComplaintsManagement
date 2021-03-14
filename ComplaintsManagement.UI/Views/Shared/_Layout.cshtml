@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - Complaints Management System</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -24,10 +24,10 @@
     </header>
     
     <div class="row" style="background-color: #E9ECEF;">
-        <aside>
+        <aside class="col-2 w-100 vh-100 bg-sidebar">
             @Html.Partial("_Sidebar")
         </aside>
-        <div class="col-8 ml-auto mr-auto mt-5 pt-5" style="background-color: white;"> @RenderBody()</div>
+        <div class="col-9 ml-auto mr-auto mt-2 mb-5 pt-3 pb-4 elevation min-height border-radius-10" style="background-color: white;"> @RenderBody()</div>
        
         @*<hr />
             <footer>

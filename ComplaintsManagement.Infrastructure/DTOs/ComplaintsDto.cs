@@ -12,6 +12,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         [Required]
         public int ComplaintsOptionsId { get; set; }
         public int StatusId { get; set; }
+        public int DepartmentsId { get; set; }
         [Required]
         public int ProductsId { get; set; }
         public DateTime? CompletedAt { get; set; } 
@@ -22,6 +23,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public ProductsDto Product { get; set; }
         public ComplaintsOptionsDto ComplaintsOption { get; set; }
         public StatusDto Status { get; set; }
+        public DepartmentsDto Department { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }

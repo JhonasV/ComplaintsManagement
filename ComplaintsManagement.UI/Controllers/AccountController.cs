@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ComplaintsManagement.UI.Models;
+using ComplaintsManagement.UI.Services.Interfaces;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ComplaintsManagement.UI.Controllers
 {
@@ -17,15 +19,20 @@ namespace ComplaintsManagement.UI.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private RoleManager<IdentityRole> _roleManager;
+        private readonly ICustomersRepository _customerRepository;
 
         public AccountController()
         {
+
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager,  RoleManager<IdentityRole> roleManager, ICustomersRepository customersRepository)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _customerRepository = customersRepository;
+            _roleManager = roleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -39,6 +46,8 @@ namespace ComplaintsManagement.UI.Controllers
                 _signInManager = value; 
             }
         }
+
+
 
         public ApplicationUserManager UserManager
         {
@@ -151,10 +160,37 @@ namespace ComplaintsManagement.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { 
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    Name = model.Name,
+                    LastName = model.LastName,
+                    DocumentNumber = model.DocumentNumber
+                };
+
+                //var customerExists = _customerRepository.GetByDocumentNumberAsync(model.DocumentNumber);
+
+                //if(customerExists == null)
+                //{
+                //    AddErrors(new IdentityResult("No existe un cliente con el numero de documento ingresado"));
+                //    return View(model);
+                //}
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //var roleExists = await _roleManager.RoleExistsAsync(Infrastructure.Helpers.Constants.Roles.CUSTOMER);
+                    //if (!roleExists) 
+                    //{
+                    //    var roleCreationResult = await _roleManager.CreateAsync(new IdentityRole { Name = Infrastructure.Helpers.Constants.Roles.CUSTOMER });
+                    //    if (!roleCreationResult.Succeeded)
+                    //    {
+                    //        AddErrors(roleCreationResult);
+                    //        return View(model);
+                    //    }
+                    //}
+
+                    //UserManager.AddToRole(user.Id, Infrastructure.Helpers.Constants.Roles.CUSTOMER);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

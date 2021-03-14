@@ -6,9 +6,9 @@
     @Html.AntiForgeryToken()
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            @Html.ActionLink("Hello " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @Class = "btn btn-success mr-2" })
+            @Html.ActionLink("Perfil", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @Class = "btn btn-success mr-2" })
         </li>
-        <li class="nav-item"><a class="btn btn-danger" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li class="nav-item"><a class="btn btn-danger" href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-sign-out-alt"></i> Salir</a></li>
     </ul>
     }
 }

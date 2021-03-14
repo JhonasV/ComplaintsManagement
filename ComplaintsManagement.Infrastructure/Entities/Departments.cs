@@ -5,8 +5,9 @@ using System.Web;
 
 namespace ComplaintsManagement.Infrastructure.Entities
 {
-    public class Deparments : BaseEntity
+    public class Departments : BaseEntity
     {
+        public string Name { get; set; }
         public string Description { get; set; }
     }
 }

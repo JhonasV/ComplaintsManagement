@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ComplaintsManagement.Infrastructure.Database
 {
-    public class DepartmentsEntityTypeConfiguration : EntityTypeConfiguration<Deparments>
+    public class DepartmentsEntityTypeConfiguration : EntityTypeConfiguration<Departments>
     {
         public DepartmentsEntityTypeConfiguration()
         {

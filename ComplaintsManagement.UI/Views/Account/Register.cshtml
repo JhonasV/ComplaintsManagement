@@ -4,9 +4,9 @@
 }
 
 <div class="row">
-    <div class="col-lg-8">
-        <div class="card w-50 ml-auto mr-auto mt-5">
-            <h3 class="card-header">@ViewBag.Title.</h3>
+    <div class="col-lg-12">
+        <div class="card w-50 ml-auto mb-5 mr-auto mt-1 ">
+            <div class="card-header  bg-primary"><h3 class="text-white">@ViewBag.Title</h3></div>
             <section id="loginForm" class="card-body">
                 @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
                 {
@@ -14,6 +14,21 @@
 
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DocumentNumber, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.DocumentNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.DocumentNumber, "", new { @class = "text-danger" })
+                    </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "control-label" })
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
@@ -40,9 +55,9 @@
                         @Html.ActionLink("Ya tengo una cuenta", "Login", null, new { @Class = "btn btn-outline-secondary btn-block" })
                     </div>
                     @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
+                <p>
+                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                </p>*@
                 }
             </section>
         </div>
