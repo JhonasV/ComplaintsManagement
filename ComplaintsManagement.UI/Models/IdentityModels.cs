@@ -5,6 +5,7 @@ using ComplaintsManagement.Infrastructure.Entities;
 using ComplaintsManagement.Infrastructure.Database;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 
 namespace ComplaintsManagement.UI.Models
 {
@@ -24,7 +25,13 @@ namespace ComplaintsManagement.UI.Models
         public string Name { get; set; }
         public string LastName { get; set; }
         public string DocumentNumber { get; set; }
-}
+
+        public bool Active { get; set; } = true;
+        public bool Deleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
+    }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -42,7 +49,6 @@ namespace ComplaintsManagement.UI.Models
             modelBuilder.Configurations.Add(new ComplaintsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new StatusEntityTypeConfiguration());
-            modelBuilder.Configurations.Add(new CustomersEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new CostumersProductsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ClaimsOptionsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ComplaintsOptionsEntityTypeConfiguration());
@@ -51,8 +57,9 @@ namespace ComplaintsManagement.UI.Models
         public virtual DbSet<Complaints> Complaints { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<Customers> Customers { get; set; }
+
         public virtual DbSet<CustomersProducts> CustomersProducts { get; set; }
+        public virtual DbSet<Claims> Claims { get; set; }
         public virtual DbSet<ClaimsOptions> ClaimsOptions { get; set; }
         public virtual DbSet<ComplaintsOptions> ComplaintsOptions { get; set; }
         public virtual DbSet<Departments> Departments { get; set; }

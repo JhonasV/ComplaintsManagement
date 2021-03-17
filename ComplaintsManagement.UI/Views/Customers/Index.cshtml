@@ -1,4 +1,4 @@
-﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.CustomersDto>>
+﻿@model ComplaintsManagement.UI.Models.TaskResult<List<ComplaintsManagement.Infrastructure.DTOs.UsersDto>>
 @{
     ViewBag.Title = "Index";
 }
@@ -29,7 +29,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            @*<th>Id</th>*@
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Email</th>
@@ -42,7 +42,7 @@
                         @foreach (var customer in Model.Data)
                         {
                             <tr>
-                                <td>@customer.Id</td>
+                                @*<td>@customer.Id</td>*@
                                 <td>@customer.Name</td>
                                 <td>@customer.LastName</td>
                                 <td>@customer.Email</td>
@@ -51,7 +51,7 @@
                                 <td>
                                     @using (Html.BeginForm(actionName: "Delete", controllerName: "Customers", method: FormMethod.Post))
                                     {
-                                        int Id = customer.Id;
+                                        string Id = customer.Id;
 
                                         @Html.HiddenFor(model => Id)
                                         <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>

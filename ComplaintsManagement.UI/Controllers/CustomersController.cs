@@ -28,11 +28,11 @@ namespace ComplaintsManagement.UI.Controllers
         }
         #region "Customers"
         public async Task<ActionResult> Index() => View(await _customersRepository.GetAllAsync());
-        public async Task<ActionResult> Details(int id) => View(await _customersRepository.GetAsync(id));
-        public ActionResult Create() => View(new TaskResult<CustomersDto>());
+        public async Task<ActionResult> Details(string id) => View(await _customersRepository.GetAsync(id));
+        public ActionResult Create() => View(new TaskResult<UsersDto>());
 
         [HttpPost]
-        public async Task<ActionResult> Create(CustomersDto Data)
+        public async Task<ActionResult> Create(UsersDto Data)
         {
             if (!ModelState.IsValid)
             {
@@ -44,15 +44,15 @@ namespace ComplaintsManagement.UI.Controllers
             return RedirectToAction(nameof(this.Create), newModel);
         }
 
-        public async Task<ActionResult> Edit(int id) => View(await _customersRepository.GetAsync(id));
+        public async Task<ActionResult> Edit(string id) => View(await _customersRepository.GetAsync(id));
 
         [HttpPost]
-        public async Task<ActionResult> Edit(CustomersDto Data)
+        public async Task<ActionResult> Edit(UsersDto Data)
         {
 
             if (!ModelState.IsValid)
             {
-                return View(new TaskResult<CustomersDto> { Data = Data });
+                return View(new TaskResult<UsersDto> { Data = Data });
             }
 
             var model = await _customersRepository.UpdateAsync(Data);
@@ -60,7 +60,7 @@ namespace ComplaintsManagement.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(int Id)
+        public async Task<ActionResult> Delete(string Id)
         {
 
             var deleteResult = await _customersRepository.DeleteAsync(Id);
@@ -75,7 +75,7 @@ namespace ComplaintsManagement.UI.Controllers
         #endregion
         #region "Customers Products"
    
-        public async Task<ActionResult> CustomerProducts(int Id)
+        public async Task<ActionResult> CustomerProducts(string Id)
         {
             var customer = await _customersRepository.GetAsync(Id);
             TempData["CustomerName"] = $"{customer.Data.Name} {customer.Data.LastName}";
@@ -86,7 +86,7 @@ namespace ComplaintsManagement.UI.Controllers
             return View("Products",model);
         }
 
-        public async Task<ActionResult> CustomerProductsCreate(int Id)
+        public async Task<ActionResult> CustomerProductsCreate(string Id)
         {
             var customer = await _customersRepository.GetAsync(Id);
             TempData["customer"] = customer.Data;
@@ -99,7 +99,7 @@ namespace ComplaintsManagement.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CustomerProductsCreate(CustomersDto customer, ProductsDto product)
+        public async Task<ActionResult> CustomerProductsCreate(UsersDto customer, ProductsDto product)
         {
             var customerProducts = await _customersProductsRepository.GetAllByCustomerIdAsync(customer.Id);
             var customerAlreadyHasProduct = customerProducts.Data.Exists(e => e.ProductsId == product.Id);
@@ -118,7 +118,7 @@ namespace ComplaintsManagement.UI.Controllers
             }
 
 
-            var relResult = await _customersProductsRepository.SaveAsync(new CustomersProductsDto { ProductsId = product.Id, UsersId = customer.Id });
+            var relResult = await _customersProductsRepository.SaveAsync(new CustomersProductsDto { ProductsId = product.Id, ApplicationUserId = customer.Id });
             var model = await _productsRepository.GetAllAsync();
             TempData["products"] = model.Data;
 

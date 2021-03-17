@@ -10,10 +10,10 @@ namespace ComplaintsManagement.UI.Models
     {
         public CustomersViewModel()
         {
-            this.Costumers = new List<CustomersDto>();
+            this.Customers = new List<UsersDto>();
         }
-        public List<CustomersDto> Costumers { get; set; }
-        public CustomersDto Costumer { get; set; }
+        public List<UsersDto> Customers { get; set; }
+        public UsersDto Customer { get; set; }
         public string Message { get; set; }
     }
 }

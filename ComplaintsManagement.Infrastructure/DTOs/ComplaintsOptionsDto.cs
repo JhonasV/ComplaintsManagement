@@ -10,13 +10,15 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
-        public int ProductsId { get; set; }
-        public bool Active { get; set; } = true;
+        
+        public int? ProductsId { get; set; }
+
 
         public virtual ProductsDto Product { get; set; }
-
+        public bool Active { get; set; } = true;
+        public bool Deleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
     }
 }

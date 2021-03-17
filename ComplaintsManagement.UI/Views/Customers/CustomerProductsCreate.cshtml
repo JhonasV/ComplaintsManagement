@@ -4,105 +4,108 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var customer = (ComplaintsManagement.Infrastructure.DTOs.CustomersDto)TempData["customer"];
+    var customer = (ComplaintsManagement.Infrastructure.DTOs.UsersDto)TempData["customer"];
     var products = (System.Collections.Generic.List<ComplaintsManagement.Infrastructure.DTOs.ProductsDto>)TempData["products"];
 }
 
-<div class="container">
-    <h2>Mantenimiento de Clientes</h2>
+<div class="card">
+    <div class="card-header bg-primary"><h2 class="text-white">Mantenimiento de Clientes</h2></div>
 
-
-    <div class="row">
-        <div class="col-lg-12">
-            @using (Html.BeginForm(controllerName: "Customers", actionName: "CustomerProductsCreate", method: FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                <h4>Agregar producto a Cliente</h4>
-                <hr />
-                @if (!Model.Success)
+    <div class="container">
+        <div class="row card-body">
+            <div class="col-lg-12">
+                @using (Html.BeginForm(controllerName: "Customers", actionName: "CustomerProductsCreate", method: FormMethod.Post))
                 {
-                    <span class="alert alert-danger" style="margin-top: 2rem;">@Model.Message</span>
-                    <hr />
-                }
+                    @Html.AntiForgeryToken()
 
-                @if (Model.Success && Model.Message?.Length > 0)
-                {
-                    <span class="alert alert-success" style="margin-top: 2rem;">@Model.Message</span>
-                    <hr />
-                }
+                    <div class="form-horizontal">
+                        <h4>Agregar producto a Cliente</h4>
+                        <hr />
+                        @if (!Model.Success)
+                        {
+                            <span class="alert alert-danger" style="margin-top: 2rem;">@Model.Message</span>
+                            <hr />
+                        }
 
-        
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            
-                            <div class="col-md-10">
-                                <label class="control-label col-md-2">Nombre del cliente</label>
-                                @Html.EditorFor(model => customer.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                                @Html.ValidationMessageFor(model => customer.Name, "", new { @class = "text-danger" })
+                        @if (Model.Success && Model.Message?.Length > 0)
+                        {
+                            <span class="alert alert-success" style="margin-top: 2rem;">@Model.Message</span>
+                            <hr />
+                        }
+
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+
+                                    <div class="col-md-10">
+                                        <h3>Nombre del cliente</h3>
+                                        <h4>@customer.Name</h4>
+                                       @* @Html.EditorFor(model => customer.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })*@
+                                       @* @Html.ValidationMessageFor(model => customer.Name, "", new { @class = "text-danger" })*@
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+
+                        <div class="row" style="margin-top: 2rem;">
+                            <div class="col-lg-12">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Precio</th>
+                                            <th>Descripcion</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var product in products)
+                                        {
+                                            <tr>
+                                                <td>@product.Id</td>
+                                                <td>@product.Name</td>
+                                                <td>@product.Price</td>
+                                                <td>@product.Description</td>
+
+                                                <td>
+
+                                                    @using (Html.BeginForm(actionName: "CustomerProductsCreate", controllerName: "Customers", method: FormMethod.Post))
+                                                    {
+
+
+                                                        @Html.HiddenFor(model => product.Id);
+                                                        @Html.HiddenFor(model => customer.Id);
+
+                                                        <button onclick="return confirm('¿Estás seguro de agregar este producto al cliente @customer.Name @customer.LastName?')" class="btn btn-success">Agregar</button>
+
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+
                     </div>
-                </div>
-
-
-                <div class="row" style="margin-top: 2rem;">
-                    <div class="col-lg-12">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-     
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                    <th>Descripcion</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var product in products)
-                                {
-                                    <tr>
-                                        <td>@product.Id</td>
-                                        <td>@product.Name</td>
-                                        <td>@product.Price</td>
-                                        <td>@product.Description</td>
-
-                                        <td>
-
-                                            @using (Html.BeginForm(actionName: "CustomerProductsCreate", controllerName: "Customers", method: FormMethod.Post))
-                                            {
-                                                
-
-                                                @Html.HiddenFor(model => product.Id);
-                                                @Html.HiddenFor(model => customer.Id);
-
-                                                <button onclick="return confirm('¿Estás seguro de agregar este producto al cliente @customer.Name @customer.LastName?')" class="btn btn-success">Agregar</button>
-
-                                            }
-                                        </td>
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-
-               
+                }
             </div>
-            }
         </div>
-    </div>
 
 
-    <div>
-        @Html.ActionLink("Regresar al listado de productos", "Index", null, new {  @Class = "btn btn-default" })
+        <div>
+            @*@Html.ActionLink("Regresar al listado de productos", "CustomerProducts", , new { @Class = "btn btn-default" })*@
+            <a href="/customers/CustomerProducts/@customer.Id" class="btn btn-default">Regresar al listado de productos</a>
+        </div>
     </div>
 </div>
 

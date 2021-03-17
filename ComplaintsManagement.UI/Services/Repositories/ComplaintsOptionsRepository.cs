@@ -22,13 +22,13 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         public async Task<TaskResult<ComplaintsOptionsDto>> DeleteAsync(int Id)
         {
-            var products = await _context.ComplaintsOptions.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
+            var products = await _context.ComplaintsOptions.FirstOrDefaultAsync(e => e.Id == Id && e.Deleted == false);
             var result = new TaskResult<ComplaintsOptionsDto>();
             try
             {
                 if (products != null)
                 {
-                    products.Active = false;
+                    products.Deleted = true;
                     await _context.SaveChangesAsync();
                     result.Message = "Opción borrada exitosamente!";
                     result.Data = new ComplaintsOptionsDto {
@@ -64,7 +64,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 var complaintsOps = await _context
                     .ComplaintsOptions
                     .Include(e => e.Product)
-                    .Where(e => e.Active).ToListAsync();
+                    .Where(e => e.Deleted == false).ToListAsync();
                 complaintsOps.ForEach((option) =>
                 {
                     var productDto = new ProductsDto {
@@ -104,7 +104,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             try
             {
-                var option = await _context.ComplaintsOptions.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
+                var option = await _context.ComplaintsOptions.FirstOrDefaultAsync(e => e.Id == Id && e.Deleted == false);
                 result.Data =  new ComplaintsOptionsDto
                 {
                     Active = option.Active,
@@ -112,7 +112,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     Id = option.Id,
                     ProductsId = option.ProductsId,
                     Name = option.Name,
-                    UpdatedAt = option.UpdatedAt
+                    UpdatedAt = option.UpdatedAt,
+                    Deleted = option.Deleted
                 };
             }
             catch (Exception e)

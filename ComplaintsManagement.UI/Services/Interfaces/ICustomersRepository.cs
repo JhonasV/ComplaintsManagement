@@ -11,12 +11,12 @@ namespace ComplaintsManagement.UI.Services.Interfaces
 {
     public interface ICustomersRepository
     {
-        Task<TaskResult<CustomersDto>> SaveAsync(CustomersDto costumers);
-        Task<TaskResult<CustomersDto>> GetAsync(int Id);
-        TaskResult<CustomersDto> Get(int Id);
-        Task<TaskResult<List<CustomersDto>>> GetAllAsync();
-        Task<TaskResult<CustomersDto>> DeleteAsync(int Id);
-        Task<TaskResult<CustomersDto>> UpdateAsync(CustomersDto costumers);
-        Task<TaskResult<CustomersDto>> GetByDocumentNumberAsync(string documentNumber);
+        Task<TaskResult<UsersDto>> SaveAsync(UsersDto costumers);
+        Task<TaskResult<UsersDto>> GetAsync(string Id);
+        TaskResult<UsersDto> Get(string Id);
+        Task<TaskResult<List<UsersDto>>> GetAllAsync();
+        Task<TaskResult<UsersDto>> DeleteAsync(string Id);
+        Task<TaskResult<UsersDto>> UpdateAsync(UsersDto costumers);
+        Task<TaskResult<UsersDto>> GetByDocumentNumberAsync(string documentNumber);
     }
 }

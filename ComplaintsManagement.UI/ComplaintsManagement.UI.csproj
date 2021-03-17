@@ -199,13 +199,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103131304207_departments entite added.cs" />
-    <Compile Include="Migrations\202103131304207_departments entite added.designer.cs">
-      <DependentUpon>202103131304207_departments entite added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103131610523_departmentsId field removed for Users entitie.cs" />
-    <Compile Include="Migrations\202103131610523_departmentsId field removed for Users entitie.designer.cs">
-      <DependentUpon>202103131610523_departmentsId field removed for Users entitie.cs</DependentUpon>
+    <Compile Include="Migrations\202103160026302_initial migration.cs" />
+    <Compile Include="Migrations\202103160026302_initial migration.designer.cs">
+      <DependentUpon>202103160026302_initial migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -222,6 +218,7 @@
     <Compile Include="Services\Interfaces\IDepartmentsRepository.cs" />
     <Compile Include="Services\Interfaces\IProductsRepository.cs" />
     <Compile Include="Services\Interfaces\ICustomersRepository.cs" />
+    <Compile Include="Services\Interfaces\IRolesRepository.cs" />
     <Compile Include="Services\Interfaces\IStatusRepository.cs" />
     <Compile Include="Services\Repositories\ComplaintsOptionsRepository.cs" />
     <Compile Include="Services\Repositories\ComplaintsRepository.cs" />
@@ -229,6 +226,7 @@
     <Compile Include="Services\Repositories\DepartmentsRepository.cs" />
     <Compile Include="Services\Repositories\ProductsRepository.cs" />
     <Compile Include="Services\Repositories\CustomersRepository.cs" />
+    <Compile Include="Services\Repositories\RolesRepository.cs" />
     <Compile Include="Services\Repositories\StatusRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -680,11 +678,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103131304207_departments entite added.resx">
-      <DependentUpon>202103131304207_departments entite added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103131610523_departmentsId field removed for Users entitie.resx">
-      <DependentUpon>202103131610523_departmentsId field removed for Users entitie.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103160026302_initial migration.resx">
+      <DependentUpon>202103160026302_initial migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

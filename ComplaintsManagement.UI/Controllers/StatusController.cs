@@ -45,10 +45,7 @@ namespace ComplaintsManagement.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(StatusDto Data)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
+
 
             var newModel = await _statusRepository.SaveAsync(Data);
 

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ComplaintsManagement.Infrastructure.Validators
 {
-    public class CustomersValidator: AbstractValidator<CustomersDto>
+    public class CustomersValidator: AbstractValidator<UsersDto>
     {
         public CustomersValidator()
         {

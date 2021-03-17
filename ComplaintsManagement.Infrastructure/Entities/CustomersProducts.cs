@@ -6,10 +6,10 @@ namespace ComplaintsManagement.Infrastructure.Entities
 {
     public class CustomersProducts : BaseEntity
     {
-        public int CostumersId { get; set; }
+        public string ApplicationUserId { get; set; }
         public int ProductsId { get; set; }
 
-        public virtual Customers Customers { get; set; }
+        //public virtual ComplaintsManagement. ApplicationUser Customers { get; set; }
         public virtual Products Product { get; set; }
     }
 }

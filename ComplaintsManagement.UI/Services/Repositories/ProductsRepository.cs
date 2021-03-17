@@ -28,7 +28,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
             {
                 if (products != null)
                 {
-                    products.Active = false;
+                    products.Deleted = true;
                     await _context.SaveChangesAsync();
                     result.Message = "Producto borrado exitosamente!";
                     result.Data = new ProductsDto { Active = products.Active, CreatedAt = products.CreatedAt,  Id = products.Id,  Name = products.Name, UpdatedAt = products.UpdatedAt, Description = products.Description, Price = products.Price };
@@ -54,7 +54,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
             var result = new TaskResult<List<ProductsDto>>();
             try
             {
-                var products = await _context.Products.Where(e => e.Active).ToListAsync();
+                var products = await _context.Products.Where(e => e.Deleted == false).ToListAsync();
                 products.ForEach((product) =>
                 {
                 productsDto.Add(new ProductsDto { Active = product.Active, CreatedAt = product.CreatedAt, Id = product.Id, Name = product.Name, UpdatedAt = product.UpdatedAt, Description = product.Description, Price = product.Price });

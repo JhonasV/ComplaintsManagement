@@ -10,10 +10,11 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public int ClaimsOptionsId { get; set; }
         public int ComplaintsOptionsId { get; set; }
         public int StatusId { get; set; }
-        public bool Active { get; set; }
-        public DateTime CompletedAt { get; set; }
+        public bool Active { get; set; } = true;
+        public bool Deleted { get; set; }
         public string Commment { get; set; }
+        public DateTime? DeletedAt { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        public DateTime? UpdatedAt { get; set; }
     }
 }

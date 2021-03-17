@@ -20,10 +20,10 @@ namespace ComplaintsManagement.UI.Services.Repositories
         {
             _context = context;
         }
-        public async Task<TaskResult<CustomersDto>> DeleteAsync(int Id)
+        public async Task<TaskResult<UsersDto>> DeleteAsync(string Id)
         {
-            var customer = await _context.Customers.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
-            var result = new TaskResult<CustomersDto>();
+            var customer = await _context.Users.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
+            var result = new TaskResult<UsersDto>();
             try
             {
                 if (customer != null)
@@ -31,7 +31,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     customer.Active = false;
                     await _context.SaveChangesAsync();
                     result.Message = "Cliente borrado exitosamente!";
-                    result.Data = new CustomersDto { Active = customer.Active, CreatedAt = customer.CreatedAt, Email = customer.Email, Id = customer.Id, LastName = customer.LastName, Name = customer.Name, UpdatedAt = customer.UpdatedAt };
+                    result.Data = new UsersDto { Active = customer.Active, CreatedAt = customer.CreatedAt, Email = customer.Email, Id = customer.Id, LastName = customer.LastName, Name = customer.Name, UpdatedAt = customer.UpdatedAt };
                 }
                 else
                 {
@@ -47,17 +47,17 @@ namespace ComplaintsManagement.UI.Services.Repositories
             return result;
         }
 
-        public async Task<TaskResult<List<CustomersDto>>> GetAllAsync()
+        public async Task<TaskResult<List<UsersDto>>> GetAllAsync()
         {
            
-            List<CustomersDto> costumersDtos = new List<CustomersDto>();
-            var result = new TaskResult<List<CustomersDto>>();
+            List<UsersDto> costumersDtos = new List<UsersDto>();
+            var result = new TaskResult<List<UsersDto>>();
             try
             {
-                var customers = await _context.Customers.Where(e => e.Active).ToListAsync();
+                var customers = await _context.Users.Where(e => e.Active).ToListAsync();
                 customers.ForEach((customer) =>
                 {
-                    costumersDtos.Add(new CustomersDto { Active = customer.Active, CreatedAt = customer.CreatedAt, Email = customer.Email, Id = customer.Id, LastName = customer.LastName, Name = customer.Name, UpdatedAt = customer.UpdatedAt, PhoneNumber = customer.PhoneNumber, DocumentNumber = customer.DocumentNumber });
+                    costumersDtos.Add(new UsersDto { Active = customer.Active, CreatedAt = customer.CreatedAt, Email = customer.Email, Id = customer.Id, LastName = customer.LastName, Name = customer.Name, UpdatedAt = customer.UpdatedAt, PhoneNumber = customer.PhoneNumber, DocumentNumber = customer.DocumentNumber });
                 });
                 result.Data = costumersDtos;
             }
@@ -70,14 +70,14 @@ namespace ComplaintsManagement.UI.Services.Repositories
             return result;
         }
 
-        public async Task<TaskResult<CustomersDto>> GetAsync(int Id)
+        public async Task<TaskResult<UsersDto>> GetAsync(string Id)
         {
-            var result = new TaskResult<CustomersDto>();
+            var result = new TaskResult<UsersDto>();
 
             try
             {
-                var costumer = await _context.Customers.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
-                result.Data = new CustomersDto { Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
+                var costumer = await _context.Users.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
+                result.Data = new UsersDto { Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
             }
             catch (Exception e)
             {
@@ -89,14 +89,14 @@ namespace ComplaintsManagement.UI.Services.Repositories
              
         }
 
-        public  TaskResult<CustomersDto> Get(int Id)
+        public  TaskResult<UsersDto> Get(string Id)
         {
-            var result = new TaskResult<CustomersDto>();
+            var result = new TaskResult<UsersDto>();
 
             try
             {
-                var costumer =  _context.Customers.FirstOrDefault(e => e.Id == Id && e.Active);
-                result.Data = new CustomersDto { Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
+                var costumer =  _context.Users.FirstOrDefault(e => e.Id == Id && e.Active);
+                result.Data = new UsersDto { Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
             }
             catch (Exception e)
             {
@@ -108,13 +108,13 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         }
 
-        public async Task<TaskResult<CustomersDto>> SaveAsync(CustomersDto costumerDto)
+        public async Task<TaskResult<UsersDto>> SaveAsync(UsersDto costumerDto)
         {
-            var costumer = new Customers { Active = costumerDto.Active, CreatedAt = costumerDto.CreatedAt, DocumentNumber = costumerDto.DocumentNumber, Email = costumerDto.Email, Id = costumerDto.Id, LastName = costumerDto.LastName, Name = costumerDto.Name, PhoneNumber = costumerDto.PhoneNumber, UpdatedAt = costumerDto.UpdatedAt };
-            var result = new TaskResult<CustomersDto>();
+            var costumer = new ApplicationUser { Active = costumerDto.Active, CreatedAt = costumerDto.CreatedAt, DocumentNumber = costumerDto.DocumentNumber, Email = costumerDto.Email, Id = costumerDto.Id, LastName = costumerDto.LastName, Name = costumerDto.Name, PhoneNumber = costumerDto.PhoneNumber, UpdatedAt = costumerDto.UpdatedAt };
+            var result = new TaskResult<UsersDto>();
             try
             {
-                _context.Customers.Add(costumer);
+                _context.Users.Add(costumer);
                 await _context.SaveChangesAsync();
                 result.Message = $"Se agregó el cliente {costumer.Name} {costumer.LastName}";
                 
@@ -127,16 +127,29 @@ namespace ComplaintsManagement.UI.Services.Repositories
             return result;
         }
 
-        public async Task<TaskResult<CustomersDto>> UpdateAsync(CustomersDto costumerDto)
+        public async Task<TaskResult<UsersDto>> UpdateAsync(UsersDto customerDto)
         {
-            var costumer = new Customers { Active = costumerDto.Active, CreatedAt = costumerDto.CreatedAt, DocumentNumber = costumerDto.DocumentNumber, Email = costumerDto.Email, Id = costumerDto.Id, LastName = costumerDto.LastName, Name = costumerDto.Name, PhoneNumber = costumerDto.PhoneNumber, UpdatedAt = costumerDto.UpdatedAt };
-            var result = new TaskResult<CustomersDto>();
+            var customer = new ApplicationUser {
+                Active = customerDto.Active,
+                CreatedAt = customerDto.CreatedAt,
+                DocumentNumber = customerDto.DocumentNumber,
+                Email = customerDto.Email,
+                Id = customerDto.Id,
+                LastName = customerDto.LastName,
+                Name = customerDto.Name,
+                PhoneNumber = customerDto.PhoneNumber,
+                UpdatedAt = customerDto.UpdatedAt,
+                UserName = customerDto.Email
+            };
+           
+            
+            var result = new TaskResult<UsersDto>();
             try
             {
-                _context.Customers.Add(costumer);
-                _context.Entry(costumer).State = System.Data.Entity.EntityState.Modified;
+                _context.Users.Add(customer);
+                _context.Entry(customer).State = System.Data.Entity.EntityState.Modified;
                 await _context.SaveChangesAsync();
-                result.Data = costumerDto;
+                result.Data = customerDto;
                 result.Message = "El registro fue actualizado correctamente";
             }
             catch (Exception e)
@@ -147,11 +160,11 @@ namespace ComplaintsManagement.UI.Services.Repositories
             return result;
         }
 
-        public async Task<TaskResult<CustomersDto>> GetByDocumentNumberAsync(string documentNumber)
+        public async Task<TaskResult<UsersDto>> GetByDocumentNumberAsync(string documentNumber)
         {
             var customers = await this.GetAllAsync();
             var customer = customers.Data.Where(e => e.DocumentNumber.Equals(documentNumber)).FirstOrDefault();
-            var result = new TaskResult<CustomersDto>
+            var result = new TaskResult<UsersDto>
             {
                 Data = customer,
                 Message = customers.Message,

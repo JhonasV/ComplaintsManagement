@@ -13,7 +13,7 @@ namespace ComplaintsManagement.Infrastructure.Database
         public CostumersProductsEntityTypeConfiguration()
         {
             this.HasKey(p => p.Id);
-            this.Property(p => p.CostumersId).IsRequired();
+            this.Property(p => p.ApplicationUserId).IsRequired();
             this.Property(p => p.ProductsId).IsRequired();
         }
     }

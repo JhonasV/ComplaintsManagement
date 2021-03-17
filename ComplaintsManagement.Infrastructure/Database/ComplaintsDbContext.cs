@@ -22,7 +22,6 @@ namespace ComplaintsManagement.Infrastructure.Database
             modelBuilder.Configurations.Add(new ComplaintsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ProductsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new StatusEntityTypeConfiguration());
-            modelBuilder.Configurations.Add(new CustomersEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new CostumersProductsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ClaimsOptionsEntityTypeConfiguration());
             modelBuilder.Configurations.Add(new ComplaintsOptionsEntityTypeConfiguration());

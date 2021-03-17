@@ -7,6 +7,6 @@ namespace ComplaintsManagement.Infrastructure.Entities
     public class ClaimsOptions : BaseEntity
     {
         public string Name { get; set; }
-        public int ComplaintsOptionsId { get; set; }
+        public int DepartmentsId { get; set; }
     }
 }

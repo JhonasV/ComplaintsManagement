@@ -13,7 +13,7 @@ namespace ComplaintsManagement.UI.Services.Interfaces
         Task<TaskResult<CustomersProductsDto>> SaveAsync(CustomersProductsDto costumers);
         Task<TaskResult<CustomersProductsDto>> GetAsync(int Id);
         Task<TaskResult<List<CustomersProductsDto>>> GetAllAsync();
-        Task<TaskResult<List<CustomersProductsDto>>> GetAllByCustomerIdAsync(int customerId);
+        Task<TaskResult<List<CustomersProductsDto>>> GetAllByCustomerIdAsync(string customerId);
         Task<TaskResult<CustomersProductsDto>> DeleteAsync(int Id);
         Task<TaskResult<CustomersProductsDto>> UpdateAsync(CustomersProductsDto costumers);
     }
