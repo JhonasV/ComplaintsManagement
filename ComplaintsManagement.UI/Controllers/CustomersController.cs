@@ -1,8 +1,10 @@
 ﻿using ComplaintsManagement.Infrastructure.DTOs;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
+using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 
@@ -26,6 +28,14 @@ namespace ComplaintsManagement.UI.Controllers
             _customersProductsRepository = customersProductsRepository;
             _productsRepository = productsRepository;
         }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
         #region "Customers"
         public async Task<ActionResult> Index() => View(await _customersRepository.GetAllAsync());
         public async Task<ActionResult> Details(string id) => View(await _customersRepository.GetAsync(id));
@@ -39,7 +49,7 @@ namespace ComplaintsManagement.UI.Controllers
                 return View(Data);
             }
 
-            var newModel = await _customersRepository.SaveAsync(Data);
+            var newModel = await _customersRepository.SaveAsync(Data, UserManager);
 
             return RedirectToAction(nameof(this.Create), newModel);
         }

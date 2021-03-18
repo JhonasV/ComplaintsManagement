@@ -19,6 +19,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public string Email { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
+        public string PasswordHash { get; set; }
 
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }

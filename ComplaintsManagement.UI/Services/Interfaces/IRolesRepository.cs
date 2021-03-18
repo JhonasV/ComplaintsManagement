@@ -15,5 +15,6 @@ namespace ComplaintsManagement.UI.Services.Interfaces
         Task<TaskResult<List<RolesDto>>> GetAllAsync();
         Task<TaskResult<RolesDto>> DeleteAsync(string Id);
         Task<TaskResult<RolesDto>> UpdateAsync(RolesDto statusDto);
+        Task<TaskResult<RolesDto>> AddUserRoleAsync(string userId, string roleName);
     }
 }

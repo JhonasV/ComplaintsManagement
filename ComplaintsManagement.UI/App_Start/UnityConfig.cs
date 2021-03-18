@@ -4,9 +4,11 @@ using ComplaintsManagement.UI.Services.Interfaces;
 using ComplaintsManagement.UI.Services.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using System.Web.Mvc;
 using Unity;
 using Unity.Injection;
+using Unity.Lifetime;
 using Unity.Mvc5;
 
 namespace ComplaintsManagement.UI.App_Start
@@ -22,19 +24,15 @@ namespace ComplaintsManagement.UI.App_Start
 
             // e.g. container.RegisterType<ITestService, TestService>();
 
+            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
 
-
-            container.RegisterType<ApplicationDbContext>();
-            container.RegisterType<ApplicationUserManager>();
-            container.RegisterType<ApplicationSignInManager>();
-            container.RegisterType<ApplicationUser>();
-            container.RegisterType<RoleManager<IdentityRole>>();
-            container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
+            container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ICustomersRepository, CustomersRepository>();
             container.RegisterType<IProductsRepository, ProductsRepository>();
             container.RegisterType<ICustomersProductsRepository, CustomerProductsRepository>();
             container.RegisterType<IComplaintsOptionsRepository, ComplaintsOptionsRepository>();
+
             container.RegisterType<IComplaintsRepository, ComplaintsRepository>();
             container.RegisterType<IStatusRepository, StatusRepository>();
             container.RegisterType<IDepartmentsRepository, DepartmentsRepository>();

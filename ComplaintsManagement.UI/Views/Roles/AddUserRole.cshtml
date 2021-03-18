@@ -1,0 +1,68 @@
+﻿@model  ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Infrastructure.DTOs.UsersRolesDto>
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header bg-primary"><h3 class="text-white">Mantenimiento de Roles</h3></div>
+    <div class="row card-body">
+        <div class="col-lg-12">
+
+
+                @using (Html.BeginForm(controllerName: "Roles", actionName: "AddUserRole", method: FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>Asignación de roles</h4>
+                        <hr />
+                        @if (!Model.Success)
+                        {
+                            <span class="alert alert-danger" style="margin-top: 2rem;">@Model.Message</span>
+                            <hr />
+                        }
+
+                        @if (Model.Success && Model.Message?.Length > 0)
+                        {
+                            <span class="alert alert-success" style="margin-top: 2rem;">@Model.Message</span>
+                            <hr />
+                        }
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Data.RolesId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Data.RoleName, (List<SelectListItem>)ViewBag.Roles, new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Data.RoleName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Data.UsersId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Data.UsersId, (List<SelectListItem>)ViewBag.Users, new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Data.UsersId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Asignar" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+  }
+        </div>
+    </div>
+
+    <div class="row m-3">
+        <button class="btn btn-default">@Html.ActionLink("Regresar al listado de Roles", "Index")</button>
+    </div>
+
+
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -11,7 +11,7 @@ namespace ComplaintsManagement.UI.Services.Interfaces
 {
     public interface ICustomersRepository
     {
-        Task<TaskResult<UsersDto>> SaveAsync(UsersDto costumers);
+        Task<TaskResult<UsersDto>> SaveAsync(UsersDto costumers, ApplicationUserManager userManager);
         Task<TaskResult<UsersDto>> GetAsync(string Id);
         TaskResult<UsersDto> Get(string Id);
         Task<TaskResult<List<UsersDto>>> GetAllAsync();

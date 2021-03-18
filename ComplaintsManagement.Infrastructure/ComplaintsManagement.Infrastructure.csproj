@@ -134,6 +134,7 @@
     <Compile Include="DTOs\RolesDto.cs" />
     <Compile Include="DTOs\StatusDto.cs" />
     <Compile Include="DTOs\UsersDto.cs" />
+    <Compile Include="DTOs\UsersRolesDto.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Binnacle.cs" />
     <Compile Include="Entities\Claims.cs" />

@@ -5,23 +5,30 @@
         <h3 class="text-white ml-3">Menu</h3>
         <div class="separator"></div>
         <ul class="sidebar">
+            @if (User.IsInRole("Admin"))
+            {
+                <li>
+                    <a href="/roles"><i class="fas fa-users"></i> Roles</a>
+                </li>
+                <li>
+                    <a href="/customers"><i class="fas fa-users"></i> Clientes</a>
+                </li>
+                <li>
+                    <a href="/status"><i class="fas fa-thermometer-quarter"></i>   Status</a>
+                </li>
+
+                <li>
+                    <a href="/products"><i class="fas fa-clipboard"></i> Productos</a>
+                </li>
+                <li>
+                    <a href="/complaints"><i class="fas fa-list-alt"></i> Reclamos</a>
+                </li>
+                <li>
+                    <a href="/departments"><i class="far fa-building"></i> Departamentos</a>
+                </li>
+            }
             <li>
-                <a href="/customers"><i class="fas fa-users"></i> Clientes</a>  @*@Html.ActionLink("Clientes", "Index", "Customers", routeValues: null, htmlAttributes: new { title = "Clientes" })*@
-            </li>
-            <li>              
-                <a href="/status"><i class="fas fa-thermometer-quarter"></i>   Status</a>
-            </li>
-            <li>
-                <a href="/complaintsoptions"><i class="fas fa-filter"></i> Opciones de Reclamos</a>      
-            </li>
-            <li>
-                <a href="/products"><i class="fas fa-clipboard"></i> Productos</a>          
-            </li>
-            <li>
-                <a href="/complaints"><i class="fas fa-list-alt"></i> Reclamos</a>
-            </li>
-            <li>
-                <a href="/departments"><i class="far fa-building"></i> Departamentos</a>
+                <a href="/complaintsoptions"><i class="fas fa-filter"></i> Opciones de Reclamos</a>
             </li>
         </ul>       
     </nav>

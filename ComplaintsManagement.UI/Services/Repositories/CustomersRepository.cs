@@ -54,7 +54,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
             var result = new TaskResult<List<UsersDto>>();
             try
             {
-                var customers = await _context.Users.Where(e => e.Active).ToListAsync();
+                var customers = await _context.Users.Where(e => e.Deleted == false).ToListAsync();
                 customers.ForEach((customer) =>
                 {
                     costumersDtos.Add(new UsersDto { Active = customer.Active, CreatedAt = customer.CreatedAt, Email = customer.Email, Id = customer.Id, LastName = customer.LastName, Name = customer.Name, UpdatedAt = customer.UpdatedAt, PhoneNumber = customer.PhoneNumber, DocumentNumber = customer.DocumentNumber });
@@ -76,8 +76,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             try
             {
-                var costumer = await _context.Users.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
-                result.Data = new UsersDto { Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
+                var costumer = await _context.Users.FirstOrDefaultAsync(e => e.Id == Id && e.Deleted == false);
+                result.Data = new UsersDto { PasswordHash = costumer.PasswordHash, Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
             }
             catch (Exception e)
             {
@@ -95,7 +95,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             try
             {
-                var costumer =  _context.Users.FirstOrDefault(e => e.Id == Id && e.Active);
+                var costumer =  _context.Users.FirstOrDefault(e => e.Id == Id && e.Deleted == false);
                 result.Data = new UsersDto { Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
             }
             catch (Exception e)
@@ -108,21 +108,20 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         }
 
-        public async Task<TaskResult<UsersDto>> SaveAsync(UsersDto costumerDto)
+        public async Task<TaskResult<UsersDto>> SaveAsync(UsersDto costumerDto, ApplicationUserManager userManager)
         {
             var costumer = new ApplicationUser { Active = costumerDto.Active, CreatedAt = costumerDto.CreatedAt, DocumentNumber = costumerDto.DocumentNumber, Email = costumerDto.Email, Id = costumerDto.Id, LastName = costumerDto.LastName, Name = costumerDto.Name, PhoneNumber = costumerDto.PhoneNumber, UpdatedAt = costumerDto.UpdatedAt };
+
+            var identityResult = await userManager.CreateAsync(costumer, costumer.DocumentNumber);
             var result = new TaskResult<UsersDto>();
-            try
+            if (identityResult.Succeeded)
             {
-                _context.Users.Add(costumer);
-                await _context.SaveChangesAsync();
-                result.Message = $"Se agregó el cliente {costumer.Name} {costumer.LastName}";
-                
+                result.Message = "Cliente creado exitosamente.";
             }
-            catch (Exception e)
+            else
             {
                 result.Success = false;
-                result.Message = $"Error al intentar agregar al cliente: {e.Message}";
+                result.Message = String.Join(", ", identityResult.Errors);
             }
             return result;
         }
@@ -146,6 +145,9 @@ namespace ComplaintsManagement.UI.Services.Repositories
             var result = new TaskResult<UsersDto>();
             try
             {
+                var oldValues = await this.GetAsync(customer.Id);
+                customer.PasswordHash = oldValues.Data.PasswordHash;
+
                 _context.Users.Add(customer);
                 _context.Entry(customer).State = System.Data.Entity.EntityState.Modified;
                 await _context.SaveChangesAsync();

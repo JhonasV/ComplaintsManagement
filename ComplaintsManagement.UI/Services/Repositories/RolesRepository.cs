@@ -1,6 +1,7 @@
 ﻿using ComplaintsManagement.Infrastructure.DTOs;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,39 @@ namespace ComplaintsManagement.UI.Services.Repositories
     {
         private readonly ApplicationDbContext _context;
 
+
         public RolesRepository(ApplicationDbContext context)
         {
             _context = context;
+
         }
+ 
+        public async Task<TaskResult<RolesDto>> AddUserRoleAsync(string userId, string roleName)
+        {
+           
+            var result = new TaskResult<RolesDto>();
+            try
+            {
+                // var identityResult = await _userManager.AddToRoleAsync(userId, roleName);
+                //if (identityResult.Succeeded)
+                //{
+                //    result.Message = "Se asignó el role correctamente.";
+                //}
+                //else
+                //{
+                //    result.Success = false;
+                //    result.Message = String.Join(", ", identityResult.Errors); 
+                //}
+            }
+            catch (Exception e)
+            {
+
+                result.Success = false;
+                result.Message = $"Ha ocurrido un error: {e.Message}";
+            }
+            return result;
+        }
+
         public async Task<TaskResult<RolesDto>> DeleteAsync(string Id)
         {
             var status = await _context.Roles.FirstOrDefaultAsync(e => e.Id == Id);
@@ -106,9 +136,10 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         public async Task<TaskResult<RolesDto>> SaveAsync(RolesDto roleDto)
         {
+            var guid = Guid.NewGuid();
             var role = new IdentityRole
             {
-                Id = roleDto.Id,
+                Id = guid.ToString(),
                 Name = roleDto.Name
             };
 
