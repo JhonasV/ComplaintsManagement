@@ -3,6 +3,7 @@ using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -109,6 +110,10 @@ namespace ComplaintsManagement.UI.Controllers
             var users = await _customerRepository.GetAllAsync();
             ViewBag.Users = users.Data.Select(u => new SelectListItem { Text = u.Email, Value = u.Id }).ToList();
             var taskResult = new TaskResult<UsersRolesDto>();
+            taskResult.Data = new UsersRolesDto();
+            taskResult.Data.Users = new List<UsersDto>();
+            //taskResult.Data.Roles = _rolesRepository.GetUserRolesAsync();
+            taskResult.Data.Users = users.Data;
             return View(taskResult);
         }
 
@@ -136,6 +141,22 @@ namespace ComplaintsManagement.UI.Controllers
             var users = await _customerRepository.GetAllAsync();
             ViewBag.Users = users.Data.Select(u => new SelectListItem { Text = u.Email, Value = u.Id }).ToList();
             return View(taskResult);
+        }
+
+        
+        public async Task<ActionResult> UserRoleModal(UsersRolesDto usersRolesDto)
+        {
+            var user = await _customerRepository.GetAsync(usersRolesDto.UsersId);
+            var model = new TaskResult<UsersRolesDto>();
+            var userRole = await _rolesRepository.GetUserRolesAsync(usersRolesDto.RolesId, UserManager);
+            model.Data.RolesId = userRole.Data[0].Id;
+            model.Data.Name = user.Data.Name;
+            model.Data.LastName = user.Data.LastName;
+
+            var roles = await _rolesRepository.GetAllAsync();
+            ViewBag.Roles = roles.Data.Select(r => new SelectListItem { Text = r.Name, Value = r.Name }).ToList();
+
+            return PartialView("_userRoleModal", model);
         }
     }
 }

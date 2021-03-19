@@ -3,6 +3,7 @@ using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -92,8 +93,7 @@ namespace ComplaintsManagement.UI.Controllers
             TempData["Id"] = Id;
 
             var model = await _customersProductsRepository.GetAllByCustomerIdAsync(Id);
-
-            return View("Products",model);
+            return View("Products", model);
         }
 
         public async Task<ActionResult> CustomerProductsCreate(string Id)
@@ -101,8 +101,8 @@ namespace ComplaintsManagement.UI.Controllers
             var customer = await _customersRepository.GetAsync(Id);
             TempData["customer"] = customer.Data;
             var products = await _productsRepository.GetAllAsync();
-            TempData["products"] = products.Data;
 
+            ViewBag.Products = products.Data;
             var model = new TaskResult<CustomersProductsDto>();
 
             return View("CustomerProductsCreate", model);
@@ -111,27 +111,31 @@ namespace ComplaintsManagement.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> CustomerProductsCreate(UsersDto customer, ProductsDto product)
         {
-            var customerProducts = await _customersProductsRepository.GetAllByCustomerIdAsync(customer.Id);
-            var customerAlreadyHasProduct = customerProducts.Data.Exists(e => e.ProductsId == product.Id);
             var customerResult = await _customersRepository.GetAsync(customer.Id);
             TempData["customer"] = customerResult.Data;
+            
+            var productResult = await _productsRepository.GetAllAsync();
+            ViewBag.Products = productResult.Data;
+
+            var customerProducts = await _customersProductsRepository.GetAllByCustomerIdAsync(customer.Id);
+            var customerAlreadyHasProduct = customerProducts.Data.Exists(e => e.ProductsId == product.Id);
             if (customerAlreadyHasProduct)
             {
-                var productResult = await _productsRepository.GetAllAsync();
-
-                TempData["products"] = productResult.Data;
-
-                var modelResult = new TaskResult<CustomersProductsDto>();
-                modelResult.Message = "El cliente ya tiene este producto";
-                modelResult.Success = false;
+                var modelResult = new TaskResult<CustomersProductsDto>
+                {
+                    Message = "El cliente ya tiene este producto",
+                    Success = false
+                };
                 return View("CustomerProductsCreate", modelResult);
             }
 
+            var customerProduct = new CustomersProductsDto 
+            { 
+                ProductsId = product.Id,
+                ApplicationUserId = customer.Id
+            };
 
-            var relResult = await _customersProductsRepository.SaveAsync(new CustomersProductsDto { ProductsId = product.Id, ApplicationUserId = customer.Id });
-            var model = await _productsRepository.GetAllAsync();
-            TempData["products"] = model.Data;
-
+            var relResult = await _customersProductsRepository.SaveAsync(customerProduct);
             return View("CustomerProductsCreate", relResult);
         }
         #endregion

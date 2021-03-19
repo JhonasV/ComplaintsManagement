@@ -134,6 +134,20 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         }
 
+        public async Task<TaskResult<List<RolesDto>>> GetUserRolesAsync(string userId, ApplicationUserManager userManager)
+        {
+            var userRoles = await userManager.GetRolesAsync(userId);
+            var result = new TaskResult<List<RolesDto>>();
+            foreach (var roleName in userRoles)
+            {
+                result.Data = await _context.Roles.Where(e => e.Name == roleName)
+                                                          .Select(e => new RolesDto { Id = e.Id, Name = e.Name }).ToListAsync();
+            }
+
+            return result;
+
+        }
+
         public async Task<TaskResult<RolesDto>> SaveAsync(RolesDto roleDto)
         {
             var guid = Guid.NewGuid();

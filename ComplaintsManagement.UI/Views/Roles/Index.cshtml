@@ -43,10 +43,10 @@
         <div class="row">
 
             <div class="col-lg-offset-10"></div>
-            <div class="col-lg-4">
+            <div class="col-lg-2 mb-2">
                 @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-2 mb-2">
                 @Html.ActionLink("Asignar Roles", "AddUserRole", null, htmlAttributes: new { @Class = "btn btn-primary" })
             </div>
         </div>
@@ -55,7 +55,6 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Nombre</th>
                             <th>Acciones</th>
                         </tr>
@@ -64,17 +63,13 @@
                         @foreach (var status in Model.Data)
                         {
                             <tr>
-                                <td>@status.Id</td>
                                 <td>@status.Name</td>
 
 
 
                                 <td>
                                     @using (Html.BeginForm(actionName: "Delete", controllerName: "Roles", method: FormMethod.Post))
-                                    {
-                                        @*var Id = status.Id;
-                                        @Html.HiddenFor(model => Id);
-                                        <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>*@
+                                    {                                       
                                         @Html.ActionLink("Editar", "Edit", new { Id = status.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
                                     }
                                 </td>
