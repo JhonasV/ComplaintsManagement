@@ -24,64 +24,64 @@
 
 }
 
-<div class="container">
-    <h2>Mantenimiento de Departamentos</h2>
-    <h4>Listado de Departamentos</h4>
-    <hr />
-    @if (!Success && Message?.Length > 0)
-    {
-        <span class="alert alert-danger">@Message</span>
-        <hr />
-    }
-
-    @if (Success && Message?.Length > 0)
-    {
-        <span class="alert alert-success">@Message</span>
-        <hr />
-    }
-    <div class="row">
-
-        <div class="col-lg-offset-10"></div>
-        <div class="col-lg-12">
-            @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
-        </div>
-
+<div class="card">
+    <div class="card-header bg-primary">
+        <h2 class="text-white">Mantenimiento de Departamentos</h2>
     </div>
-    <div class="row" style="margin-top: 2rem;">
-        <div class="col-lg-12">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var department in Model.Data)
-                    {
+    <div class="container">
+        <h4 class="mt-3">Listado de Departamentos</h4>
+        <hr />
+        @if (!Success && Message?.Length > 0)
+        {
+            <span class="alert alert-danger">@Message</span>
+            <hr />
+        }
+
+        @if (Success && Message?.Length > 0)
+        {
+            <span class="alert alert-success">@Message</span>
+            <hr />
+        }
+        <div class="row">
+
+            <div class="col-lg-offset-10"></div>
+            <div class="col-lg-12">
+                @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
+            </div>
+
+        </div>
+        <div class="row" style="margin-top: 2rem;">
+            <div class="col-lg-12">
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
-                            <td>@department.Id</td>
-                            <td>@department.Name</td>
-                            <td>@department.Description</td>
-
-
-
-                            <td>
-                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Departments", method: FormMethod.Post))
-                                {
-                                    var Id = department.Id;
-                                    @Html.HiddenFor(model => Id);
-                                    <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
-                                    @Html.ActionLink("Editar", "Edit", new { Id = department.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
-                                }
-                            </td>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                            <th>Acciones</th>
                         </tr>
-                    }
-
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var department in Model.Data)
+                        {
+                            <tr>
+                                <td>@department.Id</td>
+                                <td>@department.Name</td>
+                                <td>@department.Description</td>
+                                <td>
+                                    @using (Html.BeginForm(actionName: "Delete", controllerName: "Departments", method: FormMethod.Post))
+                                    {
+                                        var Id = department.Id;
+                                        @Html.HiddenFor(model => Id);
+                                        <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
+                                        @Html.ActionLink("Editar", "Edit", new { Id = department.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

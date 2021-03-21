@@ -18,17 +18,20 @@ namespace ComplaintsManagement.UI.Controllers
         private readonly IComplaintsRepository _complaintsRepository;
         private readonly IComplaintsOptionsRepository _complaintsOptionsRepository;
         private readonly IProductsRepository _productsRepository;
+        private readonly ICustomersRepository _customeRepository;
 
         public ComplaintsController(
             IComplaintsRepository complaintsRepository,
             IComplaintsOptionsRepository complaintsOptionsRepository,
-            IProductsRepository productsRepository
+            IProductsRepository productsRepository,
+            ICustomersRepository customeRepository
             )
         {
 
             _complaintsRepository = complaintsRepository;
             _complaintsOptionsRepository = complaintsOptionsRepository;
             _productsRepository = productsRepository;
+            _customeRepository = customeRepository;
         }
 
         public async Task<ActionResult> Index()
@@ -40,6 +43,11 @@ namespace ComplaintsManagement.UI.Controllers
 
         public async Task<ActionResult> Details(int id)
         {
+            if (id == 0)
+            {
+                return RedirectToAction(nameof(this.Index));
+            }
+
             var model = await _complaintsRepository.GetAsync(id);
 
             return View(model);
@@ -51,28 +59,36 @@ namespace ComplaintsManagement.UI.Controllers
         {
             var model = new TaskResult<ComplaintsDto>();
             var options = await _complaintsOptionsRepository.GetAllAsync();
-            TempData["options"] = options.Data;
+            ViewBag.ComplaintsOptions = options.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
             var products = await _productsRepository.GetAllAsync();
-            TempData["products"] = products.Data;
-
+            ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var customers = await _customeRepository.GetAllAsync();
+            ViewBag.Customers = customers.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = $"{e.Name} {e.LastName} ({e.Email})" }).ToList();
             return View(model);
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(ComplaintsDto Data)
         {
+            Data.StatusId = (int)Infrastructure.Helpers.Constants.StatusConstants.SOMETIDO;
+            var department = await _complaintsOptionsRepository.GetAsync(Data.ComplaintsOptionsId);
+            Data.DepartmentsId = department.Data.DepartmentsId.GetValueOrDefault();
 
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
-            //Data.CustomersId = user.Id;
-         
-            Data.StatusId = (int)ComplaintsManagement.Infrastructure.Helpers.Constants.StatusConstants.SOMETIDO;
-            var newModel = await _complaintsRepository.SaveAsync(Data);
             var options = await _complaintsOptionsRepository.GetAllAsync();
-            TempData["options"] = options.Data;
+            ViewBag.ComplaintsOptions = options.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
             var products = await _productsRepository.GetAllAsync();
-            TempData["products"] = products.Data;
-            return View(newModel);
+            ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var customers = await _customeRepository.GetAllAsync();
+            ViewBag.Customers = customers.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = $"{e.Name} {e.LastName} ({e.Email})" }).ToList();
+
+            if (Data.Type == Infrastructure.Helpers.Constants.ComplaintClaimType.COMPLAINT)
+            {
+                return View(await _complaintsRepository.SaveAsync(Data));
+            }
+
+
+            return View(await _complaintsRepository.SaveAsync(Data));
+
         }
 
         public async Task<ActionResult> Edit(int id)
@@ -83,7 +99,12 @@ namespace ComplaintsManagement.UI.Controllers
             }
 
             var model = await _complaintsRepository.GetAsync(id);
-
+            var options = await _complaintsOptionsRepository.GetAllAsync();
+            ViewBag.ComplaintsOptions = options.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var products = await _productsRepository.GetAllAsync();
+            ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var customers = await _customeRepository.GetAllAsync();
+            ViewBag.Customers = customers.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = $"{e.Name} {e.LastName} ({e.Email})" }).ToList();
 
             return View(model);
         }
@@ -98,6 +119,12 @@ namespace ComplaintsManagement.UI.Controllers
             }
 
             var model = await _complaintsRepository.UpdateAsync(Data);
+            var options = await _complaintsOptionsRepository.GetAllAsync();
+            ViewBag.ComplaintsOptions = options.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var products = await _productsRepository.GetAllAsync();
+            ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var customers = await _customeRepository.GetAllAsync();
+            ViewBag.Customers = customers.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = $"{e.Name} {e.LastName} ({e.Email})" }).ToList();
             return View(model);
         }
 
@@ -109,5 +136,6 @@ namespace ComplaintsManagement.UI.Controllers
             ViewData["Success"] = deleteResult.Success;
             return RedirectToAction(nameof(this.Index));
         }
+
     }
 }

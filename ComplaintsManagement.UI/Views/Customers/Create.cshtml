@@ -72,7 +72,13 @@
                             </div>
                         </div>
 
-
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Data.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Data.DepartmentId, (List<SelectListItem>)ViewBag.Departments , new { @Class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Data.DepartmentId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
 
                         <div class="form-group">

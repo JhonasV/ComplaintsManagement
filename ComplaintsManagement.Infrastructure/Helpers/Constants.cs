@@ -17,5 +17,11 @@ namespace ComplaintsManagement.Infrastructure.Helpers
             public static string ADMIN { get; set; } = "ADMIN";
             public static string GUEST { get; set; } = "GUEST";
         }
+
+        public static class ComplaintClaimType
+        {
+            public static string COMPLAINT { get; set; } = "RECLAMACION";
+            public static string CLAIM { get; set; } = "QUEJA";
+        }
     }
 }

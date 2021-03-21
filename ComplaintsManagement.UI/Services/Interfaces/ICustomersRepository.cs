@@ -15,6 +15,7 @@ namespace ComplaintsManagement.UI.Services.Interfaces
         Task<TaskResult<UsersDto>> GetAsync(string Id);
         TaskResult<UsersDto> Get(string Id);
         Task<TaskResult<List<UsersDto>>> GetAllAsync();
+        Task<TaskResult<List<UsersDto>>> GetAllAsync(ApplicationUserManager userManage);
         Task<TaskResult<UsersDto>> DeleteAsync(string Id);
         Task<TaskResult<UsersDto>> UpdateAsync(UsersDto costumers);
         Task<TaskResult<UsersDto>> GetByDocumentNumberAsync(string documentNumber);

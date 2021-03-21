@@ -15,11 +15,13 @@ namespace ComplaintsManagement.UI.Controllers
     {
         private readonly IComplaintsOptionsRepository _complaintsOptionsRepository;
         private readonly IProductsRepository _productsRepository;
+        private readonly IDepartmentsRepository _departmentsRepository;
 
-        public ComplaintsOptionsController(IComplaintsOptionsRepository complaintsOptionsRepository, IProductsRepository productsRepository)
+        public ComplaintsOptionsController(IComplaintsOptionsRepository complaintsOptionsRepository, IProductsRepository productsRepository, IDepartmentsRepository departmentsRepository)
         {
             _complaintsOptionsRepository = complaintsOptionsRepository;
             _productsRepository = productsRepository;
+            _departmentsRepository = departmentsRepository;
         }
 
         public async Task<ActionResult> Index()
@@ -40,7 +42,9 @@ namespace ComplaintsManagement.UI.Controllers
         {
             var model = new TaskResult<ComplaintsOptionsDto>();
             var products = await _productsRepository.GetAllAsync();
-            TempData["products"] = products.Data;
+            ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var departments = await _departmentsRepository.GetAllAsync();
+            ViewBag.Departments = departments.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
             return View(model);
         }
 
@@ -52,7 +56,9 @@ namespace ComplaintsManagement.UI.Controllers
                 return View();
             }
             var products = await _productsRepository.GetAllAsync();
-            TempData["products"] = products.Data;
+            ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var departments = await _departmentsRepository.GetAllAsync();
+            ViewBag.Departments = departments.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
             var newModel = await _complaintsOptionsRepository.SaveAsync(Data);
 
             return View(newModel);
@@ -67,7 +73,9 @@ namespace ComplaintsManagement.UI.Controllers
 
             var model = await _complaintsOptionsRepository.GetAsync(id);
             var products = await _productsRepository.GetAllAsync();
-            TempData["products"] = products.Data;
+            ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var departments = await _departmentsRepository.GetAllAsync();
+            ViewBag.Departments = departments.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
 
             return View(model);
         }
@@ -81,7 +89,9 @@ namespace ComplaintsManagement.UI.Controllers
                 return View(new TaskResult<ComplaintsOptionsDto> { Data = Data });
             }
             var products = await _productsRepository.GetAllAsync();
-            TempData["products"] = products.Data;
+            ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
+            var departments = await _departmentsRepository.GetAllAsync();
+            ViewBag.Departments = departments.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
 
             var model = await _complaintsOptionsRepository.UpdateAsync(Data);
             return View(model);

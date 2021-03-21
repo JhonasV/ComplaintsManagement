@@ -70,7 +70,13 @@
                         @Html.ValidationMessageFor(model => model.Data.PhoneNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Data.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Data.DepartmentId, (List<SelectListItem>)ViewBag.Departments , new { @Class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Data.DepartmentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" onclick="return confirm('¿Estás seguro de actualizar este registro?')" value="Actualizar" class="btn btn-primary" />

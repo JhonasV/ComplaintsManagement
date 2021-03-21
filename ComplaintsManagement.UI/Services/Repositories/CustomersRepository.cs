@@ -54,11 +54,109 @@ namespace ComplaintsManagement.UI.Services.Repositories
             var result = new TaskResult<List<UsersDto>>();
             try
             {
-                var customers = await _context.Users.Where(e => e.Deleted == false).ToListAsync();
+                var customers = await _context
+                    .Users
+                    .Include(e => e.Department)
+                    .Where(e => e.Deleted == false).ToListAsync();
                 customers.ForEach((customer) =>
                 {
-                    costumersDtos.Add(new UsersDto { Active = customer.Active, CreatedAt = customer.CreatedAt, Email = customer.Email, Id = customer.Id, LastName = customer.LastName, Name = customer.Name, UpdatedAt = customer.UpdatedAt, PhoneNumber = customer.PhoneNumber, DocumentNumber = customer.DocumentNumber });
+                    var departmentDto = new DepartmentsDto();
+                    if(customer.Department != null)
+                    {
+                        departmentDto = new DepartmentsDto
+                        {
+                            Id = customer.Department.Id,
+                            Active = customer.Department.Active,
+                            CreatedAt = customer.Department.CreatedAt,
+                            Description = customer.Department.Description,
+                            Name = customer.Department.Name,
+                            DeletedAt = customer.Department.DeletedAt,
+                            Deleted = customer.Department.Deleted,
+                            UpdatedAt = customer.Department.UpdatedAt
+                        };
+
+                    }
+
+                    costumersDtos.Add(
+                        new UsersDto 
+                        { 
+                            Active = customer.Active,
+                            CreatedAt = customer.CreatedAt,
+                            Email = customer.Email,
+                            Id = customer.Id,
+                            LastName = customer.LastName,
+                            Name = customer.Name,
+                            UpdatedAt = customer.UpdatedAt,
+                            PhoneNumber = customer.PhoneNumber,
+                            DocumentNumber = customer.DocumentNumber,
+                            Department  = departmentDto
+                        });
                 });
+                result.Data = costumersDtos;
+            }
+            catch (Exception e)
+            {
+                result.Success = false;
+                result.Message = $"Error al recuperar el listado de clientes: {e.Message}";
+            }
+
+            return result;
+        }
+
+        public async Task<TaskResult<List<UsersDto>>> GetAllAsync(ApplicationUserManager userManager)
+        {
+
+            List<UsersDto> costumersDtos = new List<UsersDto>();
+            var result = new TaskResult<List<UsersDto>>();
+            try
+            {
+                var customers = await _context
+                    .Users
+                    .Include(e => e.Department)
+                    .Where(e => e.Deleted == false).ToListAsync();
+                customers.ForEach( (customer) =>
+                {
+                    var departmentDto = new DepartmentsDto();
+                    if (customer.Department != null)
+                    {
+                        departmentDto = new DepartmentsDto
+                        {
+                            Id = customer.Department.Id,
+                            Active = customer.Department.Active,
+                            CreatedAt = customer.Department.CreatedAt,
+                            Description = customer.Department.Description,
+                            Name = customer.Department.Name,
+                            DeletedAt = customer.Department.DeletedAt,
+                            Deleted = customer.Department.Deleted,
+                            UpdatedAt = customer.Department.UpdatedAt
+                        };
+
+                    }
+
+                    costumersDtos.Add(
+                        new UsersDto
+                        {
+                            Active = customer.Active,
+                            CreatedAt = customer.CreatedAt,
+                            Email = customer.Email,
+                            Id = customer.Id,
+                            LastName = customer.LastName,
+                            Name = customer.Name,
+                            UpdatedAt = customer.UpdatedAt,
+                            PhoneNumber = customer.PhoneNumber,
+                            DocumentNumber = customer.DocumentNumber,
+                            Department = departmentDto                          
+                        });
+                });
+
+
+                foreach (var customer in costumersDtos)
+                {
+                    var roleNames = await userManager.GetRolesAsync(customer.Id);
+                    var roleName = roleNames.Count > 0 ? roleNames[0] : "N/A";
+                    customer.RoleName = roleName;
+                }
+
                 result.Data = costumersDtos;
             }
             catch (Exception e)
@@ -108,21 +206,42 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         }
 
-        public async Task<TaskResult<UsersDto>> SaveAsync(UsersDto costumerDto, ApplicationUserManager userManager)
+        public async Task<TaskResult<UsersDto>> SaveAsync(UsersDto customerDto, ApplicationUserManager userManager)
         {
-            var costumer = new ApplicationUser { Active = costumerDto.Active, CreatedAt = costumerDto.CreatedAt, DocumentNumber = costumerDto.DocumentNumber, Email = costumerDto.Email, Id = costumerDto.Id, LastName = costumerDto.LastName, Name = costumerDto.Name, PhoneNumber = costumerDto.PhoneNumber, UpdatedAt = costumerDto.UpdatedAt };
-
-            var identityResult = await userManager.CreateAsync(costumer, costumer.DocumentNumber);
+            var customer = new ApplicationUser 
+            { 
+                Active = customerDto.Active,
+                CreatedAt = customerDto.CreatedAt,
+                DocumentNumber = customerDto.DocumentNumber,
+                Email = customerDto.Email,
+                LastName = customerDto.LastName,
+                Name = customerDto.Name,
+                PhoneNumber = customerDto.PhoneNumber,
+                UpdatedAt = customerDto.UpdatedAt,
+                DepartmentId = customerDto.DepartmentId,
+                UserName = customerDto.Email
+            };
             var result = new TaskResult<UsersDto>();
-            if (identityResult.Succeeded)
+            try
             {
-                result.Message = "Cliente creado exitosamente.";
+                var identityResult = await userManager.CreateAsync(customer, $"@{customer.DocumentNumber}Prueba.");
+
+                if (identityResult.Succeeded)
+                {
+                    result.Message = "Cliente creado exitosamente.";
+                }
+                else
+                {
+                    result.Success = false;
+                    result.Message = String.Join(", ", identityResult.Errors);
+                }
             }
-            else
+            catch (Exception e)
             {
                 result.Success = false;
-                result.Message = String.Join(", ", identityResult.Errors);
+                result.Message = $"Error al crear el cliente: {e.InnerException.Message}";
             }
+
             return result;
         }
 
@@ -138,7 +257,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 Name = customerDto.Name,
                 PhoneNumber = customerDto.PhoneNumber,
                 UpdatedAt = customerDto.UpdatedAt,
-                UserName = customerDto.Email
+                UserName = customerDto.Email,
+                DepartmentId = customerDto.DepartmentId
             };
            
             
@@ -147,9 +267,9 @@ namespace ComplaintsManagement.UI.Services.Repositories
             {
                 var oldValues = await this.GetAsync(customer.Id);
                 customer.PasswordHash = oldValues.Data.PasswordHash;
-
-                _context.Users.Add(customer);
-                _context.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+                _context.Users.AddOrUpdate(customer);
+                //_context.Users.Add(customer);
+                //_context.Entry(customer).State = System.Data.Entity.EntityState.Modified;
                 await _context.SaveChangesAsync();
                 result.Data = customerDto;
                 result.Message = "El registro fue actualizado correctamente";

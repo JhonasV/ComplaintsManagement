@@ -35,12 +35,17 @@
                             <th>Email</th>
                             <th>Cédula</th>
                             <th>Teléfono</th>
+                            <th>Departamento</th>
+                            <th>Role</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var customer in Model.Data)
                         {
+                           
+                                var userDepartament = customer.Department?.Name ?? "N/A";
+                          
                             <tr>
                                 @*<td>@customer.Id</td>*@
                                 <td>@customer.Name</td>
@@ -48,6 +53,8 @@
                                 <td>@customer.Email</td>
                                 <td>@customer.DocumentNumber</td>
                                 <td>@customer.PhoneNumber</td>
+                                <td>@userDepartament</td>
+                                <td>@customer.RoleName</td>
                                 <td>
                                     @using (Html.BeginForm(actionName: "Delete", controllerName: "Customers", method: FormMethod.Post))
                                     {

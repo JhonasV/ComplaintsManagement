@@ -12,9 +12,11 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         [Required]
         public int ComplaintsOptionsId { get; set; }
         public int StatusId { get; set; }
+        public string Type { get; set; }
         public int DepartmentsId { get; set; }
         [Required]
         public int ProductsId { get; set; }
+        public string UsersId { get; set; }
         public DateTime? CompletedAt { get; set; } 
         [Required]
         public string Comment { get; set; }
@@ -22,6 +24,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public ComplaintsOptionsDto ComplaintsOption { get; set; }
         public StatusDto Status { get; set; }
         public DepartmentsDto Department { get; set; }
+        public UsersDto Customer { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }

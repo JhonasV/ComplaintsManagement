@@ -64,6 +64,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 var complaintsOps = await _context
                     .ComplaintsOptions
                     .Include(e => e.Product)
+                    .Include(e => e.Department)
                     .Where(e => e.Deleted == false).ToListAsync();
                 complaintsOps.ForEach((option) =>
                 {
@@ -84,7 +85,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         ProductsId = option.ProductsId,
                         Name = option.Name,
                         UpdatedAt = option.UpdatedAt,
-                        Product = productDto
+                        Product = productDto,
+                        Departments = new DepartmentsDto { Active = option.Department.Active, Id = option.Department.Id, Name = option.Department.Name, Description = option.Department.Description }
                     });
                 });
                 result.Data = complaintsOptions;
@@ -113,7 +115,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     ProductsId = option.ProductsId,
                     Name = option.Name,
                     UpdatedAt = option.UpdatedAt,
-                    Deleted = option.Deleted
+                    Deleted = option.Deleted,
+                    DepartmentsId = option.DepartmentsId
                 };
             }
             catch (Exception e)
@@ -135,7 +138,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 Id = optionDto.Id,
                 ProductsId = optionDto.ProductsId,
                 Name = optionDto.Name,
-                UpdatedAt = optionDto.UpdatedAt
+                UpdatedAt = optionDto.UpdatedAt,
+                DepartmentsId = optionDto.DepartmentsId
             };
             var result = new TaskResult<ComplaintsOptionsDto>();
             try
@@ -162,7 +166,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 Id = optionDto.Id,
                 ProductsId = optionDto.ProductsId,
                 Name = optionDto.Name,
-                UpdatedAt = optionDto.UpdatedAt
+                UpdatedAt = optionDto.UpdatedAt,
+                DepartmentsId = optionDto.DepartmentsId
             };
             var result = new TaskResult<ComplaintsOptionsDto>();
             try

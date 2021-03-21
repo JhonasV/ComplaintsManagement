@@ -8,7 +8,9 @@ namespace ComplaintsManagement.Infrastructure.Entities
     {
         public string Name { get; set; }
         public int? ProductsId { get; set; }
+        public int? DepartmentsId { get; set; }
 
         public virtual Products Product { get; set; }
+        public virtual Departments Department { get; set; }
     }
 }

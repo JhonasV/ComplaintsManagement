@@ -12,6 +12,7 @@ namespace ComplaintsManagement.Infrastructure.Entities
         public int StatusId { get; set; }
         public int ProductsId { get; set; }
         public int DepartmentsId { get; set; }
+        public string UsersId { get; set; }
         public DateTime? CompletedAt { get; set; }
         public string Comment { get; set; }
 

@@ -19,6 +19,8 @@ namespace ComplaintsManagement.UI
                         "~/Scripts/DataTables/jquery.dataTables.js",
                         "~/Scripts/DataTables/dataTables.bootstrap4.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                        "~/Scripts/Select2/select2.min.js"));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -33,7 +35,8 @@ namespace ComplaintsManagement.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/DataTables/css/dataTables.bootstrap4.css"));
+                      "~/Content/DataTables/css/dataTables.bootstrap4.css",
+                      "~/Content/Select2/select2.min.css"));
         }
     }
 }

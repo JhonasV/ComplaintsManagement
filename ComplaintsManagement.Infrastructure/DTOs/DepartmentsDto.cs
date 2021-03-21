@@ -10,6 +10,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
     {
         [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
         public int Id { get; set; }
         public bool Active { get; set; } = true;

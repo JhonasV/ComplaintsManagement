@@ -20,11 +20,15 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         [Required]
         public string PhoneNumber { get; set; }
         public string PasswordHash { get; set; }
-
+        [Display(Name = "Departament")]
+        public int? DepartmentId { get; set; }
+        public string RoleName { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }
+
+        public virtual DepartmentsDto Department { get; set; }
     }
 }

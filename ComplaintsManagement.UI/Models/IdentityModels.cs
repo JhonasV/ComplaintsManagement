@@ -17,20 +17,23 @@ namespace ComplaintsManagement.UI.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
-       
-      
+
+            Id = Guid.NewGuid().ToString();
             return userIdentity;
         }
 
         public string Name { get; set; }
         public string LastName { get; set; }
         public string DocumentNumber { get; set; }
+        public int? DepartmentId { get; set; }
 
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }
+
+        public virtual Departments Department { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

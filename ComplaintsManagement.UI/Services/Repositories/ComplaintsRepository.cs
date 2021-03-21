@@ -15,10 +15,12 @@ namespace ComplaintsManagement.UI.Services.Repositories
     public class ComplaintsRepository : IComplaintsRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly ICustomersRepository _customersRepository;
 
-        public ComplaintsRepository(ApplicationDbContext context)
+        public ComplaintsRepository(ApplicationDbContext context, ICustomersRepository customersRepository)
         {
             _context = context;
+            _customersRepository = customersRepository;
         }
         public async Task<TaskResult<ComplaintsDto>> DeleteAsync(int Id)
         {
@@ -59,6 +61,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     .Include(e => e.ComplaintsOption)
                     .Include(e => e.Status)
                     .Include(e => e.Product)
+                    .Include(e => e.Deparment)
                     .Where(e => e.Active)
                     .ToListAsync();
 
@@ -72,6 +75,9 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         Name = complaint.Status.Name,
                         UpdatedAt = complaint.Status.UpdatedAt
                     };
+
+
+    
 
                     var complaintsOptionsDto = new ComplaintsOptionsDto
                     {
@@ -94,6 +100,19 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         Price = complaint.Product.Price
                     };
 
+                    var departmensDto = new DepartmentsDto
+                    {
+                        Id = complaint.Deparment.Id,
+                        Name = complaint.Deparment.Name,
+                        Description = complaint.Deparment.Description,
+                        Active = complaint.Deparment.Active,
+                        Deleted = complaint.Deparment.Deleted,
+                        CreatedAt = complaint.Deparment.CreatedAt,
+                        UpdatedAt = complaint.Deparment.UpdatedAt,
+                        DeletedAt = complaint.Deparment.DeletedAt
+                    };
+
+                    var customer = _customersRepository.Get(complaint.UsersId);
                     complaintsDtos.Add(new ComplaintsDto {
                         Active = complaint.Active,
                         CreatedAt = complaint.CreatedAt,
@@ -104,7 +123,9 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         ProductsId = complaint.ProductsId,
                         Status = statusDto,
                         ComplaintsOption = complaintsOptionsDto,
-                        Product = productsDto
+                        Product = productsDto,
+                        Customer = customer.Data,
+                        Department = departmensDto
                     });
                 });
 
@@ -125,8 +146,77 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             try
             {
-                var complaints = await _context.Complaints.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
-                result.Data = new ComplaintsDto { Active = complaints.Active, CreatedAt = complaints.CreatedAt,  Id = complaints.Id, ComplaintsOptionsId = complaints.ComplaintsOptionsId, StatusId = complaints.StatusId, ProductsId = complaints.ProductsId };
+                var complaints = 
+                    await _context
+                    .Complaints
+                    .Include(e => e.ComplaintsOption)
+                    .Include(e => e.Status)
+                    .Include(e => e.Product)
+                    .Include(e => e.Deparment)
+                    .FirstOrDefaultAsync(e => e.Id == Id && e.Active);
+
+
+
+
+                var complaintsOptionsDto = new ComplaintsOptionsDto
+                {
+                    Active = complaints.ComplaintsOption.Active,
+                    CreatedAt = complaints.ComplaintsOption.CreatedAt,
+                    Id = complaints.ComplaintsOption.Id,
+                    ProductsId = complaints.ComplaintsOption.ProductsId,
+                    Name = complaints.ComplaintsOption.Name,
+                    UpdatedAt = complaints.UpdatedAt
+                };
+
+                var statusDto = new StatusDto
+                {
+                    Active = complaints.Status.Active,
+                    CreatedAt = complaints.Status.CreatedAt,
+                    Id = complaints.Status.Id,
+                    Name = complaints.Status.Name,
+                    UpdatedAt = complaints.Status.UpdatedAt
+                };
+
+                var productsDto = new ProductsDto
+                {
+                    Active = complaints.Product.Active,
+                    CreatedAt = complaints.Product.CreatedAt,
+                    Id = complaints.Product.Id,
+                    Name = complaints.Product.Name,
+                    UpdatedAt = complaints.Product.UpdatedAt,
+                    Description = complaints.Product.Description,
+                    Price = complaints.Product.Price
+                };
+
+
+                var departmensDto = new DepartmentsDto
+                {
+                    Id = complaints.Deparment.Id,
+                    Name = complaints.Deparment.Name,
+                    Description = complaints.Deparment.Description,
+                    Active = complaints.Deparment.Active,
+                    Deleted = complaints.Deparment.Deleted,
+                    CreatedAt = complaints.Deparment.CreatedAt,
+                    UpdatedAt = complaints.Deparment.UpdatedAt,
+                    DeletedAt = complaints.Deparment.DeletedAt
+                };
+
+                var customer = await _customersRepository.GetAsync(complaints.UsersId);
+                result.Data = new ComplaintsDto { 
+                        Active = complaints.Active,
+                        CreatedAt = complaints.CreatedAt,
+                        Id = complaints.Id,
+                        ComplaintsOptionsId = complaints.ComplaintsOptionsId,
+                        StatusId = complaints.StatusId,
+                        ProductsId = complaints.ProductsId,
+                        ComplaintsOption = complaintsOptionsDto,
+                        Comment = complaints.Comment,
+                        Status = statusDto,
+                        Product = productsDto,
+                        Customer = customer.Data,
+                        Department = departmensDto
+
+                };
             }
             catch (Exception e)
             {
@@ -146,7 +236,9 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 Id = complaintsDto.Id,           
                 ComplaintsOptionsId = complaintsDto.ComplaintsOptionsId,
                 StatusId = complaintsDto.StatusId,
-                ProductsId = complaintsDto.ProductsId
+                ProductsId = complaintsDto.ProductsId,
+                UsersId = complaintsDto.UsersId,
+                DepartmentsId = complaintsDto.DepartmentsId
             };
             var result = new TaskResult<ComplaintsDto>();
             try
@@ -169,12 +261,12 @@ namespace ComplaintsManagement.UI.Services.Repositories
             var complaints = new Complaints
             {
                 Active = complaintsDto.Active,
-                CreatedAt = complaintsDto.CreatedAt,
-
+                Comment = complaintsDto.Comment,
                 Id = complaintsDto.Id,
                 ComplaintsOptionsId = complaintsDto.ComplaintsOptionsId,
                 StatusId = complaintsDto.StatusId,
-                ProductsId = complaintsDto.ProductsId
+                ProductsId = complaintsDto.ProductsId,
+                UsersId = complaintsDto.UsersId
             };
             var result = new TaskResult<ComplaintsDto>();
             try

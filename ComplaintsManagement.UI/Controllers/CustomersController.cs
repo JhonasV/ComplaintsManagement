@@ -18,16 +18,18 @@ namespace ComplaintsManagement.UI.Controllers
         private readonly ICustomersRepository _customersRepository;
         private readonly ICustomersProductsRepository _customersProductsRepository;
         private readonly IProductsRepository _productsRepository;
+        private readonly IDepartmentsRepository _departmentRepository;
 
         public CustomersController(
             ICustomersRepository customersRepository, 
             ICustomersProductsRepository customersProductsRepository,
-            IProductsRepository productsRepository
+            IProductsRepository productsRepository,
+            IDepartmentsRepository departmentsRepository
             )
         {     
             _customersRepository = customersRepository;
             _customersProductsRepository = customersProductsRepository;
-            _productsRepository = productsRepository;
+            _departmentRepository = departmentsRepository;
         }
 
         public ApplicationUserManager UserManager
@@ -37,10 +39,19 @@ namespace ComplaintsManagement.UI.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
+
+
         #region "Customers"
-        public async Task<ActionResult> Index() => View(await _customersRepository.GetAllAsync());
+        public async Task<ActionResult> Index() => View(await _customersRepository.GetAllAsync(UserManager));
         public async Task<ActionResult> Details(string id) => View(await _customersRepository.GetAsync(id));
-        public ActionResult Create() => View(new TaskResult<UsersDto>());
+        public async Task<ActionResult> Create()
+        {
+            var departments = await _departmentRepository.GetAllAsync();
+            var selectListItems = departments.Data.Select(e => new SelectListItem { Text = e.Name, Value = e.Id.ToString() }).ToList();
+            selectListItems.Add(new SelectListItem { Text = string.Empty, Value = string.Empty, Selected = true });
+            ViewBag.Departments = selectListItems;
+            return View(new TaskResult<UsersDto>());
+        }
 
         [HttpPost]
         public async Task<ActionResult> Create(UsersDto Data)
@@ -49,13 +60,24 @@ namespace ComplaintsManagement.UI.Controllers
             {
                 return View(Data);
             }
-
+            var departments = await _departmentRepository.GetAllAsync();
+            ViewBag.Departments = departments.Data.Select(e => new SelectListItem { Text = e.Name, Value = e.Id.ToString() }).ToList();
             var newModel = await _customersRepository.SaveAsync(Data, UserManager);
 
-            return RedirectToAction(nameof(this.Create), newModel);
+            if (newModel.Success)
+            {
+                return RedirectToAction(nameof(this.Create), newModel);
+            }
+            
+            return View(newModel);
         }
 
-        public async Task<ActionResult> Edit(string id) => View(await _customersRepository.GetAsync(id));
+        public async Task<ActionResult> Edit(string id) 
+        {
+            var departments = await _departmentRepository.GetAllAsync();
+            ViewBag.Departments = departments.Data.Select(e => new SelectListItem { Text = e.Name, Value = e.Id.ToString() }).ToList();
+            return View(await _customersRepository.GetAsync(id));
+        }
 
         [HttpPost]
         public async Task<ActionResult> Edit(UsersDto Data)
@@ -65,7 +87,8 @@ namespace ComplaintsManagement.UI.Controllers
             {
                 return View(new TaskResult<UsersDto> { Data = Data });
             }
-
+            var departments = await _departmentRepository.GetAllAsync();
+            ViewBag.Departments = departments.Data.Select(e => new SelectListItem { Text = e.Name, Value = e.Id.ToString() }).ToList();
             var model = await _customersRepository.UpdateAsync(Data);
             return View(model);
         }
