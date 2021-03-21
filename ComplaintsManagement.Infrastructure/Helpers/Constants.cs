@@ -15,7 +15,7 @@ namespace ComplaintsManagement.Infrastructure.Helpers
         public static class Roles
         {
             public static string ADMIN { get; set; } = "ADMIN";
-            public static string CUSTOMER { get; set; } = "CUSTOMER";
+            public static string GUEST { get; set; } = "GUEST";
         }
     }
 }

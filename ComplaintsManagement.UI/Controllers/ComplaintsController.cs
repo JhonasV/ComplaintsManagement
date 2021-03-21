@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace ComplaintsManagement.UI.Controllers
 {
+    [Authorize]
     public class ComplaintsController : Controller
     {
         private readonly IComplaintsRepository _complaintsRepository;

@@ -18,64 +18,68 @@
 
 }
 
-<div class="container">
-    <h2>Mantenimiento de Productos</h2>
-    <h4>Listado de Productos</h4>
-    <hr />
-    @if (!Success && Message?.Length > 0)
-    {
-        <span class="alert alert-danger">@Message</span>
-        <hr />
-    }
+<div class="card">
+    <div class="card-header bg-primary"><h2 class="text-white">Mantenimiento de Productos</h2></div>
 
-    @if (Success && Message?.Length > 0)
-    {
-        <span class="alert alert-success">@Message</span>
-        <hr />
-    }
-    <div class="row">
+    <div class="container">
 
-        <div class="col-lg-offset-10"></div>
-        <div class="col-lg-12">
-            @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
+        <h4 class="mt-2">Listado de Productos</h4>
+        <hr />
+        @if (!Success && Message?.Length > 0)
+        {
+            <span class="alert alert-danger">@Message</span>
+            <hr />
+        }
+
+        @if (Success && Message?.Length > 0)
+        {
+            <span class="alert alert-success">@Message</span>
+            <hr />
+        }
+        <div class="row">
+
+            <div class="col-lg-offset-10"></div>
+            <div class="col-lg-12">
+                @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
+            </div>
+
         </div>
-
-    </div>
-    <div class="row" style="margin-top: 2rem;">
-        <div class="col-lg-12">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Precio</th>
-                        <th>Descripcion</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var product in Model.Data)
-                    {
+        <div class="row" style="margin-top: 2rem;">
+            <div class="col-lg-12">
+                <table class="table table-bordered">
+                    <thead>
                         <tr>
-                            <td>@product.Id</td>
-                            <td>@product.Name</td>
-                            <td>@product.Price</td>
-                            <td>@product.Description</td>
-
-                            <td>
-                                @using (Html.BeginForm(actionName: "Delete", controllerName: "Products", method: FormMethod.Post))
-                                {
-                                    var Id = product.Id;
-                                    @Html.HiddenFor(model => Id);
-                                    <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
-                                    @Html.ActionLink("Editar", "Edit", new { Id = product.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
-                                }
-                            </td>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Descripcion</th>
+                            <th>Acciones</th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model.Data)
+                        {
+                            <tr>
+                                <td>@product.Id</td>
+                                <td>@product.Name</td>
+                                <td>@product.Price</td>
+                                <td>@product.Description</td>
 
-                </tbody>
-            </table>
+                                <td>
+                                    @using (Html.BeginForm(actionName: "Delete", controllerName: "Products", method: FormMethod.Post))
+                                    {
+                                        var Id = product.Id;
+                                        @Html.HiddenFor(model => Id);
+                                        <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
+                                        @Html.ActionLink("Editar", "Edit", new { Id = product.Id }, htmlAttributes: new { @Class = "btn btn-warning" })
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

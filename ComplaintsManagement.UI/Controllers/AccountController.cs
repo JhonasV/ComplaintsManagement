@@ -168,29 +168,11 @@ namespace ComplaintsManagement.UI.Controllers
                     DocumentNumber = model.DocumentNumber
                 };
 
-                //var customerExists = _customerRepository.GetByDocumentNumberAsync(model.DocumentNumber);
-
-                //if(customerExists == null)
-                //{
-                //    AddErrors(new IdentityResult("No existe un cliente con el numero de documento ingresado"));
-                //    return View(model);
-                //}
-
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //var roleExists = await _roleManager.RoleExistsAsync(Infrastructure.Helpers.Constants.Roles.CUSTOMER);
-                    //if (!roleExists) 
-                    //{
-                    //    var roleCreationResult = await _roleManager.CreateAsync(new IdentityRole { Name = Infrastructure.Helpers.Constants.Roles.CUSTOMER });
-                    //    if (!roleCreationResult.Succeeded)
-                    //    {
-                    //        AddErrors(roleCreationResult);
-                    //        return View(model);
-                    //    }
-                    //}
 
-                    //UserManager.AddToRole(user.Id, Infrastructure.Helpers.Constants.Roles.CUSTOMER);
+                    UserManager.AddToRole(user.Id, Infrastructure.Helpers.Constants.Roles.GUEST);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

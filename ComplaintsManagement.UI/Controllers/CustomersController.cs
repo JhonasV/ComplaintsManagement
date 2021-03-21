@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace ComplaintsManagement.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CustomersController : Controller
     {
 

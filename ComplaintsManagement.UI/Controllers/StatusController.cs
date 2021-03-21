@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ComplaintsManagement.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class StatusController : Controller
     {
         private readonly IStatusRepository _statusRepository;
