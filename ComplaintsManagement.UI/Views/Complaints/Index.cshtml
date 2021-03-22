@@ -27,7 +27,7 @@
 <div class="card">
     <div class="card-header bg-primary"><h2 class="text-white">Mantenimiento de Quejas y Reclamaciones</h2></div> 
     <div class="container card-body">
-        <h4 class="mt-4">Listado de Quejas</h4>
+        <h4 class="mt-4">Listado de Quejas y Reclamaciones</h4>
         <hr />
         @if (!Success && Message?.Length > 0)
         {
@@ -43,9 +43,14 @@
         <div class="row">
 
             <div class="col-lg-offset-10"></div>
-            <div class="col-lg-12">
-                @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
-            </div>
+            
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="col-lg-12">
+                    @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
+                </div>
+            }
+
 
         </div>
         <div class="row" style="margin-top: 2rem;">
@@ -82,7 +87,11 @@
                                     {
                                         var Id = complaints.Id;
                                         @Html.HiddenFor(model => Id);
-                                        <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
+
+                                        if(User.IsInRole("Admin"))
+                                        {
+                                            <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
+                                        }
                                         @Html.ActionLink("Ver", "Details", new { Id = complaints.Id }, htmlAttributes: new { @Class = "btn btn-success" })
                                     }
 

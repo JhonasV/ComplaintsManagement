@@ -65,7 +65,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     .Where(e => e.Active)
                     .ToListAsync();
 
-                complaints.ForEach((complaint) =>
+                foreach (var complaint in complaints)
                 {
                     var statusDto = new StatusDto
                     {
@@ -75,9 +75,6 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         Name = complaint.Status.Name,
                         UpdatedAt = complaint.Status.UpdatedAt
                     };
-
-
-    
 
                     var complaintsOptionsDto = new ComplaintsOptionsDto
                     {
@@ -112,8 +109,9 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         DeletedAt = complaint.Deparment.DeletedAt
                     };
 
-                    var customer = _customersRepository.Get(complaint.UsersId);
-                    complaintsDtos.Add(new ComplaintsDto {
+                    var customer = await _customersRepository.GetAsync(complaint.UsersId);
+                    complaintsDtos.Add(new ComplaintsDto
+                    {
                         Active = complaint.Active,
                         CreatedAt = complaint.CreatedAt,
 
@@ -127,8 +125,9 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         Customer = customer.Data,
                         Department = departmensDto
                     });
-                });
+                }
 
+      
                 result.Data = complaintsDtos;
             }
             catch (Exception e)

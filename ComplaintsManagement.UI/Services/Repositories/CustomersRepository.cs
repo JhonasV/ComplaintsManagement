@@ -174,8 +174,13 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             try
             {
-                var costumer = await _context.Users.FirstOrDefaultAsync(e => e.Id == Id && e.Deleted == false);
-                result.Data = new UsersDto { PasswordHash = costumer.PasswordHash, Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
+                var costumer = await _context.Users.SingleOrDefaultAsync(e => e.Id == Id && e.Deleted == false);
+                result.Data = new UsersDto 
+                { 
+                    PasswordHash = costumer.PasswordHash,
+                    Active = costumer.Active,
+                    CreatedAt = costumer.CreatedAt,
+                    Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
             }
             catch (Exception e)
             {
@@ -193,7 +198,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             try
             {
-                var costumer =  _context.Users.FirstOrDefault(e => e.Id == Id && e.Deleted == false);
+                var costumer =  _context.Users.SingleOrDefault(e => e.Id == Id && e.Deleted == false);
                 result.Data = new UsersDto { Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
             }
             catch (Exception e)
