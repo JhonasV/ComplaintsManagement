@@ -62,6 +62,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     .Include(e => e.Status)
                     .Include(e => e.Product)
                     .Include(e => e.Deparment)
+                    .Include(e => e.TicketType)
                     .Where(e => e.Active)
                     .ToListAsync();
 
@@ -109,6 +110,17 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         DeletedAt = complaint.Deparment.DeletedAt
                     };
 
+                    var ticketTypeDto = new TicketTypesDto
+                    {
+                        Id = complaint.TicketType.Id,
+                        Description = complaint.TicketType.Description,
+                        Active = complaint.TicketType.Active,
+                        Deleted = complaint.TicketType.Deleted,
+                        CreatedAt = complaint.TicketType.CreatedAt,
+                        UpdatedAt = complaint.TicketType.UpdatedAt,
+                        DeletedAt = complaint.TicketType.DeletedAt
+                    };
+
                     var customer = await _customersRepository.GetAsync(complaint.UsersId);
                     complaintsDtos.Add(new ComplaintsDto
                     {
@@ -123,7 +135,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         ComplaintsOption = complaintsOptionsDto,
                         Product = productsDto,
                         Customer = customer.Data,
-                        Department = departmensDto
+                        Department = departmensDto,
+                        TicketType = ticketTypeDto
                     });
                 }
 
@@ -152,6 +165,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     .Include(e => e.Status)
                     .Include(e => e.Product)
                     .Include(e => e.Deparment)
+                    .Include(e => e.TicketType)
                     .FirstOrDefaultAsync(e => e.Id == Id && e.Active);
 
 
@@ -200,6 +214,17 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     DeletedAt = complaints.Deparment.DeletedAt
                 };
 
+                var ticketTypeDto = new TicketTypesDto
+                {
+                    Id = complaints.TicketType.Id,
+                    Description = complaints.TicketType.Description,
+                    Active = complaints.TicketType.Active,
+                    Deleted = complaints.TicketType.Deleted,
+                    CreatedAt = complaints.TicketType.CreatedAt,
+                    UpdatedAt = complaints.TicketType.UpdatedAt,
+                    DeletedAt = complaints.TicketType.DeletedAt
+                };
+
                 var customer = await _customersRepository.GetAsync(complaints.UsersId);
                 result.Data = new ComplaintsDto { 
                         Active = complaints.Active,
@@ -213,8 +238,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                         Status = statusDto,
                         Product = productsDto,
                         Customer = customer.Data,
-                        Department = departmensDto
-
+                        Department = departmensDto,
+                        TicketType = ticketTypeDto
                 };
             }
             catch (Exception e)
@@ -237,7 +262,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 StatusId = complaintsDto.StatusId,
                 ProductsId = complaintsDto.ProductsId,
                 UsersId = complaintsDto.UsersId,
-                DepartmentsId = complaintsDto.DepartmentsId
+                DepartmentsId = complaintsDto.DepartmentsId,
+                TicketTypesId = complaintsDto.TicketTypesId
             };
             var result = new TaskResult<ComplaintsDto>();
             try
@@ -265,7 +291,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 ComplaintsOptionsId = complaintsDto.ComplaintsOptionsId,
                 StatusId = complaintsDto.StatusId,
                 ProductsId = complaintsDto.ProductsId,
-                UsersId = complaintsDto.UsersId
+                UsersId = complaintsDto.UsersId,
+                TicketTypesId = complaintsDto.TicketTypesId
             };
             var result = new TaskResult<ComplaintsDto>();
             try

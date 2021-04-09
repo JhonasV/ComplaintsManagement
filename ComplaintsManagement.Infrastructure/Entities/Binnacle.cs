@@ -9,13 +9,17 @@ namespace ComplaintsManagement.Infrastructure.Entities
     public class Binnacle : BaseEntity
     {
 
-        public string ApplicationId { get; set; }
-        public int AgentId { get; set; }
-        public int ClaimsOrComplaintsId { get; set; }
+        public string ApplicationUserId { get; set; }
+
         public int StatusId { get; set; }
         [StringLength(200)]
         public string Comment { get; set; }
 
-        public virtual Complaints Complaint { get; set; }
+
+        public int? ComplaintsId { get; set; }
+
+
+        public  Status Status { get; set; }
+        public  Complaints Complaints { get; set; }
     }
 }

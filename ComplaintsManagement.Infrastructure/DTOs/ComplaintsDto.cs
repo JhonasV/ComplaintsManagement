@@ -17,6 +17,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         [Required]
         public int ProductsId { get; set; }
         public string UsersId { get; set; }
+        public int TicketTypesId { get; set; }
         public DateTime? CompletedAt { get; set; } 
         [Required]
         public string Comment { get; set; }
@@ -25,6 +26,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public StatusDto Status { get; set; }
         public DepartmentsDto Department { get; set; }
         public UsersDto Customer { get; set; }
+        public TicketTypesDto TicketType { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }

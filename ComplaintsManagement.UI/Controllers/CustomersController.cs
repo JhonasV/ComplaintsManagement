@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace ComplaintsManagement.UI.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = RoleName.ADMIN)]
     public class CustomersController : Controller
     {
 
@@ -30,6 +30,7 @@ namespace ComplaintsManagement.UI.Controllers
             _customersRepository = customersRepository;
             _customersProductsRepository = customersProductsRepository;
             _departmentRepository = departmentsRepository;
+            _productsRepository = productsRepository;
         }
 
         public ApplicationUserManager UserManager

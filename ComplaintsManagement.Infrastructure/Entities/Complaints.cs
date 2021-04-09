@@ -15,13 +15,14 @@ namespace ComplaintsManagement.Infrastructure.Entities
         public string UsersId { get; set; }
         public DateTime? CompletedAt { get; set; }
         public string Comment { get; set; }
+        public int TicketTypesId { get; set; }
 
 
         public virtual Products Product { get; set; }
         public virtual ComplaintsOptions ComplaintsOption { get; set; }
         public virtual Status Status { get; set; }
         public virtual Departments Deparment { get; set; }
-
+        public TicketTypes TicketType { get; set; }
 
     }
 }

@@ -5,7 +5,7 @@
         <h3 class="text-white ml-3">Menu</h3>
         <div class="separator"></div>
         <ul class="sidebar">
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole(ComplaintsManagement.UI.Models.RoleName.ADMIN))
             {
                 <li>
                     <a href="/roles"><i class="fas fa-users"></i> Roles</a>
