@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ComplaintsManagement.Infrastructure.DTOs;
 using ComplaintsManagement.Infrastructure.Entities;
+using ComplaintsManagement.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,11 @@ namespace ComplaintsManagement.UI.Configurations.AutoMapperConfig
         {
             CreateMap<TicketTypes, TicketTypesDto>().ReverseMap();
             CreateMap<Complaints, ComplaintsDto>().ReverseMap();
+            CreateMap<ComplaintsOptions, ComplaintsOptionsDto>().ReverseMap();
+            CreateMap<Status, StatusDto>().ReverseMap();
+            CreateMap<Products, ProductsDto>().ReverseMap();
+            CreateMap<Departments, DepartmentsDto>().ReverseMap();
+            CreateMap<ApplicationUser, UsersDto>().ReverseMap();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public ProductsDto Product { get; set; }
         public ComplaintsOptionsDto ComplaintsOption { get; set; }
         public StatusDto Status { get; set; }
-        public DepartmentsDto Department { get; set; }
+        public DepartmentsDto Deparment { get; set; }
         public UsersDto Customer { get; set; }
         public TicketTypesDto TicketType { get; set; }
         public bool Active { get; set; } = true;
