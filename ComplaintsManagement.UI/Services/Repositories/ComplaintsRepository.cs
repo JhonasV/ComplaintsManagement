@@ -214,16 +214,18 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     DeletedAt = complaints.Deparment.DeletedAt
                 };
 
-                var ticketTypeDto = new TicketTypesDto
-                {
-                    Id = complaints.TicketType.Id,
-                    Description = complaints.TicketType.Description,
-                    Active = complaints.TicketType.Active,
-                    Deleted = complaints.TicketType.Deleted,
-                    CreatedAt = complaints.TicketType.CreatedAt,
-                    UpdatedAt = complaints.TicketType.UpdatedAt,
-                    DeletedAt = complaints.TicketType.DeletedAt
-                };
+                //var ticketTypeDto = new TicketTypesDto
+                //{
+                //    Id = complaints.TicketType.Id,
+                //    Description = complaints.TicketType.Description,
+                //    Active = complaints.TicketType.Active,
+                //    Deleted = complaints.TicketType.Deleted,
+                //    CreatedAt = complaints.TicketType.CreatedAt,
+                //    UpdatedAt = complaints.TicketType.UpdatedAt,
+                //    DeletedAt = complaints.TicketType.DeletedAt
+                //};
+
+                var ticketTypeDto = AutoMapper.Mapper.Map<TicketTypesDto>(complaints.TicketType);
 
                 var customer = await _customersRepository.GetAsync(complaints.UsersId);
                 result.Data = new ComplaintsDto { 
@@ -254,17 +256,21 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         public async Task<TaskResult<ComplaintsDto>> SaveAsync(ComplaintsDto complaintsDto)
         {
-            var complaints = new Complaints {
-                Active = complaintsDto.Active,
-                Comment = complaintsDto.Comment,
-                Id = complaintsDto.Id,           
-                ComplaintsOptionsId = complaintsDto.ComplaintsOptionsId,
-                StatusId = complaintsDto.StatusId,
-                ProductsId = complaintsDto.ProductsId,
-                UsersId = complaintsDto.UsersId,
-                DepartmentsId = complaintsDto.DepartmentsId,
-                TicketTypesId = complaintsDto.TicketTypesId
-            };
+            //var complaints = new Complaints {
+            //    Active = complaintsDto.Active,
+            //    Comment = complaintsDto.Comment,
+            //    Id = complaintsDto.Id,           
+            //    ComplaintsOptionsId = complaintsDto.ComplaintsOptionsId,
+            //    StatusId = complaintsDto.StatusId,
+            //    ProductsId = complaintsDto.ProductsId,
+            //    UsersId = complaintsDto.UsersId,
+            //    DepartmentsId = complaintsDto.DepartmentsId,
+            //    TicketTypesId = complaintsDto.TicketTypesId
+            //};
+
+            var complaints = AutoMapper.Mapper.Map<Complaints>(complaintsDto);
+
+
             var result = new TaskResult<ComplaintsDto>();
             try
             {

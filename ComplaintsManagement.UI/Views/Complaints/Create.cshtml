@@ -53,8 +53,13 @@
                             @Html.DropDownListFor(e => e.Data.ComplaintsOptionsId, (List<SelectListItem>)ViewBag.ComplaintsOptions, new { @Class = "form-control" })
                         </div>
                     </div>
-
                     <div class="form-group">
+                        <label class="control-label col-md-2">Tipo</label>
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(e => e.Data.TicketTypesId, (List<SelectListItem>)ViewBag.TicketTypes, new { @Class = "form-control" })
+                        </div>
+                    </div>
+                    @*<div class="form-group">
                         <label class="control-label col-md-2">Tipo</label>
                         <div class="col-md-12">
                             <select name="Data.Type" class="form-control">
@@ -62,7 +67,7 @@
                                 <option value="reclamacion">Reclamacion</option>
                             </select>
                         </div>
-                    </div>
+                    </div>*@
                     @Html.HiddenFor(e => e.Data.StatusId)
                     <div class="form-group">
                         <label class="control-label col-md-2">Comentario</label>

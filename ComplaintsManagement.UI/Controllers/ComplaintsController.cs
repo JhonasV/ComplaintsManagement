@@ -19,12 +19,14 @@ namespace ComplaintsManagement.UI.Controllers
         private readonly IComplaintsOptionsRepository _complaintsOptionsRepository;
         private readonly IProductsRepository _productsRepository;
         private readonly ICustomersRepository _customeRepository;
+        private readonly ITicketTypesRepository _ticketTypesRepository;
 
         public ComplaintsController(
             IComplaintsRepository complaintsRepository,
             IComplaintsOptionsRepository complaintsOptionsRepository,
             IProductsRepository productsRepository,
-            ICustomersRepository customeRepository
+            ICustomersRepository customeRepository,
+            ITicketTypesRepository ticketTypesRepository
             )
         {
 
@@ -32,6 +34,7 @@ namespace ComplaintsManagement.UI.Controllers
             _complaintsOptionsRepository = complaintsOptionsRepository;
             _productsRepository = productsRepository;
             _customeRepository = customeRepository;
+            _ticketTypesRepository = ticketTypesRepository;
         }
 
         public async Task<ActionResult> Index()
@@ -64,6 +67,8 @@ namespace ComplaintsManagement.UI.Controllers
             ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
             var customers = await _customeRepository.GetAllAsync();
             ViewBag.Customers = customers.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = $"{e.Name} {e.LastName} ({e.Email})" }).ToList();
+            var ticketTypes = await _ticketTypesRepository.GetAllAsync();
+            ViewBag.TicketTypes = ticketTypes.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Description }).ToList();
             return View(model);
         }
 
@@ -80,11 +85,13 @@ namespace ComplaintsManagement.UI.Controllers
             ViewBag.Products = products.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList();
             var customers = await _customeRepository.GetAllAsync();
             ViewBag.Customers = customers.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = $"{e.Name} {e.LastName} ({e.Email})" }).ToList();
+            var ticketTypes = await _ticketTypesRepository.GetAllAsync();
+            ViewBag.TicketTypes = ticketTypes.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Description }).ToList();
 
-            if (Data.Type == Infrastructure.Helpers.Constants.ComplaintClaimType.COMPLAINT)
-            {
-                return View(await _complaintsRepository.SaveAsync(Data));
-            }
+            //if (Data.Type == Infrastructure.Helpers.Constants.ComplaintClaimType.COMPLAINT)
+            //{
+            //    return View(await _complaintsRepository.SaveAsync(Data));
+            //}
 
 
             return View(await _complaintsRepository.SaveAsync(Data));

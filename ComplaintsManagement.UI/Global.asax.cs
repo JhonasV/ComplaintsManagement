@@ -1,5 +1,7 @@
+using AutoMapper;
 using ComplaintsManagement.Infrastructure;
 using ComplaintsManagement.UI.App_Start;
+using ComplaintsManagement.UI.Configurations.AutoMapperConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,9 @@ namespace ComplaintsManagement.UI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             UnityConfig.RegisterComponents();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfiles>());
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
         }
     }
 }
