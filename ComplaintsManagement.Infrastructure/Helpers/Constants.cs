@@ -9,7 +9,9 @@ namespace ComplaintsManagement.Infrastructure.Helpers
     {
         public enum StatusConstants
         {
-            SOMETIDO = 1
+            SOMETIDO = 1,
+            TRANSFERIDO = 2
+
         }
         
         public static class Roles

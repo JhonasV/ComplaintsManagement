@@ -16,5 +16,6 @@ namespace ComplaintsManagement.UI.Services.Interfaces
         Task<TaskResult<List<ComplaintsDto>>> GetAllAsync();
         Task<TaskResult<ComplaintsDto>> DeleteAsync(int Id);
         Task<TaskResult<ComplaintsDto>> UpdateAsync(ComplaintsDto complaints);
+        Task<TaskResult<ComplaintsDto>> UpdateStatusAsync(int statusId, int complaintsId);
     }
 }

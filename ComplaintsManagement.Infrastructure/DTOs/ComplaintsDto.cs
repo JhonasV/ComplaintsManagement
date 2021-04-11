@@ -27,6 +27,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public DepartmentsDto Deparment { get; set; }
         public UsersDto Customer { get; set; }
         public TicketTypesDto TicketType { get; set; }
+        public List<BinnacleDto> Binnacles { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ComplaintsManagement.UI.Services.Interfaces
 {
-    public interface ITicketTypesRepository
+    public interface IBinnaclesRepository
     {
-        Task<TaskResult<List<TicketTypesDto>>> GetAllAsync();
-        Task<TaskResult<TicketTypesDto>> GetAsync(int ticketId);
+        Task<TaskResult<List<BinnacleDto>>> GetAllAsync();
+        Task<TaskResult<BinnacleDto>> SaveAsync(BinnacleDto binnacle);
     }
 }

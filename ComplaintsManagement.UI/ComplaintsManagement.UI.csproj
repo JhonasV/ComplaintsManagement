@@ -231,10 +231,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleName.cs" />
+    <Compile Include="Models\StatusName.cs" />
     <Compile Include="Models\TaskResult.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
     <Compile Include="NavigationRoutes\NavigationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IBinnaclesRepository.cs" />
     <Compile Include="Services\Interfaces\IComplaintsOptionsRepository.cs" />
     <Compile Include="Services\Interfaces\IComplaintsRepository.cs" />
     <Compile Include="Services\Interfaces\ICustomersProductsRepository.cs" />
@@ -244,6 +246,7 @@
     <Compile Include="Services\Interfaces\IRolesRepository.cs" />
     <Compile Include="Services\Interfaces\IStatusRepository.cs" />
     <Compile Include="Services\Interfaces\ITicketTypesRepository.cs" />
+    <Compile Include="Services\Repositories\BinnaclesRepository.cs" />
     <Compile Include="Services\Repositories\ComplaintsOptionsRepository.cs" />
     <Compile Include="Services\Repositories\ComplaintsRepository.cs" />
     <Compile Include="Services\Repositories\CustomerProductsRepository.cs" />

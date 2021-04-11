@@ -20,13 +20,19 @@ namespace ComplaintsManagement.UI.Controllers
         private readonly IProductsRepository _productsRepository;
         private readonly ICustomersRepository _customeRepository;
         private readonly ITicketTypesRepository _ticketTypesRepository;
+        private readonly IBinnaclesRepository _binnaclesRepository;
+        private readonly IDepartmentsRepository _departmentsRepository;
+        private readonly IStatusRepository _statusRepository;
 
         public ComplaintsController(
             IComplaintsRepository complaintsRepository,
             IComplaintsOptionsRepository complaintsOptionsRepository,
             IProductsRepository productsRepository,
             ICustomersRepository customeRepository,
-            ITicketTypesRepository ticketTypesRepository
+            ITicketTypesRepository ticketTypesRepository,
+            IBinnaclesRepository binnaclesRepository,
+            IDepartmentsRepository departmentsRepository,
+            IStatusRepository statusRepository
             )
         {
 
@@ -35,6 +41,9 @@ namespace ComplaintsManagement.UI.Controllers
             _productsRepository = productsRepository;
             _customeRepository = customeRepository;
             _ticketTypesRepository = ticketTypesRepository;
+            _binnaclesRepository = binnaclesRepository;
+            _departmentsRepository = departmentsRepository;
+            _statusRepository = statusRepository;
         }
 
         public async Task<ActionResult> Index()
@@ -75,7 +84,8 @@ namespace ComplaintsManagement.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ComplaintsDto Data)
         {
-            Data.StatusId = (int)Infrastructure.Helpers.Constants.StatusConstants.SOMETIDO;
+
+      
             var department = await _complaintsOptionsRepository.GetAsync(Data.ComplaintsOptionsId);
             Data.DepartmentsId = department.Data.DepartmentsId.GetValueOrDefault();
 
@@ -88,13 +98,45 @@ namespace ComplaintsManagement.UI.Controllers
             var ticketTypes = await _ticketTypesRepository.GetAllAsync();
             ViewBag.TicketTypes = ticketTypes.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Description }).ToList();
 
-            //if (Data.Type == Infrastructure.Helpers.Constants.ComplaintClaimType.COMPLAINT)
-            //{
-            //    return View(await _complaintsRepository.SaveAsync(Data));
-            //}
+            var status1 = await _statusRepository.GetByNameAsync(StatusName.COMMITED);
+            Data.StatusId = status1.Data.Id;
+            var result = await _complaintsRepository.SaveAsync(Data);
+            if (result.Success)
+            {
+                var ticketType = await _ticketTypesRepository.GetAsync(Data.TicketTypesId);
+                var binnacle1 = new BinnacleDto
+                {
+                    ApplicationUserId = Data.UsersId,
+                    StatusId = Data.StatusId,
+                    Comment = $"La {ticketType.Data.Description} se ha creado con el estado: {StatusName.COMMITED}",
+                    ComplaintsId = result.Data.Id
+
+                };
+                await _binnaclesRepository.SaveAsync(binnacle1);
+
+                var deparment = await _departmentsRepository.GetAsync(Data.DepartmentsId);
+                if (deparment.Success && deparment.Data != null)
+                {
+                    var status2 = await _statusRepository.GetByNameAsync(StatusName.TRANSFERRED);
+                    await _complaintsRepository.UpdateStatusAsync(status2.Data.Id, result.Data.Id);
+                    var binnacle2 = new BinnacleDto
+                    {
+                        ApplicationUserId = Data.UsersId,
+                        StatusId = status2.Data.Id,
+                        Comment = $"La {ticketType.Data.Description} ha sido transferido al departamento: {deparment.Data.Name}",
+                        ComplaintsId = result.Data.Id
+
+                    };
+
+                    await _binnaclesRepository.SaveAsync(binnacle2);
+
+                }
+               
 
 
-            return View(await _complaintsRepository.SaveAsync(Data));
+            }
+
+            return View(result);
 
         }
 

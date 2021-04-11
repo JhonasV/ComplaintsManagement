@@ -20,6 +20,7 @@ namespace ComplaintsManagement.UI.Configurations.AutoMapperConfig
             CreateMap<Products, ProductsDto>().ReverseMap();
             CreateMap<Departments, DepartmentsDto>().ReverseMap();
             CreateMap<ApplicationUser, UsersDto>().ReverseMap();
+            CreateMap<Binnacle, BinnacleDto>().ReverseMap();
         }
     }
 }

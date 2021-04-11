@@ -29,7 +29,7 @@
 
                     @if (Model.Success && Model.Message?.Length > 0)
                     {
-                        <span class="alert alert-success" style="margin-top: 2rem;">@Model.Message</span>
+                        <span class="alert alert-success" style="margin-top: 2rem;">@Model.Message - @Html.ActionLink("Ver detalles del ticket", "Details", new { Id = Model.Data.Id }) </span>
                         <hr />
                     }
 

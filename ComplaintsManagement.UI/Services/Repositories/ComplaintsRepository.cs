@@ -66,16 +66,18 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     .Where(e => e.Active)
                     .ToListAsync();
 
-                foreach (var complaint in complaints)
-                {
-                    var customer = await _customersRepository.GetAsync(complaint.UsersId);
-                    var complaintsDto = AutoMapper.Mapper.Map<ComplaintsDto>(complaints);
-                    complaintsDto.Customer = customer.Data;
-                    complaintsDtos.Add(complaintsDto);
-                }
+
 
       
-                result.Data = complaintsDtos;
+                var complaintsDto = AutoMapper.Mapper.Map<List<ComplaintsDto>>(complaints);
+                foreach (var complaint in complaintsDto)
+                {
+                    var customer = await _customersRepository.GetAsync(complaint.UsersId);
+                    complaint.Customer = customer.Data;
+                }
+
+
+                result.Data = complaintsDto;
             }
             catch (Exception e)
             {
@@ -100,12 +102,20 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     .Include(e => e.Product)
                     .Include(e => e.Deparment)
                     .Include(e => e.TicketType)
+                    .Include(e => e.Binnacles.Select(b => b.Status))
                     .FirstOrDefaultAsync(e => e.Id == Id && e.Active);
 
                 var customer = await _customersRepository.GetAsync(complaints.UsersId);
 
                 var complaintsDto = AutoMapper.Mapper.Map<ComplaintsDto>(complaints);
                 complaintsDto.Customer = customer.Data;
+
+                foreach (var binnacle in complaintsDto.Binnacles)
+                {
+                    var user = await _customersRepository.GetAsync(binnacle.ApplicationUserId);
+                    binnacle.User = AutoMapper.Mapper.Map<UsersDto>(user.Data);
+                }
+
                 result.Data = complaintsDto;
 
             }
@@ -131,7 +141,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 _context.Complaints.Add(complaints);
                 await _context.SaveChangesAsync();
                 result.Message = $"Se agregó la queja #{complaints.Id}";
-                
+                result.Data = AutoMapper.Mapper.Map<ComplaintsDto>(complaints);
             }
             catch (Exception e)
             {
@@ -161,6 +171,15 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 result.Message = $"Error al intentar actualizar información de la queja: {e.Message}";
             }
             return result;
+        }
+
+        public async Task<TaskResult<ComplaintsDto>> UpdateStatusAsync(int statusId, int complaintsId)
+        {
+            var complaint = await this.GetAsync(complaintsId);
+            complaint.Data.StatusId = statusId;
+            var complaintUpdated = await this.UpdateAsync(complaint.Data);
+
+            return complaintUpdated;
         }
     }
 }

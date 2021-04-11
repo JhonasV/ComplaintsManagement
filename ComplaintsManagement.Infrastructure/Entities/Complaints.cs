@@ -23,6 +23,7 @@ namespace ComplaintsManagement.Infrastructure.Entities
         public virtual Status Status { get; set; }
         public virtual Departments Deparment { get; set; }
         public TicketTypes TicketType { get; set; }
+        public List<Binnacle> Binnacles { get; set; }
 
     }
 }

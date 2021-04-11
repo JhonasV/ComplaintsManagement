@@ -73,27 +73,22 @@
                     <thead>
                         <tr>
                             <th>Usuario</th>
-                            <th>Tipo</th>
                             <th>Fecha</th>
                             <th>Estado</th>
                             <th>Comentario</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Nelson Veras</td>
-                            <td>Queja</td>
-                            <td>21/03/2021 12:32 P.M.</td>
-                            <td>Sometido</td>
-                            <td>Comentario de prueba</td>
-                        </tr>
-                        <tr>
-                            <td>Nelson Veras</td>
-                            <td>Queja</td>
-                            <td>21/03/2021 12:36 P.M.</td>
-                            <td>Transferido</td>
-                            <td>Asignado al departamento de cobros</td>
-                        </tr>
+
+                        @foreach (var binnacle in Model.Data.Binnacles)
+                        {
+                            <tr>
+                                <td>@binnacle.User.Name @binnacle.User.LastName</td>
+                                <td>@binnacle.CreatedAt.ToString("MM/dd/yyyy hh:mm tt")</td>
+                                <td>@binnacle.Status.Name.ToUpper()</td>
+                                <td>@binnacle.Comment.ToUpper()</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

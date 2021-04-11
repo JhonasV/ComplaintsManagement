@@ -8,7 +8,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
     public class StatusDto
     {
         public int Id { get; set; }
-        [Required]
+        [Required, MaxLength(30)]
         public string Name { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }

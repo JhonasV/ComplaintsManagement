@@ -30,16 +30,10 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     status.Active = false;
                     await _context.SaveChangesAsync();
                     result.Message = "Status borrado exitosamente!";
-                    result.Data = new StatusDto
-                    {
-                        Active = status.Active,
-                        CreatedAt = status.CreatedAt,
-                        Id = status.Id,
-                        Name = status.Name,
-                        UpdatedAt = status.UpdatedAt
-                    };
 
-            }
+                    result.Data = AutoMapper.Mapper.Map<StatusDto>(status);
+
+                }
                 else
                 {
                     result.Message = "No se pudo encontrar el status con el Id enviado";
@@ -56,24 +50,11 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         public async Task<TaskResult<List<StatusDto>>> GetAllAsync()
         {
-
-            List<StatusDto> statusDto = new List<StatusDto>();
             var result = new TaskResult<List<StatusDto>>();
             try
             {
                 var statuses = await _context.Status.Where(e => e.Active).ToListAsync();
-                statuses.ForEach((status) =>
-                {
-                    statusDto.Add(new StatusDto
-                        {
-                            Active = status.Active,
-                            CreatedAt = status.CreatedAt,
-                            Id = status.Id,
-                            Name = status.Name,
-                            UpdatedAt = status.UpdatedAt
-                        });
-                });
-                result.Data = statusDto;
+                result.Data = AutoMapper.Mapper.Map<List<StatusDto>>(statuses);          
             }
             catch (Exception e)
             {
@@ -91,14 +72,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
             try
             {
                 var status = await _context.Status.FirstOrDefaultAsync(e => e.Id == Id && e.Active);
-                result.Data = new StatusDto
-                {
-                    Active = status.Active,
-                    CreatedAt = status.CreatedAt,
-                    Id = status.Id,
-                    Name = status.Name,
-                    UpdatedAt = status.UpdatedAt
-                };
+                result.Data = AutoMapper.Mapper.Map<StatusDto>(status);
             }
             catch (Exception e)
             {
@@ -110,16 +84,23 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         }
 
+        public async Task<TaskResult<StatusDto>> GetByNameAsync(string name)
+        {
+            var status = await _context.Status.FirstOrDefaultAsync(e => e.Name.ToUpper() == name.ToUpper() && e.Active);
+
+
+            var result = new TaskResult<StatusDto>();
+
+            result.Success = status != null;
+            result.Data = AutoMapper.Mapper.Map<StatusDto>(status);
+
+            return result;
+        }
+
         public async Task<TaskResult<StatusDto>> SaveAsync(StatusDto statusDto)
         {
-            var status = new Status
-            {
-                Active = statusDto.Active,
-                CreatedAt = statusDto.CreatedAt,
-                Id = statusDto.Id,
-                Name = statusDto.Name,
-                UpdatedAt = statusDto.UpdatedAt
-            };
+            var status = AutoMapper.Mapper.Map<Status>(statusDto);
+
             var result = new TaskResult<StatusDto>();
             try
             {
@@ -138,15 +119,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         public async Task<TaskResult<StatusDto>> UpdateAsync(StatusDto statusDto)
         {
-            var status = new Status
-            {
-                Active = statusDto.Active,
-                CreatedAt = statusDto.CreatedAt,
-                Id = statusDto.Id,
-                Name = statusDto.Name,
-                UpdatedAt = statusDto.UpdatedAt
-            };
-
+            var status = AutoMapper.Mapper.Map<Status>(statusDto);
             var result = new TaskResult<StatusDto>();
             try
             {

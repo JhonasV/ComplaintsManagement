@@ -35,5 +35,23 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             return result;
         }
+
+        public async Task<TaskResult<TicketTypesDto>> GetAsync(int ticketId)
+        {
+            var result = new TaskResult<TicketTypesDto>();
+            try
+            {
+                var ticketTypes = await _dbContext.ComplaintsTypes.FirstOrDefaultAsync(e => e.Id == ticketId);
+                result.Data = AutoMapper.Mapper.Map<TicketTypesDto>(ticketTypes);
+                result.Success = true;
+            }
+            catch (Exception e)
+            {
+                result.Success = false;
+                result.Message = e.InnerException.Message;
+            }
+
+            return result;
+        }
     }
 }

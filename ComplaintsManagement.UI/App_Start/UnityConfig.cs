@@ -38,6 +38,7 @@ namespace ComplaintsManagement.UI.App_Start
             container.RegisterType<IDepartmentsRepository, DepartmentsRepository>();
             container.RegisterType<IRolesRepository, RolesRepository>();
             container.RegisterType<ITicketTypesRepository, TicketTypesRepository>();
+            container.RegisterType<IBinnaclesRepository, BinnaclesRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
