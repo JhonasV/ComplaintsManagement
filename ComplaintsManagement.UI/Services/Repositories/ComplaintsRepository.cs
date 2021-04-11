@@ -88,6 +88,14 @@ namespace ComplaintsManagement.UI.Services.Repositories
             return result;
         }
 
+        public async Task<TaskResult<List<ComplaintsDto>>> GetAllByUserIdAsync(string userId)
+        {
+            var allComplaints = await this.GetAllAsync();
+            TaskResult<List<ComplaintsDto>> result = new TaskResult<List<ComplaintsDto>>();
+            result.Data = allComplaints.Data.Where(e => e.UsersId == userId).ToList();
+            return result;
+        }
+
         public async Task<TaskResult<ComplaintsDto>> GetAsync(int Id)
         {
             var result = new TaskResult<ComplaintsDto>();

@@ -50,7 +50,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
         public async Task<TaskResult<List<UsersDto>>> GetAllAsync()
         {
            
-            List<UsersDto> costumersDtos = new List<UsersDto>();
+            List<UsersDto> customersDto = new List<UsersDto>();
             var result = new TaskResult<List<UsersDto>>();
             try
             {
@@ -58,41 +58,35 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     .Users
                     .Include(e => e.Department)
                     .Where(e => e.Deleted == false).ToListAsync();
-                customers.ForEach((customer) =>
-                {
-                    var departmentDto = new DepartmentsDto();
-                    if(customer.Department != null)
-                    {
-                        departmentDto = new DepartmentsDto
-                        {
-                            Id = customer.Department.Id,
-                            Active = customer.Department.Active,
-                            CreatedAt = customer.Department.CreatedAt,
-                            Description = customer.Department.Description,
-                            Name = customer.Department.Name,
-                            DeletedAt = customer.Department.DeletedAt,
-                            Deleted = customer.Department.Deleted,
-                            UpdatedAt = customer.Department.UpdatedAt
-                        };
 
-                    }
+                customersDto = AutoMapper.Mapper.Map<List<UsersDto>>(customers);
 
-                    costumersDtos.Add(
-                        new UsersDto 
-                        { 
-                            Active = customer.Active,
-                            CreatedAt = customer.CreatedAt,
-                            Email = customer.Email,
-                            Id = customer.Id,
-                            LastName = customer.LastName,
-                            Name = customer.Name,
-                            UpdatedAt = customer.UpdatedAt,
-                            PhoneNumber = customer.PhoneNumber,
-                            DocumentNumber = customer.DocumentNumber,
-                            Department  = departmentDto
-                        });
-                });
-                result.Data = costumersDtos;
+                //customers.ForEach((customer) =>
+                //{
+                //    var departmentDto = new DepartmentsDto();
+                //    if(customer.Department != null)
+                //    {
+                //        //departmentDto = new DepartmentsDto
+                //        //{
+                //        //    Id = customer.Department.Id,
+                //        //    Active = customer.Department.Active,
+                //        //    CreatedAt = customer.Department.CreatedAt,
+                //        //    Description = customer.Department.Description,
+                //        //    Name = customer.Department.Name,
+                //        //    DeletedAt = customer.Department.DeletedAt,
+                //        //    Deleted = customer.Department.Deleted,
+                //        //    UpdatedAt = customer.Department.UpdatedAt
+                //        //};
+
+                //        departmentDto = AutoMapper.Mapper.Map<DepartmentsDto>(customer.Department);
+
+                //    }
+
+                //    costumersDtos.Add(
+                //        AutoMapper.Mapper.Map<UsersDto>(customer)
+                //        );
+                //});
+                result.Data = customersDto;
             }
             catch (Exception e)
             {

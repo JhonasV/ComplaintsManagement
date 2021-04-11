@@ -171,7 +171,6 @@ namespace ComplaintsManagement.UI.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-
                     UserManager.AddToRole(user.Id, Infrastructure.Helpers.Constants.Roles.GUEST);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

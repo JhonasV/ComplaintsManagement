@@ -48,7 +48,25 @@ namespace ComplaintsManagement.UI.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var model = await _complaintsRepository.GetAllAsync();
+            TaskResult<List<ComplaintsDto>> model = new TaskResult<List<ComplaintsDto>>();
+            if (User.IsInRole(RoleName.ADMIN))
+            {
+                model = await _complaintsRepository.GetAllAsync();
+            }
+            
+            else if(User.IsInRole(RoleName.AGENT))
+            {
+                var user = await _customeRepository.GetAsync(User.Identity.GetUserId());
+                model = await _complaintsRepository.GetAllAsync();
+                model.Data = model.Data.Where(e => e.DepartmentsId == user.Data.DepartmentId).ToList();
+            }
+            else
+            {
+                model = await _complaintsRepository.GetAllByUserIdAsync(User.Identity.GetUserId());
+            }
+
+
+
             return View(model);
         }
 

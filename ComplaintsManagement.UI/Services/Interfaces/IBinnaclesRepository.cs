@@ -11,6 +11,7 @@ namespace ComplaintsManagement.UI.Services.Interfaces
     public interface IBinnaclesRepository
     {
         Task<TaskResult<List<BinnacleDto>>> GetAllAsync();
+        Task<TaskResult<List<BinnacleDto>>> GetAllByComplaintsIdAsync(int complaintsId);
         Task<TaskResult<BinnacleDto>> SaveAsync(BinnacleDto binnacle);
     }
 }

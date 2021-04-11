@@ -193,6 +193,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Configurations\AutoMapperConfig\AutoMapperProfiles.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BinnaclesController.cs" />
     <Compile Include="Controllers\ComplaintsController.cs" />
     <Compile Include="Controllers\ComplaintsOptionsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
@@ -693,6 +694,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Binnacles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

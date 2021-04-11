@@ -35,7 +35,39 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 foreach (var binnacle in binnaclesDto)
                 {
                     var user = await _customersRepository.GetAsync(binnacle.ApplicationUserId);
-                    binnacle.User = AutoMapper.Mapper.Map<UsersDto>(user);
+                    binnacle.User = AutoMapper.Mapper.Map<UsersDto>(user.Data);
+                }
+
+
+                result.Data = binnaclesDto;
+                result.Success = true;
+            }
+            catch (Exception e)
+            {
+
+                result.Success = false;
+                result.Message = e.InnerException.Message;
+            }
+
+            return result;
+        }
+
+        public async Task<TaskResult<List<BinnacleDto>>> GetAllByComplaintsIdAsync(int complaintsId)
+        {
+            var result = new TaskResult<List<BinnacleDto>>();
+            try
+            {
+                var binnacles = await _dbContext
+                                      .Binnacles
+                                      .Include(e =>e.Status)
+                                      .Where(e => e.Active && e.ComplaintsId == complaintsId)
+                                      .ToListAsync();
+
+                var binnaclesDto = AutoMapper.Mapper.Map<List<BinnacleDto>>(binnacles);
+                foreach (var binnacle in binnaclesDto)
+                {
+                    var user = await _customersRepository.GetAsync(binnacle.ApplicationUserId);
+                    binnacle.User = AutoMapper.Mapper.Map<UsersDto>(user.Data);
                 }
 
 

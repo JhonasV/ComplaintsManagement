@@ -14,6 +14,7 @@ namespace ComplaintsManagement.UI.Services.Interfaces
         Task<TaskResult<ComplaintsDto>> SaveAsync(ComplaintsDto complaints);
         Task<TaskResult<ComplaintsDto>> GetAsync(int Id);
         Task<TaskResult<List<ComplaintsDto>>> GetAllAsync();
+        Task<TaskResult<List<ComplaintsDto>>> GetAllByUserIdAsync(string userId);
         Task<TaskResult<ComplaintsDto>> DeleteAsync(int Id);
         Task<TaskResult<ComplaintsDto>> UpdateAsync(ComplaintsDto complaints);
         Task<TaskResult<ComplaintsDto>> UpdateStatusAsync(int statusId, int complaintsId);
