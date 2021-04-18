@@ -4,7 +4,7 @@
     Model.ServiceRate.ComplaintsId = Model.Complaint.Data.Id;
 }
 
-@if (User.Identity.Name == Model.Complaint.Data.Customer.Email && Model.Complaint.Data.Status.Name.ToUpper() == ComplaintsManagement.UI.Models.StatusName.CLOSE_REQUIRED)
+@if (User.Identity.Name == Model.Complaint.Data.Customer.Email && Model.Complaint.Data.Status.Name.ToUpper() == ComplaintsManagement.UI.Models.StatusName.CLOSE_REQUIRED || Model.Complaint.Data.Status.Name.ToUpper() == ComplaintsManagement.UI.Models.StatusName.CLOSED)
 {
     using (Html.BeginForm(controllerName: "ServiceRate", actionName: "Create", method: FormMethod.Post))
     {

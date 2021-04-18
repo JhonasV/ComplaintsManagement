@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var complaint = Model.Complaint.Data;
+
+    var status = (List<SelectListItem>)ViewBag.StatusList;
+    var closedStatus = status.Where(e => e.Text.ToUpper() == ComplaintsManagement.UI.Models.StatusName.CLOSED).FirstOrDefault().Value;
 }
 
 <div class="card">
@@ -68,11 +71,21 @@
             <h3 class="text-white">Bitácora</h3>
         </div>
         <div class="d-flex">
-            @if (User.Identity.Name == complaint.Customer.Email)
+            @if (User.Identity.Name == complaint.Customer.Email && complaint.Status.Name.ToUpper() == ComplaintsManagement.UI.Models.StatusName.CLOSE_REQUIRED)
             {
-                <div class="form-group">
-                    <button class="btn btn-warning">Cerrar @complaint.TicketType.Description </button>
-                </div>
+                using (Html.BeginForm(controllerName: "Complaints", actionName: "UpdateStatus", method: FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    Model.Complaint.Data.StatusId = int.Parse(closedStatus);
+
+                    @Html.HiddenFor(e => e.Complaint.Data.Id)
+                    @Html.HiddenFor(e => e.Complaint.Data.StatusId)
+                    <div class="form-group">
+                        <button onclick="return confirm('¿Seguro de cerrar este ticket?')" class="btn btn-warning">Cerrar @complaint.TicketType.Description </button>
+                    </div>
+                }
+
             }
         </div>
     </div>
@@ -90,7 +103,7 @@
                     </thead>
                     <tbody id="binnacle_tbody">
 
-                        @foreach (var binnacle in complaint.Binnacles)
+                        @foreach (var binnacle in complaint.Binnacles.OrderBy(e => e.CreatedAt))
                         {
                             <tr>
                                 <td>@binnacle.User.Name @binnacle.User.LastName</td>

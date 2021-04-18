@@ -2,10 +2,12 @@
 using ComplaintsManagement.Infrastructure.Entities;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,11 +18,15 @@ namespace ComplaintsManagement.UI.Services.Repositories
     {
         private readonly ApplicationDbContext _context;
         private readonly ICustomersRepository _customersRepository;
+        private readonly IServiceRateRepository _serviceRateRepository;
+        private readonly IStatusRepository _statusRepository;
 
-        public ComplaintsRepository(ApplicationDbContext context, ICustomersRepository customersRepository)
+        public ComplaintsRepository(ApplicationDbContext context, ICustomersRepository customersRepository, IServiceRateRepository serviceRateRepository, IStatusRepository statusRepository)
         {
             _context = context;
             _customersRepository = customersRepository;
+            _serviceRateRepository = serviceRateRepository;
+            _statusRepository = statusRepository;
         }
         public async Task<TaskResult<ComplaintsDto>> DeleteAsync(int Id)
         {
@@ -47,6 +53,161 @@ namespace ComplaintsManagement.UI.Services.Repositories
                 result.Message = $"Ha ocurrido un error: {e.Message}";
             }
             return result;
+        }
+
+        public async Task ExportAll(HttpResponseBase Response)
+        {
+            var complaints = await this.GetAllAsync();
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Tickets");
+
+            ws.Cells["A1"].Value = "Cliente";
+            ws.Cells["B1"].Value = "Tipo";
+            ws.Cells["C1"].Value = "Producto";
+            ws.Cells["D1"].Value = "Departamento";
+            ws.Cells["E1"].Value = "Fecha de Creacion";
+            ws.Cells["F1"].Value = "Fecha de Cierre";
+            ws.Cells["G1"].Value = "Estado";
+            ws.Cells["H1"].Value = "Razon";
+            ws.Cells["I1"].Value = "Comentario";
+
+
+            int rowStart = 2;
+            foreach (var item in complaints.Data)
+            {
+                ws.Cells[$"A{rowStart}"].Value = $"{item.Customer.Name} {item.Customer.LastName}";
+                ws.Cells[$"B{rowStart}"].Value = item.TicketType.Description;
+                ws.Cells[$"C{rowStart}"].Value = item.Product.Name;
+                ws.Cells[$"D{rowStart}"].Value = item.Deparment.Name;
+                ws.Cells[$"E{rowStart}"].Value = item.CreatedAt.ToString("MM/dd/yyyy hh:mm tt");
+                ws.Cells[$"F{rowStart}"].Value = item.CompletedAt?.ToString("MM/dd/yyyy hh:mm tt");
+                ws.Cells[$"G{rowStart}"].Value = item.Status.Name;
+                ws.Cells[$"H{rowStart}"].Value = item.ComplaintsOption.Name;
+                ws.Cells[$"I{rowStart}"].Value = item.Comment;
+                rowStart++;
+            }
+
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            using (var memoryStream = new MemoryStream())
+            {
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment; filename=" + $"Tickets-{DateTime.Now.ToString("MM-dd-yyyy-hh:mm-ss")}" + ".xlsx");
+                pck.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
+        }
+
+        public async Task ExportPorcentage(HttpResponseBase Response)
+        {
+
+            var porcentages = new List<ReportPorcentageModel>();
+            var complaints = await this.GetAllAsync();
+            var totalPerStatus = 0;
+            var totalTickets = complaints.Data.Count();
+            var complaintsGrouped = complaints.Data.GroupBy(e => e.StatusId).ToList();
+            foreach (var item in complaintsGrouped)
+            {
+                var porcentage = new ReportPorcentageModel();
+                totalPerStatus = item.ToList().Count;
+                decimal result = (decimal)totalPerStatus / (decimal)totalTickets;
+                porcentage.StatusPorcentage = result * 100;
+                porcentage.Status = item.FirstOrDefault().Status.Name;
+
+                porcentages.Add(porcentage);
+            }
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Tickets");
+
+            ws.Cells["A1"].Value = "Estado";
+            ws.Cells["B1"].Value = "Porcentaje";
+           
+
+
+
+            int rowStart = 2;
+            foreach (var item in porcentages)
+            {
+                ws.Cells[$"A{rowStart}"].Value = item.Status;
+                ws.Cells[$"B{rowStart}"].Value = $"{item.StatusPorcentage.ToString("0.##")}%";
+  
+
+                rowStart++;
+            }
+
+            ws.Cells[$"A{complaints.Data.Count() + 1}"].Value = "Total";
+            ws.Cells[$"B{complaints.Data.Count() + 1}"].Value = complaints.Data.Count();
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            using (var memoryStream = new MemoryStream())
+            {
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment; filename=" + $"Tickets-status-{DateTime.Now.ToString("MM-dd-yyyy-hh:mm-ss")}" + ".xlsx");
+                pck.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
+
+        }
+
+        public async Task ExportServiceRate(HttpResponseBase Response)
+        {
+            var rates = await _serviceRateRepository.GetAllAsync();
+            var rateGrouped = rates.Data.GroupBy(e => e.Rate).ToList();
+            var totalRates = rates.Data.Count();
+            var porcentages = new List<ServiceRatePortenageModel>();
+            var totalPerRate = 0;
+            foreach (var item in rateGrouped)
+            {
+
+                totalPerRate = item.ToList().Count;
+                decimal result = (decimal)totalPerRate / (decimal)totalRates;
+                var porcentage = new ServiceRatePortenageModel();
+
+                porcentage.Rate = Enum.GetName(typeof(EnumRate), item.FirstOrDefault().Rate);
+                porcentage.RatePorcentage = result * 100;
+
+
+                porcentages.Add(porcentage);
+            }
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Tickets");
+
+            ws.Cells["A1"].Value = "Puntuacion";
+            ws.Cells["B1"].Value = "Porcentaje";
+
+
+
+
+            int rowStart = 2;
+            foreach (var item in porcentages)
+            {
+                ws.Cells[$"A{rowStart}"].Value = item.Rate;
+                ws.Cells[$"B{rowStart}"].Value = $"{item.RatePorcentage.ToString("0.##")}%";
+
+
+                rowStart++;
+            }
+
+            ws.Cells[$"A{rates.Data.Count() + 1}"].Value = "Total";
+            ws.Cells[$"B{rates.Data.Count() + 1}"].Value = rates.Data.Count();
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            using (var memoryStream = new MemoryStream())
+            {
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment; filename=" + $"Tickets-rate-{DateTime.Now.ToString("MM-dd-yyyy-hh:mm-ss")}" + ".xlsx");
+                pck.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
         }
 
         public async Task<TaskResult<List<ComplaintsDto>>> GetAllAsync()
@@ -187,8 +348,17 @@ namespace ComplaintsManagement.UI.Services.Repositories
             var result = new TaskResult<ComplaintsDto>();
             try
             {
-                var complaints = await _context.Complaints.Where(e => e.Id == complaintsId && e.Active).FirstOrDefaultAsync();
+                var complaints = await _context.Complaints.Include(e => e.Status).Where(e => e.Id == complaintsId && e.Active).FirstOrDefaultAsync();
+                var status = await _statusRepository.GetAsync(statusId);
                 complaints.StatusId = statusId;
+
+
+                if (status.Data.Name.ToUpper() == StatusName.CLOSED)
+                {
+                    complaints.CompletedAt = DateTime.Now;
+                    complaints.UpdatedAt = DateTime.Now;
+                }
+
                 await _context.SaveChangesAsync();
                 result.Data = AutoMapper.Mapper.Map<ComplaintsDto>(complaints);
                 result.Message = "El registro fue actualizado correctamente";

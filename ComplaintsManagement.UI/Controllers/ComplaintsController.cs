@@ -3,8 +3,10 @@ using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -220,22 +222,41 @@ namespace ComplaintsManagement.UI.Controllers
         {
 
             var isUpdated = await _complaintsRepository.UpdateStatusAsync(model.Complaint.Data.StatusId, model.Complaint.Data.Id);
-
+            var status = await _statusRepository.GetAsync(model.Complaint.Data.StatusId);
             if (isUpdated.Success)
             {
                 var binnacle = new BinnacleDto
                 {
                     StatusId = model.Complaint.Data.StatusId,
-                    Comment = model.Binnacle.Comment,
+                    Comment = model.Binnacle?.Comment ?? $"SE HA CAMBIADO EL ESTADO DEL TICKET A: {status.Data.Name.ToUpper()}",
                     ComplaintsId = model.Complaint.Data.Id,
                     CreatedAt = DateTime.Now,
                     ApplicationUserId = User.Identity.GetUserId()
                 };
                 var addBinnacle = await _binnaclesRepository.SaveAsync(binnacle);
+
             }
 
             return RedirectToAction("Details", new { id = model.Complaint.Data.Id });
         }
 
+
+        [HttpGet]
+        public async Task ExportAll()
+        {
+            await _complaintsRepository.ExportAll(Response);
+        }
+
+        [HttpGet]
+        public async Task ExportPorcentage()
+        {
+            await _complaintsRepository.ExportPorcentage(Response);
+        }
+
+        [HttpGet]
+        public async Task ExportPorcentageRate()
+        {
+            await _complaintsRepository.ExportServiceRate(Response);
+        }
     }
 }

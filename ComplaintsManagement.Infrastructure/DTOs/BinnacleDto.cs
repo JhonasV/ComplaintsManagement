@@ -9,6 +9,7 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public string ApplicationUserId { get; set; }
         public int StatusId { get; set; }
         [StringLength(200)]
+        [Required]
         public string Comment { get; set; }
         public int? ComplaintsId { get; set; }
         public int Id { get; set; }

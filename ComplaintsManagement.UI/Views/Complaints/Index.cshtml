@@ -44,7 +44,17 @@
 
             <div class="col-lg-offset-10"></div>
             
-            @if (User.IsInRole("Admin"))
+            @if (User.IsInRole(ComplaintsManagement.UI.Models.RoleName.ADMIN))
+            {
+                <div class="col-lg-12">
+                    @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })
+                    @Html.ActionLink("Exportar", "ExportAll", null, htmlAttributes: new { @Class = "btn btn-success" })
+                    @Html.ActionLink("Exportar Estados %", "ExportPorcentage", null, htmlAttributes: new { @Class = "btn btn-warning" })
+                    @Html.ActionLink("Exportar puntuaciones %", "ExportPorcentageRate", null, htmlAttributes: new { @Class = "btn btn-secondary" })
+                </div>
+            }
+
+            @if (User.IsInRole(ComplaintsManagement.UI.Models.RoleName.AGENT))
             {
                 <div class="col-lg-12">
                     @Html.ActionLink("Agregar", "Create", null, htmlAttributes: new { @Class = "btn btn-primary" })

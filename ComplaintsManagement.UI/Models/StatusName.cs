@@ -11,5 +11,6 @@ namespace ComplaintsManagement.UI.Models
         public const string TRANSFERRED = "TRANSFERIDO";
         public const string CLOSE_REQUIRED = "CIERRE SOLICITADO";
         public const string RE_OPEN = "TRANSFERIDO";
+        public const string CLOSED = "CERRADO";
     }
 }
