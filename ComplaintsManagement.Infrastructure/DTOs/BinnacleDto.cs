@@ -14,7 +14,6 @@ namespace ComplaintsManagement.Infrastructure.DTOs
         public int Id { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
-        public string Commment { get; set; }
         public DateTime? DeletedAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }

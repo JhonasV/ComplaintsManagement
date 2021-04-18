@@ -202,6 +202,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\ServiceRateController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,8 +227,13 @@
     <Compile Include="Migrations\202104090410577_TicketTypes and Binnacle entities added.designer.cs">
       <DependentUpon>202104090410577_TicketTypes and Binnacle entities added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104171901199_servicerate entity added.cs" />
+    <Compile Include="Migrations\202104171901199_servicerate entity added.designer.cs">
+      <DependentUpon>202104171901199_servicerate entity added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ComplaintsViewModel.cs" />
     <Compile Include="Models\CustomersViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -245,6 +251,7 @@
     <Compile Include="Services\Interfaces\IProductsRepository.cs" />
     <Compile Include="Services\Interfaces\ICustomersRepository.cs" />
     <Compile Include="Services\Interfaces\IRolesRepository.cs" />
+    <Compile Include="Services\Interfaces\IServiceRateRepository.cs" />
     <Compile Include="Services\Interfaces\IStatusRepository.cs" />
     <Compile Include="Services\Interfaces\ITicketTypesRepository.cs" />
     <Compile Include="Services\Repositories\BinnaclesRepository.cs" />
@@ -255,6 +262,7 @@
     <Compile Include="Services\Repositories\ProductsRepository.cs" />
     <Compile Include="Services\Repositories\CustomersRepository.cs" />
     <Compile Include="Services\Repositories\RolesRepository.cs" />
+    <Compile Include="Services\Repositories\ServiceRateRepository.cs" />
     <Compile Include="Services\Repositories\StatusRepository.cs" />
     <Compile Include="Services\Repositories\TicketTypesRepository.cs" />
     <Compile Include="Startup.cs" />
@@ -691,10 +699,13 @@
     <Content Include="Views\Roles\AddUserRole.cshtml" />
     <Content Include="Views\Roles\_userRoleModal.cshtml" />
     <Content Include="Views\Complaints\Details.cshtml" />
+    <Content Include="Views\Complaints\_UpdateStatusFormPartial.cshtml" />
+    <Content Include="Views\Complaints\_ServiceRateFormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Binnacles\" />
+    <Folder Include="Views\ServiceRate\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -733,6 +744,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104090410577_TicketTypes and Binnacle entities added.resx">
       <DependentUpon>202104090410577_TicketTypes and Binnacle entities added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104171901199_servicerate entity added.resx">
+      <DependentUpon>202104171901199_servicerate entity added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -168,13 +168,21 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             try
             {
-                var costumer = await _context.Users.SingleOrDefaultAsync(e => e.Id == Id && e.Deleted == false);
+                var customer = await _context.Users.SingleOrDefaultAsync(e => e.Id == Id && e.Deleted == false);
                 result.Data = new UsersDto 
                 { 
-                    PasswordHash = costumer.PasswordHash,
-                    Active = costumer.Active,
-                    CreatedAt = costumer.CreatedAt,
-                    Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
+                    PasswordHash = customer.PasswordHash,
+                    Active = customer.Active,
+                    CreatedAt = customer.CreatedAt,
+                    Email = customer.Email, 
+                    Id = customer.Id,
+                    LastName = customer.LastName, 
+                    Name = customer.Name, 
+                    UpdatedAt = customer.UpdatedAt, 
+                    DocumentNumber = customer.DocumentNumber, 
+                    PhoneNumber = customer.PhoneNumber,
+                    DepartmentId = customer.DepartmentId
+                };
             }
             catch (Exception e)
             {

@@ -9,7 +9,7 @@ namespace ComplaintsManagement.UI.Models
     {
         public const string COMMITED = "SOMETIDO";
         public const string TRANSFERRED = "TRANSFERIDO";
-        public const string CLOSE_REQUIRED = "CIERRE ";
+        public const string CLOSE_REQUIRED = "CIERRE SOLICITADO";
         public const string RE_OPEN = "TRANSFERIDO";
     }
 }

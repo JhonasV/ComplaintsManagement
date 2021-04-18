@@ -183,11 +183,25 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
         public async Task<TaskResult<ComplaintsDto>> UpdateStatusAsync(int statusId, int complaintsId)
         {
-            var complaint = await this.GetAsync(complaintsId);
-            complaint.Data.StatusId = statusId;
-            var complaintUpdated = await this.UpdateAsync(complaint.Data);
 
-            return complaintUpdated;
+            var result = new TaskResult<ComplaintsDto>();
+            try
+            {
+                var complaints = await _context.Complaints.Where(e => e.Id == complaintsId && e.Active).FirstOrDefaultAsync();
+                complaints.StatusId = statusId;
+                await _context.SaveChangesAsync();
+                result.Data = AutoMapper.Mapper.Map<ComplaintsDto>(complaints);
+                result.Message = "El registro fue actualizado correctamente";
+            }
+            catch (Exception e)
+            {
+                result.Success = false;
+                result.Message = $"Error al intentar actualizar información de la queja: {e.Message}";
+            }
+            return result;
+            //var complaintDto = AutoMapper.Mapper.Map<ComplaintsDto>(complaint);
+            //var complaintUpdated = await this.UpdateAsync(complaintDto);
+
         }
     }
 }

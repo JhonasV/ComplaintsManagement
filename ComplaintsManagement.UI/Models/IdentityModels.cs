@@ -68,6 +68,7 @@ namespace ComplaintsManagement.UI.Models
         public virtual DbSet<Departments> Departments { get; set; }
         public virtual DbSet<TicketTypes> ComplaintsTypes { get; set; }
         public virtual DbSet<Binnacle> Binnacles { get; set; }
+        public virtual DbSet<ServiceRate> ServiceRate { get; set; }
 
 
         public static ApplicationDbContext Create()

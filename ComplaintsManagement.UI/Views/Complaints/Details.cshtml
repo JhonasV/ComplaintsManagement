@@ -1,7 +1,9 @@
-﻿@model ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Infrastructure.DTOs.ComplaintsDto>
+﻿@model ComplaintsManagement.UI.Models.ComplaintsViewModel
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var complaint = Model.Complaint.Data;
 }
 
 <div class="card">
@@ -10,8 +12,8 @@
             <h3 class="text-white">Detalles del Reclamo o Queja</h3>
         </div>
         <div class="d-flex">
-            <div class="alert alert-warning mr-2">Estado: <span class="font-weight-bold">@Model.Data.Status.Name</span> </div>
-            <div class="alert alert-warning">Tipo Ticket: <span class="font-weight-bold">@Model.Data.TicketType.Description</span> </div>
+            <div class="alert alert-warning mr-2">Estado: <span class="font-weight-bold">@complaint.Status.Name</span> </div>
+            <div class="alert alert-warning">Tipo Ticket: <span class="font-weight-bold">@complaint.TicketType.Description</span> </div>
         </div>
     </div>
     <div class="container">
@@ -19,42 +21,42 @@
             <div class="col-12">
                 <div class="form-group">
                     <h5>Cliente: </h5>
-                    <h5 class="font-weight-bold">@Model.Data.Customer.Name @Model.Data.Customer.LastName</h5>
+                    <h5 class="font-weight-bold">@complaint.Customer.Name @complaint.Customer.LastName</h5>
                     <hr />
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
                     <h5>Departamento Responsable:</h5>
-                    <h5 class="font-weight-bold">@Model.Data.Deparment.Name</h5>
+                    <h5 class="font-weight-bold">@complaint.Deparment.Name</h5>
                     <hr />
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
                     <h5>Fecha de creación:</h5>
-                    <h5 class="font-weight-bold">@Model.Data.CreatedAt.ToString("MM/dd/yyyy hh:mm tt")</h5>
+                    <h5 class="font-weight-bold">@complaint.CreatedAt.ToString("MM/dd/yyyy hh:mm tt")</h5>
                     <hr />
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
                     <h5>Producto reportado:</h5>
-                    <h5 class="font-weight-bold">@Model.Data.Product.Name</h5>
+                    <h5 class="font-weight-bold">@complaint.Product.Name</h5>
                     <hr />
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
                     <h5>Razón:</h5>
-                    <h5 class="font-weight-bold">@Model.Data.ComplaintsOption.Name</h5>
+                    <h5 class="font-weight-bold">@complaint.ComplaintsOption.Name</h5>
                     <hr />
                 </div>
             </div>
             <div class="col-12">
                 <div class="form-group">
                     <h5>Comentario del cliente:</h5>
-                    <h5 class="font-weight-bold">@Model.Data.Comment</h5>
+                    <h5 class="font-weight-bold">@complaint.Comment</h5>
                     <hr />
                 </div>
             </div>
@@ -66,12 +68,12 @@
             <h3 class="text-white">Bitácora</h3>
         </div>
         <div class="d-flex">
-            @if (User.Identity.Name == Model.Data.Customer.Email)
+            @if (User.Identity.Name == complaint.Customer.Email)
             {
                 <div class="form-group">
-                    <button  class="btn btn-warning">Cerrar @Model.Data.TicketType.Description </button>
+                    <button class="btn btn-warning">Cerrar @complaint.TicketType.Description </button>
                 </div>
-            }          
+            }
         </div>
     </div>
     <div class="container card-body">
@@ -88,7 +90,7 @@
                     </thead>
                     <tbody id="binnacle_tbody">
 
-                        @foreach (var binnacle in Model.Data.Binnacles)
+                        @foreach (var binnacle in complaint.Binnacles)
                         {
                             <tr>
                                 <td>@binnacle.User.Name @binnacle.User.LastName</td>
@@ -118,15 +120,20 @@
         </div>
     </div>
 
-</div>
 
+   @{
+       Html.RenderPartial("_UpdateStatusFormPartial");
+       Html.RenderPartial("_ServiceRateFormPartial");
+   }
+
+    </div>
 
 @section Scripts {
     <script>
         const binnacleTBody = document.querySelector("#binnacle_tbody");
         const commentTextArea = document.querySelector("#comment_textarea");
         const addCommentBtn = document.querySelector("#add_comment_btn");
-        const complaintsId = @Model.Data.Id;
+        const complaintsId = @complaint.Id;
         const getBinnacles = () => {
 
 

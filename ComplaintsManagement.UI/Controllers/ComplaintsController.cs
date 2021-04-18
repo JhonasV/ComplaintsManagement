@@ -78,7 +78,17 @@ namespace ComplaintsManagement.UI.Controllers
                 return RedirectToAction(nameof(this.Index));
             }
 
-            var model = await _complaintsRepository.GetAsync(id);
+            var complaint = await _complaintsRepository.GetAsync(id);
+            var status = await _statusRepository.GetAllAsync();
+
+            ViewBag.StatusList = status.Data.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name, Selected = e.Id == complaint.Data.StatusId }).ToList();
+
+            var model = new ComplaintsViewModel
+            {
+                Complaint = complaint,
+                Binnacle = new BinnacleDto(),
+                ServiceRate = new ServiceRateDto()
+            };
 
             return View(model);
         }
@@ -124,7 +134,7 @@ namespace ComplaintsManagement.UI.Controllers
                 var ticketType = await _ticketTypesRepository.GetAsync(Data.TicketTypesId);
                 var binnacle1 = new BinnacleDto
                 {
-                    ApplicationUserId = Data.UsersId,
+                    ApplicationUserId = User.Identity.GetUserId(),
                     StatusId = Data.StatusId,
                     Comment = $"La {ticketType.Data.Description} se ha creado con el estado: {StatusName.COMMITED}",
                     ComplaintsId = result.Data.Id
@@ -139,7 +149,7 @@ namespace ComplaintsManagement.UI.Controllers
                     await _complaintsRepository.UpdateStatusAsync(status2.Data.Id, result.Data.Id);
                     var binnacle2 = new BinnacleDto
                     {
-                        ApplicationUserId = Data.UsersId,
+                        ApplicationUserId = User.Identity.GetUserId(),
                         StatusId = status2.Data.Id,
                         Comment = $"La {ticketType.Data.Description} ha sido transferido al departamento: {deparment.Data.Name}",
                         ComplaintsId = result.Data.Id
@@ -202,6 +212,29 @@ namespace ComplaintsManagement.UI.Controllers
             ViewData["Message"] = deleteResult.Message;
             ViewData["Success"] = deleteResult.Success;
             return RedirectToAction(nameof(this.Index));
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateStatus(ComplaintsViewModel model)
+        {
+
+            var isUpdated = await _complaintsRepository.UpdateStatusAsync(model.Complaint.Data.StatusId, model.Complaint.Data.Id);
+
+            if (isUpdated.Success)
+            {
+                var binnacle = new BinnacleDto
+                {
+                    StatusId = model.Complaint.Data.StatusId,
+                    Comment = model.Binnacle.Comment,
+                    ComplaintsId = model.Complaint.Data.Id,
+                    CreatedAt = DateTime.Now,
+                    ApplicationUserId = User.Identity.GetUserId()
+                };
+                var addBinnacle = await _binnaclesRepository.SaveAsync(binnacle);
+            }
+
+            return RedirectToAction("Details", new { id = model.Complaint.Data.Id });
         }
 
     }

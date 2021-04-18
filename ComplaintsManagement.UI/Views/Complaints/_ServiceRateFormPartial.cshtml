@@ -1,0 +1,44 @@
+﻿
+@model ComplaintsManagement.UI.Models.ComplaintsViewModel
+@{
+    Model.ServiceRate.ComplaintsId = Model.Complaint.Data.Id;
+}
+
+@if (User.Identity.Name == Model.Complaint.Data.Customer.Email && Model.Complaint.Data.Status.Name.ToUpper() == ComplaintsManagement.UI.Models.StatusName.CLOSE_REQUIRED)
+{
+    using (Html.BeginForm(controllerName: "ServiceRate", actionName: "Create", method: FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(e => e.ServiceRate.ComplaintsId)
+        <div class="card-header bg-primary d-flex justify-content-between">
+            <div>
+                <h3 class="text-white">Puntuación de Servicio</h3>
+            </div>
+        </div>
+        <div class="container card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <h5>Puntuacion: </h5>
+                        @Html.EnumDropDownListFor(e => e.ServiceRate.Rate, Model.ServiceRate.Rate.ToString(),new { @class = "form-control" })
+                        @*<select name="ServiceRate.RateId" class="form-control">
+                                <option value="1">Muy Malo</option>
+                                <option value="2">Malo</option>
+                                <option value="3">Regular</option>
+                                <option value="4">Bueno</option>
+                                <option value="5">Muy Bueno</option>
+                            </select>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <button class="btn btn-primary">Agregar puntuación</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

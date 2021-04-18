@@ -59,10 +59,7 @@ namespace ComplaintsManagement.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(RolesDto Data)
         {
-
-
             var newModel = await _rolesRepository.SaveAsync(Data);
-
             return View(newModel);
         }
 
@@ -121,11 +118,34 @@ namespace ComplaintsManagement.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddUserRole(UsersRolesDto Data)
         {
-            var result = await UserManager.AddToRoleAsync(Data.UsersId, Data.RoleName);
+            var userRoles = await UserManager.GetRolesAsync(Data.UsersId);
+
             var taskResult = new TaskResult<UsersRolesDto>
             {
                 Data = Data
             };
+
+            var roles = await _rolesRepository.GetAllAsync();
+            ViewBag.Roles = roles.Data.Select(r => new SelectListItem { Text = r.Name, Value = r.Name }).ToList();
+
+            var users = await _customerRepository.GetAllAsync();
+            ViewBag.Users = users.Data.Select(u => new SelectListItem { Text = u.Email, Value = u.Id }).ToList();
+
+            if (userRoles.Any())
+            {
+               var removedResult = await UserManager.RemoveFromRoleAsync(Data.UsersId, userRoles.FirstOrDefault());
+                if (!removedResult.Succeeded)
+                {
+                    taskResult.Message = String.Join(", ", removedResult.Errors);
+                    taskResult.Success = false;
+
+                    return View(taskResult);
+                }
+
+            }
+        
+            var result = await UserManager.AddToRoleAsync(Data.UsersId, Data.RoleName);
+
             if (result.Succeeded)
             {
 
@@ -136,11 +156,9 @@ namespace ComplaintsManagement.UI.Controllers
                 taskResult.Success = false;
                 taskResult.Message = String.Join(", ", result.Errors);
             }
-            var roles = await _rolesRepository.GetAllAsync();
-            ViewBag.Roles = roles.Data.Select(r => new SelectListItem { Text = r.Name, Value = r.Name }).ToList();
 
-            var users = await _customerRepository.GetAllAsync();
-            ViewBag.Users = users.Data.Select(u => new SelectListItem { Text = u.Email, Value = u.Id }).ToList();
+
+
             return View(taskResult);
         }
 

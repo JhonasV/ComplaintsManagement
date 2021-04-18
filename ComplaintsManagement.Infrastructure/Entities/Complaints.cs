@@ -18,10 +18,10 @@ namespace ComplaintsManagement.Infrastructure.Entities
         public int TicketTypesId { get; set; }
 
 
-        public virtual Products Product { get; set; }
-        public virtual ComplaintsOptions ComplaintsOption { get; set; }
-        public virtual Status Status { get; set; }
-        public virtual Departments Deparment { get; set; }
+        public Products Product { get; set; }
+        public ComplaintsOptions ComplaintsOption { get; set; }
+        public Status Status { get; set; }
+        public Departments Deparment { get; set; }
         public TicketTypes TicketType { get; set; }
         public List<Binnacle> Binnacles { get; set; }
 
