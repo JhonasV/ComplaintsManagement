@@ -25,13 +25,13 @@
 
         <h4 class="mt-2">Listado de Productos</h4>
         <hr />
-        @if (!Success && Message?.Length > 0)
+        @if (!Success && Model.Message != null && Model.Message.Length > 0)
         {
             <span class="alert alert-danger">@Message</span>
             <hr />
         }
 
-        @if (Success && Message?.Length > 0)
+        @if (Success && Model.Message != null && Model.Message.Length > 0)
         {
             <span class="alert alert-success">@Message</span>
             <hr />

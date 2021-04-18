@@ -29,13 +29,13 @@
     <div class="container card-body">
         <h4 class="mt-4">Listado de Quejas y Reclamaciones</h4>
         <hr />
-        @if (!Success && Message?.Length > 0)
+        @if (!Success && Message != null && Message.Length> 0)
         {
             <span class="alert alert-danger">@Message</span>
             <hr />
         }
 
-        @if (Success && Message?.Length > 0)
+        @if (Success && Message != null && Message.Length > 0)
         {
             <span class="alert alert-success">@Message</span>
             <hr />

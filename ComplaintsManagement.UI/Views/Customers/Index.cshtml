@@ -13,7 +13,7 @@
             <span class="alert alert-danger">@Model.Message</span>
         }
 
-        @if (Model.Success && Model.Message?.Length > 0)
+        @if (Model.Success && Model.Message != null && Model.Message.Length > 0)
         {
             <span class="alert alert-success">@Model.Message</span>
         }
@@ -43,9 +43,14 @@
                     <tbody>
                         @foreach (var customer in Model.Data)
                         {
-                           
-                                var userDepartament = customer.Department?.Name ?? "N/A";
-                          
+                            var userDepartament = "N/A";
+                            if (customer.Department != null & customer.Department.Name != null)
+                            {
+                                 userDepartament = customer.Department.Name;
+                            }
+
+
+
                             <tr>
                                 @*<td>@customer.Id</td>*@
                                 <td>@customer.Name</td>

@@ -29,13 +29,13 @@
     <div class="container">
         <h4 class="mt-3">Listado de Opciones de Reclamo</h4>
         <hr />
-        @if (!Success && Message?.Length > 0)
+        @if (!Success && Message != null && Message.Length > 0)
         {
             <span class="alert alert-danger">@Message</span>
             <hr />
         }
 
-        @if (Success && Message?.Length > 0)
+        @if (Success && Message != null && Message.Length > 0)
         {
             <span class="alert alert-success">@Message</span>
             <hr />

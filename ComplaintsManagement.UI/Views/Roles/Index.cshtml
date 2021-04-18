@@ -29,13 +29,13 @@
     <div class="container mt-2 mb-2">
         <h4>Listado de Roles</h4>
         <hr />
-        @if (!Success && Message?.Length > 0)
+        @if (!Success && Model.Message != null && Model.Message.Length > 0)
         {
             <span class="alert alert-danger">@Message</span>
             <hr />
         }
 
-        @if (Success && Message?.Length > 0)
+        @if (Success && Model.Message != null && Model.Message.Length > 0)
         {
             <span class="alert alert-success">@Message</span>
             <hr />
