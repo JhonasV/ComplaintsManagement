@@ -1,4 +1,5 @@
-﻿using ComplaintsManagement.Infrastructure.DTOs;
+﻿using ComplaintsManagement.Infrastructure.Database;
+using ComplaintsManagement.Infrastructure.DTOs;
 using ComplaintsManagement.Infrastructure.Entities;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
@@ -200,8 +201,8 @@ namespace ComplaintsManagement.UI.Services.Repositories
 
             try
             {
-                var costumer =  _context.Users.SingleOrDefault(e => e.Id == Id && e.Deleted == false);
-                result.Data = new UsersDto { Active = costumer.Active, CreatedAt = costumer.CreatedAt, Email = costumer.Email, Id = costumer.Id, LastName = costumer.LastName, Name = costumer.Name, UpdatedAt = costumer.UpdatedAt, DocumentNumber = costumer.DocumentNumber, PhoneNumber = costumer.PhoneNumber };
+                var customer =  _context.Users.SingleOrDefault(e => e.Id == Id && e.Deleted == false);
+                result.Data = AutoMapper.Mapper.Map<UsersDto>(customer);
             }
             catch (Exception e)
             {

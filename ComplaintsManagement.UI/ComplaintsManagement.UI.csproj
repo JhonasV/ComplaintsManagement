@@ -247,7 +247,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ComplaintsViewModel.cs" />
     <Compile Include="Models\CustomersViewModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ReportPorcentageModel.cs" />
     <Compile Include="Models\RoleName.cs" />

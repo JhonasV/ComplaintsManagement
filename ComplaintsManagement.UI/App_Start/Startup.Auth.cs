@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using ComplaintsManagement.UI.Models;
+using ComplaintsManagement.Infrastructure.Database;
 
 namespace ComplaintsManagement.UI
 {

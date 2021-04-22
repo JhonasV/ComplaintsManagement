@@ -1,4 +1,5 @@
-﻿using ComplaintsManagement.UI.Controllers;
+﻿using ComplaintsManagement.Infrastructure.Database;
+using ComplaintsManagement.UI.Controllers;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
 using ComplaintsManagement.UI.Services.Repositories;

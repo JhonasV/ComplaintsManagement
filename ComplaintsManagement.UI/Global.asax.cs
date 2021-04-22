@@ -1,14 +1,8 @@
 using AutoMapper;
-using ComplaintsManagement.Infrastructure;
 using ComplaintsManagement.UI.App_Start;
 using ComplaintsManagement.UI.Configurations.AutoMapperConfig;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
-using System.Web.Routing;
 using System.Web.Routing;
 namespace ComplaintsManagement.UI
 {

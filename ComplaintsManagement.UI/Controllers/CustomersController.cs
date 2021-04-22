@@ -162,6 +162,14 @@ namespace ComplaintsManagement.UI.Controllers
             var relResult = await _customersProductsRepository.SaveAsync(customerProduct);
             return View("CustomerProductsCreate", relResult);
         }
+
+
+        [HttpPost]
+        public async Task<ActionResult> CustomerProductDelete(int Id)
+        {
+            var isDeleted = await _customersProductsRepository.DeleteAsync(Id);
+            return View("Products", isDeleted);
+        }
         #endregion
     }
 }

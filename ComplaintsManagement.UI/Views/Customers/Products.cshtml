@@ -49,10 +49,9 @@
                                 <td>@customersProducts.Product.Description</td>
 
                                 <td>
-                                    @using (Html.BeginForm(actionName: "Delete", controllerName: "Products", method: FormMethod.Post))
+                                    @using (Html.BeginForm(actionName: "CustomerProductDelete", controllerName: "Customers", method: FormMethod.Post))
                                     {
-                                        var Id = customersProducts.Product.Id;
-                                        @Html.HiddenFor(model => Id);
+                                        <input type="hidden" value="@customersProducts.Id" name="Id" />
                                         <button onclick="return confirm('¿Estás seguro de eliminar este registro?')" class="btn btn-danger">Eliminar</button>
                                     }
                                 </td>

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ComplaintsManagement.UI.Models;
+using ComplaintsManagement.Infrastructure.Database;
 
 namespace ComplaintsManagement.UI
 {

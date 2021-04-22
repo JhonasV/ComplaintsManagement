@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ComplaintsManagement.Infrastructure.Database;
 using ComplaintsManagement.Infrastructure.DTOs;
 using ComplaintsManagement.Infrastructure.Entities;
 using ComplaintsManagement.UI.Models;

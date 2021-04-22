@@ -84,12 +84,15 @@ namespace ComplaintsManagement.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(int Id)
+        public async Task<ActionResult> Delete(int Id = 0)
         {
+            ModelState.Clear();
             var deleteResult = await _productsRepository.DeleteAsync(Id);
             ViewData["Message"] = deleteResult.Message;
             ViewData["Success"] = deleteResult.Success;
             return RedirectToAction(nameof(this.Index));
         }
+
+
     }
 }

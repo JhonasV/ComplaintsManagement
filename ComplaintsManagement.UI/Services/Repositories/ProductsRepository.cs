@@ -1,4 +1,5 @@
-﻿using ComplaintsManagement.Infrastructure.DTOs;
+﻿using ComplaintsManagement.Infrastructure.Database;
+using ComplaintsManagement.Infrastructure.DTOs;
 using ComplaintsManagement.Infrastructure.Entities;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
@@ -31,7 +32,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
                     products.Deleted = true;
                     await _context.SaveChangesAsync();
                     result.Message = "Producto borrado exitosamente!";
-                    result.Data = new ProductsDto { Active = products.Active, CreatedAt = products.CreatedAt,  Id = products.Id,  Name = products.Name, UpdatedAt = products.UpdatedAt, Description = products.Description, Price = products.Price };
+                    result.Data = AutoMapper.Mapper.Map<ProductsDto>(products);
                 }
                 else
                 {

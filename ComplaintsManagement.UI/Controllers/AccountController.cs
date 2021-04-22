@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ComplaintsManagement.Infrastructure.Database;
 
 namespace ComplaintsManagement.UI.Controllers
 {

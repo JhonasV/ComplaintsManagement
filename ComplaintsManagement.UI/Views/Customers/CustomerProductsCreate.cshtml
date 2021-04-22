@@ -27,7 +27,7 @@
                             <hr />
                         }
 
-                        @if (Model.Success && Model.Message?.Length > 0)
+                        @if (Model.Success && Model.Message != null && Model.Message.Length > 0)
                         {
                             <span class="alert alert-success" style="margin-top: 2rem;">@Model.Message</span>
                             <hr />

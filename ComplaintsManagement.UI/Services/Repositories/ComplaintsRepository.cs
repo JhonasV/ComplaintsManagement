@@ -1,4 +1,5 @@
-﻿using ComplaintsManagement.Infrastructure.DTOs;
+﻿using ComplaintsManagement.Infrastructure.Database;
+using ComplaintsManagement.Infrastructure.DTOs;
 using ComplaintsManagement.Infrastructure.Entities;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
@@ -93,7 +94,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
             using (var memoryStream = new MemoryStream())
             {
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment; filename=" + $"Tickets-{DateTime.Now.ToString("MM-dd-yyyy-hh:mm-ss")}" + ".xlsx");
+                Response.AddHeader("content-disposition", "attachment; filename=" + $"Tickets-{DateTime.Now:MM-dd-yyyy-hh:mm-ss}" + ".xlsx");
                 pck.SaveAs(memoryStream);
                 memoryStream.WriteTo(Response.OutputStream);
                 Response.Flush();
@@ -133,7 +134,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
             foreach (var item in porcentages)
             {
                 ws.Cells[$"A{rowStart}"].Value = item.Status;
-                ws.Cells[$"B{rowStart}"].Value = $"{item.StatusPorcentage.ToString("0.##")}%";
+                ws.Cells[$"B{rowStart}"].Value = $"{item.StatusPorcentage:0.##}%";
   
 
                 rowStart++;
@@ -146,7 +147,7 @@ namespace ComplaintsManagement.UI.Services.Repositories
             using (var memoryStream = new MemoryStream())
             {
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment; filename=" + $"Tickets-status-{DateTime.Now.ToString("MM-dd-yyyy-hh:mm-ss")}" + ".xlsx");
+                Response.AddHeader("content-disposition", "attachment; filename=" + $"Tickets-status-{DateTime.Now:MM-dd-yyyy-hh:mm-ss}" + ".xlsx");
                 pck.SaveAs(memoryStream);
                 memoryStream.WriteTo(Response.OutputStream);
                 Response.Flush();
