@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ComplaintsManagement.Infrastructure.DTOs
+namespace ComplaintsManagement.Domain.DTOs
 {
     public class ComplaintsDto
     {

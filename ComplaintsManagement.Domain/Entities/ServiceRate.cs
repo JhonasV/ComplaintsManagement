@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace ComplaintsManagement.Infrastructure.Entities
+namespace ComplaintsManagement.Domain.Entities
 {
     public class ServiceRate : BaseEntity
     {

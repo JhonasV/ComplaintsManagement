@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace ComplaintsManagement.Infrastructure.DTOs
+namespace ComplaintsManagement.Domain.DTOs
 {
-    public class DepartmentsDto
+    public class ComplaintsOptionsDto
     {
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        
         [Required]
-        public string Description { get; set; }
-        public int Id { get; set; }
+        public int? ProductsId { get; set; }
+        [Required]
+        public int? DepartmentsId { get; set; }
+
+        public virtual ProductsDto Product { get; set; }
+        public virtual DepartmentsDto Departments { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace ComplaintsManagement.Infrastructure.Entities
+namespace ComplaintsManagement.Domain.Entities
 {
     public class Binnacle : BaseEntity
     {

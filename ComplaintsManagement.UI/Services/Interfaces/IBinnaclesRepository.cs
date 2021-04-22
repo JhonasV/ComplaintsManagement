@@ -1,4 +1,5 @@
-﻿using ComplaintsManagement.Infrastructure.DTOs;
+﻿using ComplaintsManagement.Domain.DTOs;
+
 using ComplaintsManagement.UI.Models;
 using System;
 using System.Collections.Generic;

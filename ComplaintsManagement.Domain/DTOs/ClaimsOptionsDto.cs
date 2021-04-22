@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text;
 
-namespace ComplaintsManagement.Infrastructure.DTOs
+namespace ComplaintsManagement.Domain.DTOs
 {
-    public class TicketTypesDto
+    public class ClaimsOptionsDto
     {
-        public string Description { get; set; }
         public int Id { get; set; }
-
+        public string Name { get; set; }
+        public int DepartmentsId { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }

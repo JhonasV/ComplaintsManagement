@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Web;
 
-namespace ComplaintsManagement.Infrastructure.DTOs
+namespace ComplaintsManagement.Domain.DTOs
 {
-    public class StatusDto
+    public class TicketTypesDto
     {
+        public string Description { get; set; }
         public int Id { get; set; }
-        [Required, MaxLength(30)]
-        public string Name { get; set; }
+
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }

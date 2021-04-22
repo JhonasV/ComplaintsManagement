@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ComplaintsManagement.Infrastructure.Entities
+namespace ComplaintsManagement.Domain.DTOs
 {
-    public class BaseEntity
+    public class StatusDto
     {
         public int Id { get; set; }
-
+        [Required, MaxLength(30)]
+        public string Name { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }

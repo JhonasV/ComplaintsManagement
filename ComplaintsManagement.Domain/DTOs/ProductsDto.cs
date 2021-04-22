@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ComplaintsManagement.Infrastructure.DTOs
+namespace ComplaintsManagement.Domain.DTOs
 {
-    public class ClaimsOptionsDto
+    public class ProductsDto
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
-        public int DepartmentsId { get; set; }
+        [Required]
+        public decimal Price { get; set; }
+        [Required]
+        public string Description { get; set; }
         public bool Active { get; set; } = true;
         public bool Deleted { get; set; }
         public DateTime? DeletedAt { get; set; }

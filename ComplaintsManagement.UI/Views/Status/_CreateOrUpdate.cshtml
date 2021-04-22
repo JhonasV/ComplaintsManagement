@@ -1,7 +1,7 @@
-﻿@model  ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Infrastructure.DTOs.StatusDto>
+﻿@model  ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Domain.DTOs.StatusDto>
 
 @{
-    var isUpdate = Model?.Data?.Id > 0;
+    var isUpdate = Model.Data.Id > 0;
     var actionName = isUpdate ? "Edit" : "Create";
     var title = isUpdate ? "Edición de Status" : "Creación  de Status";
     var btnTitle = isUpdate ? "Actualizar" : "Crear";

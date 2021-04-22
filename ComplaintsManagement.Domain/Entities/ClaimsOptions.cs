@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ComplaintsManagement.Infrastructure.Entities
+namespace ComplaintsManagement.Domain.Entities
 {
     public class ClaimsOptions : BaseEntity
     {

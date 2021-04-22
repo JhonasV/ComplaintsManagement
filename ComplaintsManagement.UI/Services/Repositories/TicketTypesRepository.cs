@@ -1,5 +1,5 @@
 ﻿using ComplaintsManagement.Infrastructure.Database;
-using ComplaintsManagement.Infrastructure.DTOs;
+using ComplaintsManagement.Domain.DTOs;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
 using System;

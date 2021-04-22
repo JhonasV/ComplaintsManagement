@@ -1,4 +1,4 @@
-﻿using ComplaintsManagement.Infrastructure.Entities;
+﻿using ComplaintsManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;

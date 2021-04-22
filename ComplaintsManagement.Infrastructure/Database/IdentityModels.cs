@@ -1,11 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ComplaintsManagement.Infrastructure.Entities;
-using ComplaintsManagement.Infrastructure.Database;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using ComplaintsManagement.Domain.Entities;
 
 namespace ComplaintsManagement.Infrastructure.Database
 {

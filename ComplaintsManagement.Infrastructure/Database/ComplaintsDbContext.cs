@@ -1,9 +1,5 @@
-﻿using ComplaintsManagement.Infrastructure.Entities;
-using System;
-using System.Collections.Generic;
+﻿using ComplaintsManagement.Domain.Entities;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace ComplaintsManagement.Infrastructure.Database
 {

@@ -7,32 +7,34 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(e => e.Complaint.Data.Id)
-        <div class="card-header bg-primary d-flex justify-content-between">
-            <div>
-                <h3 class="text-white">Cambio de Estado</h3>
-            </div>
-        </div>
-        <div class="container card-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <h5>Estado: </h5>
-                        @Html.DropDownListFor(e => e.Complaint.Data.StatusId, (List<SelectListItem>)ViewBag.StatusList, new { @class = "form-control" })
-                    </div>
+        <div class="card mt-2 mb-2">
+            <div class="card-header bg-primary d-flex justify-content-between">
+                <div>
+                    <h3 class="text-white">Cambio de Estado</h3>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        @Html.TextAreaFor(e => e.Binnacle.Comment, new { @class = "form-control", @placeholder = "Razón de cambio de estado..." })
-                        @Html.ValidationMessageFor(e => e.Binnacle.Comment, "", new { @class = "text-danger" })
+            <div class="container card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <h5>Estado: </h5>
+                            @Html.DropDownListFor(e => e.Complaint.Data.StatusId, (List<SelectListItem>)ViewBag.StatusList, new { @class = "form-control" })
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <button class="btn btn-primary">Agregar comentario</button>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            @Html.TextAreaFor(e => e.Binnacle.Comment, new { @class = "form-control", @placeholder = "Razón de cambio de estado..." })
+                            @Html.ValidationMessageFor(e => e.Binnacle.Comment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <button class="btn btn-primary">Agregar comentario</button>
+                        </div>
                     </div>
                 </div>
             </div>

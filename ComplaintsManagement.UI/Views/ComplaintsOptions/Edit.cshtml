@@ -1,9 +1,9 @@
-﻿@model  ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Infrastructure.DTOs.ComplaintsOptionsDto>
+﻿@model  ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Domain.DTOs.ComplaintsOptionsDto>
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var products = (System.Collections.Generic.List<ComplaintsManagement.Infrastructure.DTOs.ProductsDto>)TempData["products"];
+    var products = (System.Collections.Generic.List<ComplaintsManagement.Domain.DTOs.ProductsDto>)TempData["products"];
 }
 
 <div class="card">

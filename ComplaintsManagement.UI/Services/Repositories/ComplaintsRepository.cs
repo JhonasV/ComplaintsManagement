@@ -1,6 +1,6 @@
 ﻿using ComplaintsManagement.Infrastructure.Database;
-using ComplaintsManagement.Infrastructure.DTOs;
-using ComplaintsManagement.Infrastructure.Entities;
+using ComplaintsManagement.Domain.DTOs;
+using ComplaintsManagement.Domain.Entities;
 using ComplaintsManagement.UI.Models;
 using ComplaintsManagement.UI.Services.Interfaces;
 using OfficeOpenXml;

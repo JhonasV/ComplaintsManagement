@@ -1,10 +1,10 @@
-﻿@model  ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Infrastructure.DTOs.ComplaintsDto>
+﻿@model  ComplaintsManagement.UI.Models.TaskResult<ComplaintsManagement.Domain.DTOs.ComplaintsDto>
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var products = (System.Collections.Generic.List<ComplaintsManagement.Infrastructure.DTOs.ProductsDto>)TempData["products"];
-    var complaintsOptions = (System.Collections.Generic.List<ComplaintsManagement.Infrastructure.DTOs.ComplaintsOptionsDto>)TempData["options"];
+    var products = (System.Collections.Generic.List<ComplaintsManagement.Domain.DTOs.ProductsDto>)TempData["products"];
+    var complaintsOptions = (System.Collections.Generic.List<ComplaintsManagement.Domain.DTOs.ComplaintsOptionsDto>)TempData["options"];
 }
 
 <div class="card">
