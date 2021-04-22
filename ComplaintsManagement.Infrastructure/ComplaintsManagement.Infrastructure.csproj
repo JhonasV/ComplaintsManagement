@@ -145,7 +145,6 @@
   <ItemGroup>
     <Compile Include="Database\ClaimsOptionsEntityTypeConfiguration.cs" />
     <Compile Include="Database\ComplaintsEntityTypeConfiguration.cs" />
-    <Compile Include="Database\ComplaintsDbContext.cs" />
     <Compile Include="Database\CustomersProductsEntityTypeConfiguration.cs" />
     <Compile Include="Database\DbInitializer.cs" />
     <Compile Include="Database\DepartmentsEntityTypeConfiguration.cs" />
@@ -153,6 +152,7 @@
     <Compile Include="Database\ProductsEntityTypeConfiguration.cs" />
     <Compile Include="Database\StatusEntityTypeConfiguration.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\ClaimsOptionsValidator.cs" />
     <Compile Include="Validators\CustomersValidator.cs" />

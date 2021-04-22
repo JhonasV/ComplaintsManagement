@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ComplaintsManagement.Infrastructure.Database
 {
-    public class DBInitializer : DropCreateDatabaseAlways<ComplaintsDbContext>
+    public class DBInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         //protected override void Seed(ComplaintsDbContext context)
         //{

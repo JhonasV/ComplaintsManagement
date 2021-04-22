@@ -220,31 +220,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103160026302_initial migration.cs" />
-    <Compile Include="Migrations\202103160026302_initial migration.designer.cs">
-      <DependentUpon>202103160026302_initial migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103211608485_departments fk added to ComplaintsOptions.cs" />
-    <Compile Include="Migrations\202103211608485_departments fk added to ComplaintsOptions.designer.cs">
-      <DependentUpon>202103211608485_departments fk added to ComplaintsOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103211735334_add departmentsId fk to user entity.cs" />
-    <Compile Include="Migrations\202103211735334_add departmentsId fk to user entity.designer.cs">
-      <DependentUpon>202103211735334_add departmentsId fk to user entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103212028495_UsersId adde to complaints entity.cs" />
-    <Compile Include="Migrations\202103212028495_UsersId adde to complaints entity.designer.cs">
-      <DependentUpon>202103212028495_UsersId adde to complaints entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104090410577_TicketTypes and Binnacle entities added.cs" />
-    <Compile Include="Migrations\202104090410577_TicketTypes and Binnacle entities added.designer.cs">
-      <DependentUpon>202104090410577_TicketTypes and Binnacle entities added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104171901199_servicerate entity added.cs" />
-    <Compile Include="Migrations\202104171901199_servicerate entity added.designer.cs">
-      <DependentUpon>202104171901199_servicerate entity added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ComplaintsViewModel.cs" />
     <Compile Include="Models\CustomersViewModel.cs" />
@@ -742,26 +717,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103160026302_initial migration.resx">
-      <DependentUpon>202103160026302_initial migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103211608485_departments fk added to ComplaintsOptions.resx">
-      <DependentUpon>202103211608485_departments fk added to ComplaintsOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103211735334_add departmentsId fk to user entity.resx">
-      <DependentUpon>202103211735334_add departmentsId fk to user entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103212028495_UsersId adde to complaints entity.resx">
-      <DependentUpon>202103212028495_UsersId adde to complaints entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104090410577_TicketTypes and Binnacle entities added.resx">
-      <DependentUpon>202104090410577_TicketTypes and Binnacle entities added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104171901199_servicerate entity added.resx">
-      <DependentUpon>202104171901199_servicerate entity added.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
